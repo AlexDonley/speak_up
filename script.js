@@ -129,6 +129,8 @@ function updateSentenceVisual(num) {
     } 
 }
 
+
+
 function checkSentence(arr) {
   inputCount = 0
   
@@ -140,6 +142,9 @@ function checkSentence(arr) {
         
         updateSentenceVisual(targetCount);
         targetCount++;
+
+        let success = new Audio("boop.wav");
+        success.play();
         
         if (targetCount > divided.length - 1) {
           
