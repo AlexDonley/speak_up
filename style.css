@@ -13,14 +13,45 @@ body {
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  padding: 2vh;
+  padding: 1vh;
+}
+
+.header{
+  width: 100%;
+  height: 9vh;
+}
+
+.head-wrap{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-items: center;
+  align-items: center;
+}
+
+.qualifications{
+  color: white;
+  margin-right: 1vh;
+}
+
+.qual {
+  background-color: green;
+  font-size: 2vh;
+  padding: .5vh;
+  margin: .5vh;
+  border-radius: 1vh;
+  display: flex;
 }
 
 h1 {
   color: coral;
-  text-align: center;
+  /* text-align: center; */
   width: 100%;
   font-size: 6vh;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
 }
 
 .start-menu {
@@ -40,6 +71,10 @@ h1 {
   border-radius: 2vh;
   padding: 20px;
   font-size: 1.5rem;
+}
+
+button {
+  transition: background-color 0.3s;
 }
 
 .preset {
@@ -64,6 +99,9 @@ h1 {
   color: white;
   font-size: 2rem;
 }
+.shuffle.flip{
+  background-color: orangered;
+}
 
 .repeat {
   position: absolute;
@@ -74,6 +112,9 @@ h1 {
   background-color: gray;
   color: white;
   font-size: 2rem;
+}
+.repeat.flip{
+  background-color: coral;
 }
 
 .timer {
@@ -131,6 +172,21 @@ label {
   width: 45%;
   display: flex;
   flex-direction: column;
+}
+
+.home {
+  position: absolute;
+  bottom: 0;
+  width: 7vh;
+  height: 7vh;
+  border-radius: 50%;
+  font-size: 4vh;
+  line-height: 7vh;
+  align-items: center;
+  transition: rotate 0.3s ease-in-out;
+}
+.home:hover{
+  rotate: 360deg;
 }
 
 span {

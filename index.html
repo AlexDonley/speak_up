@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-L2F4YZQ0DV"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-L2F4YZQ0DV');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="description" content="Practice English speech live in your classroom!">
+    <meta name="keywords" content="speaking, phrase, English, ESL, vocabulary, language learning">
+    <meta name="author" content="Alex Donley">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
@@ -10,16 +23,24 @@
     <title>Speak Up</title>
 </head>
 <body>
-    <h1>Speech Practice</h1>
+    <div class="header">
+        <div class="head-wrap">
+            <div class="qualifications">
+                <div class="qual Chrome"><ion-icon name="checkmark-sharp"></ion-icon>Chrome</div>
+                <div class="qual mic"><ion-icon name="checkmark-sharp"></ion-icon>mic</div>
+            </div>
+            <h1><ion-icon name="mic-circle-sharp"></ion-icon>Speak Up!</h1>
+        </div>
+    </div>
     <div>
         <div class="start-menu" id="startMenu">
             <div class="preset-options" id="presetOptions"></div>
             <textarea class="text-input" id="textInput">hello how are you</textarea>
             <button class="preset" id="preset" onclick="togglePresets()">Preset</button>
-            <button class="shuffle" id="shuffle" onclick="">
+            <button class="shuffle" id="shuffle" onclick="toggleShuffle()">
                 <ion-icon name="shuffle-outline"></ion-icon>
             </button>
-            <button class="repeat" id="repeat" onclick="">
+            <button class="repeat" id="loop" onclick="toggleLoop()">
                 <ion-icon name="infinite-outline"></ion-icon>
             </button>
             <button class="timer" id="timer" onclick="">
@@ -33,6 +54,9 @@
         <div class="column-wrap disappear" id="columnWrap">
             <div class="column target"></div>
             <div class="column texts"></div>
+            <button class="home" id="home" onclick="endRound()">
+                <ion-icon name="home"></ion-icon>
+            </button>
         </div>
         
     </div>

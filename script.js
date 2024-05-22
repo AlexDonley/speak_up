@@ -6,15 +6,20 @@ const columnWrap = document.getElementById("columnWrap");
 const startMenu = document.getElementById("startMenu");
 const textInput = document.getElementById("textInput");
 const presetBtn = document.getElementById("preset");
+const shuffleBtn = document.getElementById("shuffle")
+const loopBtn = document.getElementById("loop")
 const presetOpts = document.getElementById("presetOptions")
 
-log = ""
 divided = [];
 sentenceQueue = []
 targetCount = 0;
 inputCount = 0;
 listenBool = false;
 presetBool = false;
+shuffleBool = false;
+loopBool = false;
+timer = 0;
+
 awards = ['💪', '💅', '🧠', '👌', '🥳']
 punct = [
   '.', ',', '!', ':', ';', '?', '"', "'", 
@@ -88,6 +93,26 @@ Grasshopper5 = [
   "grasshopper smiled and he went on down the road"
 ]
 
+HH81Story = [
+  "Thank you for helping us.",
+  "No problem.",
+  "You're welcome.",
+  "Watch out!",
+  "Don't touch that!",
+  "Help! Stop!",
+  "That's not a lamp! What is it?"
+]
+
+HH81vocab = [
+  "Help! Don't touch that! Stop!",
+  "Watch out! Don't push!",  
+  "Don't cut in line!",
+  "Watch out! Stop!",
+  "Help! Don't cut in line!",
+  "Stop! Don't push! Help!",
+  "Watch out! Don't cut in line!"
+]
+
 titles = [
   "Big Green Monster pt. 1", 
   "Big Green Monster pt. 2", 
@@ -95,7 +120,9 @@ titles = [
   "A New House pt. 2",
   "A New House pt. 3", 
   "A New House pt. 4",
-  "A New House pt. 5"
+  "A New House pt. 5",
+  "Hip Hip Hooray 8.1 Story",
+  "Hip Hip Hooray 8.1 vocab"
 ]
 
 presets = [
@@ -105,7 +132,9 @@ presets = [
   Grasshopper2, 
   Grasshopper3,
   Grasshopper4,
-  Grasshopper5
+  Grasshopper5,
+  HH81Story,
+  HH81vocab
 ];
 
 sentenceCount = 0;
@@ -194,6 +223,10 @@ function startRound() {
       sentenceQueue = textArray;
     }
     
+    if (shuffleBool) {
+      sentenceQueue = shuffle(sentenceQueue)
+    }
+
     sentenceCount = 0;
     loadTarget(sentenceQueue[sentenceCount])
 
@@ -210,8 +243,6 @@ function endRound() {
     
   columnWrap.classList.add('disappear');
   startMenu.classList.remove('disappear');
-
-  title.innerText += awards[0];
 }
 
 function loadTarget(sentence){
@@ -271,7 +302,13 @@ function checkSentence(arr) {
               sentenceCount++
               loadTarget(sentenceQueue[sentenceCount])
             } else {
-              endRound();
+              title.innerText += awards[0];
+              
+              if(loopBool) {
+                startRound();
+              } else {
+                endRound();
+              }
             }
           }, 700)
         }
@@ -310,6 +347,26 @@ function togglePresets() {
   }
 }
 
+function toggleShuffle() {
+  if (shuffleBool) {
+    shuffleBool = false;
+    shuffleBtn.classList.remove('flip');
+  } else {
+    shuffleBool = true
+    shuffleBtn.classList.add('flip');
+  }
+}
+
+function toggleLoop() {
+  if (loopBool) {
+    loopBool = false;
+    loopBtn.classList.remove('flip');
+  } else {
+    loopBool = true
+    loopBtn.classList.add('flip');
+  }
+}
+
 function spawnPresetOptions() {
   n = 0;
 
@@ -330,4 +387,18 @@ function spawnPresetOptions() {
     presetOpts.appendChild(document.createElement('br'));
     n++
   })
+}
+
+function shuffle(arr){
+  let unshuffled = arr;
+  let shuffled = [];
+
+  unshuffled.forEach(word =>{
+      randomPos = Math.round(Math.random() * shuffled.length);
+
+      shuffled.splice(randomPos, 0, word);
+  })
+  
+  console.log(shuffled);
+  return shuffled;
 }
