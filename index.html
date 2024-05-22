@@ -4,14 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="script.js" defer></script>
-    <title>Document</title>
+    <title>Speak Up</title>
 </head>
 <body>
     <h1>Speech Practice</h1>
     <div>
         <div class="start-menu" id="startMenu">
+            <div class="preset-options" id="presetOptions"></div>
             <textarea class="text-input" id="textInput">hello how are you</textarea>
+            <button class="preset" id="preset" onclick="togglePresets()">Preset</button>
+            <button class="shuffle" id="shuffle" onclick="">
+                <ion-icon name="shuffle-outline"></ion-icon>
+            </button>
+            <button class="repeat" id="repeat" onclick="">
+                <ion-icon name="infinite-outline"></ion-icon>
+            </button>
+            <button class="timer" id="timer" onclick="">
+                &#9650;
+                <br>
+                <ion-icon name="timer-outline"></ion-icon>
+            </button>
             <button class="go" id="go" onclick="startRound()">GO</button>
         </div>
         

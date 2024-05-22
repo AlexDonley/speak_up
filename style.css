@@ -42,16 +42,73 @@ h1 {
   font-size: 1.5rem;
 }
 
+.preset {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 35%;
+  height: 15%;
+  border-bottom-left-radius: 2vh;
+  background-color: maroon;
+  color: white;
+  font-size: 2rem;
+}
+
+.shuffle {
+  position: absolute;
+  bottom: 0;
+  left: 35%;
+  width: 10%;
+  height: 15%;
+  background-color: gray;
+  color: white;
+  font-size: 2rem;
+}
+
+.repeat {
+  position: absolute;
+  bottom: 0;
+  left: 45%;
+  width: 10%;
+  height: 15%;
+  background-color: gray;
+  color: white;
+  font-size: 2rem;
+}
+
+.timer {
+  position: absolute;
+  bottom: 0;
+  left: 55%;
+  width: 10%;
+  height: 15%;
+  background-color: gray;
+  color: white;
+  font-size: 2rem;
+}
+
 .go {
   position: absolute;
   bottom: 0;
-  width: 100%;
+  right: 0;
+  width: 35%;
   height: 15%;
-  border-bottom-left-radius: 2vh;
   border-bottom-right-radius: 2vh;
   background-color: green;
   color: white;
   font-size: 3rem;
+}
+
+.opt {
+  height: 2.5vh;
+  width: 2.5vh;
+  border-radius: 5px;
+}
+
+label {
+  color: white;
+  padding-left: 2vh;
+  font-size: 3vh;
 }
 
 .column-wrap {
@@ -60,7 +117,6 @@ h1 {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  /* align-items: center; */
   justify-content: center;
   transition: opacity 0.5s;
 }
