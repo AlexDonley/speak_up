@@ -45,9 +45,7 @@ body {
 }
 
 h1 {
-  color: coral;
-  /* text-align: center; */
-  width: 100%;
+  color: lightgreen;
   font-size: 6vh;
   white-space: nowrap;
   display: flex;
@@ -75,6 +73,16 @@ h1 {
 
 button {
   transition: background-color 0.3s;
+}
+
+.preset-options {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 90%;
+  border-radius: 2vh;
+  padding: 20px;
+  background-color: rgb(100, 100, 100);
 }
 
 .preset {
@@ -127,6 +135,9 @@ button {
   color: white;
   font-size: 2rem;
 }
+.timer.flip{
+  background-color: limegreen;
+}
 
 .go {
   position: absolute;
@@ -160,6 +171,7 @@ label {
   transform: translateX(-50%);
   justify-content: center;
   transition: opacity 0.5s;
+  margin-top: 1vh;
 }
 
 
@@ -187,6 +199,21 @@ label {
 }
 .home:hover{
   rotate: 360deg;
+}
+
+.stop-watch {
+  height: 10vh;
+  width: 20vh;
+  background-color: rgb(121, 121, 255);
+  color: white;
+  border-radius: 1vh;
+  margin-left: 2vh;
+  text-align: center;
+  line-height: 10vh;
+  font-size: 6vh;
+}
+.flip {
+  background-color: rgb(255, 121, 121);
 }
 
 span {
