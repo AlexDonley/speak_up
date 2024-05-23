@@ -32,7 +32,9 @@ timerInnerTexts = [
 
 let bookList;
 let titleList = [];
-awards = ['💪', '💅', '🧠', '👌', '🥳']
+awards = ['💪']
+
+let perfect = new Audio("sound/wow.mp3");
 
 sentenceCount = 0;
 
@@ -202,7 +204,7 @@ function checkSentence(arr) {
         success.play();
         
         if (targetCount > divided.length - 1) {
-          
+          perfect.play();
           setTimeout(function(){
             
             if (sentenceCount < sentenceQueue.length - 1) {
@@ -214,7 +216,6 @@ function checkSentence(arr) {
               if(loopBool) {
                 startRound();
               } else {
-                title.innerText += awards[0];
                 endRound();
               }
             }
@@ -359,7 +360,7 @@ function startTimer(sec) {
     if (timerBool == true){
       if(timerSetting == 1) {
         sec++;
-        
+
       } else if (timerSetting == 2){
         if (sec > 0) {
           sec--;
