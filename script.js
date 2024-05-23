@@ -6,9 +6,11 @@ const columnWrap = document.getElementById("columnWrap");
 const startMenu = document.getElementById("startMenu");
 const textInput = document.getElementById("textInput");
 const presetBtn = document.getElementById("preset");
-const shuffleBtn = document.getElementById("shuffle")
-const loopBtn = document.getElementById("loop")
-const presetOpts = document.getElementById("presetOptions")
+const shuffleBtn = document.getElementById("shuffle");
+const timerBtn = document.getElementById("timer")
+const loopBtn = document.getElementById("loop");
+const presetOpts = document.getElementById("presetOptions");
+const stopwatch = document.getElementById("stopwatch");
 
 divided = [];
 sentenceQueue = []
@@ -18,124 +20,19 @@ listenBool = false;
 presetBool = false;
 shuffleBool = false;
 loopBool = false;
-timer = 0;
+timerBool = false;
 
+defaultCountdown = 10;
+timerSetting = 0;
+timerInnerTexts = [
+  '&#10006;<ion-icon name="timer-outline"></ion-icon>',
+  '&#9650;<br><ion-icon name="timer-outline"></ion-icon>',
+  '<ion-icon name="timer-outline"></ion-icon><br>&#9660;'
+]
+
+let bookList;
+let titleList = [];
 awards = ['💪', '💅', '🧠', '👌', '🥳']
-punct = [
-  '.', ',', '!', ':', ';', '?', '"', "'", 
-  '(', ')', '[', ']', '{', '}', '<', '>', '`', '~',  
-  '@', '#', '$', '%', '^', '&', '*', '_', '+', '=', '|', '/']
-
-BigGreenMonster1 = [
-  "big green monster has 2 big yellow eyes",
-  "a long bluish greenish nose",
-  "a big red mouth with sharp white teeth",
-  "two little squiggly ears",
-  "scraggly purple hair", 
-  "and a big scary green face",
-  "but you don't scare me"
-]
-BigGreenMonster2 = [
-  "so go away scraggly purple hair",
-  "go away two little squiggly ears",
-  "go away long bluish greenish nose",
-  "go away big green face",
-  "go away big red mouth",
-  "go away sharp white teeth",
-  "go away two big yellow eyes",
-  "go away big green monster", 
-  "and don't come back until I say so"
-]
-Grasshopper1 = [
-  "the road went up a steep hill",
-  "grasshopper climbed to the top",
-  "look a large apple lying on the ground",
-  "I will have my lunch",
-  "he ate a big bite of the apple",
-  "look what you did",
-  "there was a worm living in the apple",
-  "you have made a hole in my roof"
-]
-Grasshopper2 = [
-  "it is not polite to eat a person's house",
-  "I am sorry",
-  "just then the apple began to roll down the road",
-  "it rolled down the other side of the hill",
-  "stop me catch me",
-  "you are rolling faster and faster"
-]
-Grasshopper3 = [
-  "worm's head was bumping on the walls",
-  "i hear his dishes falling off the shelf",
-  "grasshopper ran after the apple",
-  "my bathtub is in the living room",
-  "my bed is in the kitchen",
-  "grasshopper kept running down the hill",
-  "but he could not catch the apple",
-  "everything is a mess in there"
-]
-Grasshopper4 = [
-  "are you getting dizzy",
-  "my floor is on the ceiling",
-  "my attic is in the cellar",
-  "the apple rolled all the way down to the bottom of the hill",
-  "the apple hit a tree",
-  "it smashed into a hundred pieces",
-  "too bad worm your house is gone"
-]
-Grasshopper5 = [
-  "the worm climbed up the side of the tree",
-  "oh never mind",
-  "it was old and it had a bite in it anyway",
-  "this is a fine time for you to find a new house",
-  "grasshopper looked up into the tree", 
-  "it was filled with apples", 
-  "grasshopper smiled and he went on down the road"
-]
-
-HH81Story = [
-  "Thank you for helping us.",
-  "No problem.",
-  "You're welcome.",
-  "Watch out!",
-  "Don't touch that!",
-  "Help! Stop!",
-  "That's not a lamp! What is it?"
-]
-
-HH81vocab = [
-  "Help! Don't touch that! Stop!",
-  "Watch out! Don't push!",  
-  "Don't cut in line!",
-  "Watch out! Stop!",
-  "Help! Don't cut in line!",
-  "Stop! Don't push! Help!",
-  "Watch out! Don't cut in line!"
-]
-
-titles = [
-  "Big Green Monster pt. 1", 
-  "Big Green Monster pt. 2", 
-  "A New House pt. 1", 
-  "A New House pt. 2",
-  "A New House pt. 3", 
-  "A New House pt. 4",
-  "A New House pt. 5",
-  "Hip Hip Hooray 8.1 Story",
-  "Hip Hip Hooray 8.1 vocab"
-]
-
-presets = [
-  BigGreenMonster1, 
-  BigGreenMonster2, 
-  Grasshopper1, 
-  Grasshopper2, 
-  Grasshopper3,
-  Grasshopper4,
-  Grasshopper5,
-  HH81Story,
-  HH81vocab
-];
 
 sentenceCount = 0;
 
@@ -146,6 +43,7 @@ window.SpeechRecognition =
 
 const recognition = new SpeechRecognition();
 recognition.interimResults = true;
+recognition.lang = 'en'
 
 recognition.addEventListener("result", (e) => {
   
@@ -188,11 +86,19 @@ recognition.addEventListener("end", () => {
   }
 });
 
-
-
 function startRound() {
     // clear sentence queue
     sentenceQueue = [];
+
+    if(!timerBool & timerSetting > 0){
+      timerBool = true;
+      
+      if (timerSetting == 1) {
+        startTimer(0)
+      } else if (timerSetting ==2) {
+        startTimer(defaultCountdown);
+      }
+    }
   
     // check if the sentence queue will be preset or freeform
 
@@ -212,7 +118,7 @@ function startRound() {
       console.log(indexArray);
 
       indexArray.forEach((num) => {
-        sentenceQueue = sentenceQueue.concat(presets[num])
+        sentenceQueue = sentenceQueue.concat(bookList[num].text)
       })
 
       console.log(sentenceQueue);
@@ -239,6 +145,7 @@ function startRound() {
 
 function endRound() {
   listenBool = false;
+  timerBool = false;
   recognition.abort();
     
   columnWrap.classList.add('disappear');
@@ -307,6 +214,7 @@ function checkSentence(arr) {
               if(loopBool) {
                 startRound();
               } else {
+                title.innerText += awards[0];
                 endRound();
               }
             }
@@ -367,26 +275,16 @@ function toggleLoop() {
   }
 }
 
-function spawnPresetOptions() {
-  n = 0;
-
-  presets.forEach((element) => {
-    currentID = 'preset' + n;
-    
-    let preset = document.createElement('input');
-    preset.type = 'checkbox';
-    preset.id = currentID;
-    preset.classList.add('opt');
-
-    let newLabel = document.createElement('label');
-    newLabel.htmlFor = currentID;
-    newLabel.innerText = titles[n];
-
-    presetOpts.appendChild(preset);
-    presetOpts.appendChild(newLabel);
-    presetOpts.appendChild(document.createElement('br'));
-    n++
-  })
+function cycleTimers() {
+  if (timerSetting < 2) {
+    timerBtn.classList.add('flip')
+    timerSetting ++
+  } else {
+    timerBtn.classList.remove('flip')
+    timerSetting = 0;
+  }
+  timerBtn.innerHTML = timerInnerTexts[timerSetting]
+  console.log(timerSetting)
 }
 
 function shuffle(arr){
@@ -401,4 +299,111 @@ function shuffle(arr){
   
   console.log(shuffled);
   return shuffled;
+}
+
+function spawnPresetOptions() {
+  n = 0;
+
+  titleList.forEach((element) => {
+    currentID = 'preset' + n;
+    
+    let preset = document.createElement('input');
+    preset.type = 'checkbox';
+    preset.id = currentID;
+    preset.classList.add('opt');
+
+    let newLabel = document.createElement('label');
+    newLabel.htmlFor = currentID;
+    newLabel.innerText = titleList[n];
+
+    presetOpts.appendChild(preset);
+    presetOpts.appendChild(newLabel);
+    presetOpts.appendChild(document.createElement('br'));
+    n++
+  })
+}
+
+function loadJSON(){
+  fetch('./data/books.json')
+  .then(res => {
+      if (res.ok) {
+          console.log('SUCCESS');
+      } else {
+          console.log('FAILURE')
+      }
+      return res.json()
+  })
+  .then(data => {
+      bookList = data;
+
+      for (var key in data) {
+          titleList.push((data[key].title + " pt. " + data[key].part));
+      }
+
+      console.log(titleList);
+  })
+  .catch(error => console.log('ERROR'))
+
+}
+
+loadJSON();
+
+function startTimer(sec) {
+  ding = new Audio("sound/ding.wav");
+  ding.play();
+
+  timerInterval = setInterval(function(){
+    
+    writeToStopwatch(sec);
+
+    if (timerBool == true){
+      if(timerSetting == 1) {
+        sec++;
+        
+      } else if (timerSetting == 2){
+        if (sec > 0) {
+          sec--;
+
+        } else {
+          clearInterval(timerInterval);
+          startTimer(defaultCountdown);
+
+          flip(stopwatch);
+        }
+      }
+    } else {
+      clearInterval(timerInterval);
+    }
+  }, 999)
+}
+
+function writeToStopwatch(sec) {
+  var minString;
+  var secString;
+    
+  if(sec < 600) {
+    minString = "0" + Math.floor(sec/60)
+  } else {
+    minString = Math.floor(sec/60)
+  }
+
+  if((sec % 60) < 10) {
+    secString = "0" + (sec%60)
+  } else {
+    secString = (sec%60)
+  }
+  
+  
+  timeString =  minString + ":" + secString;
+  
+  stopwatch.innerHTML = timeString;
+}
+
+function flip(element) {
+  elStyle = element.classList;
+  if (elStyle.contains('flip')) {
+    elStyle.remove('flip');
+  } else {
+    elStyle.add('flip');
+  }
 }
