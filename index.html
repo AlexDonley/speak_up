@@ -30,6 +30,7 @@
                 <div class="qual mic"><ion-icon name="checkmark-sharp"></ion-icon>mic</div>
             </div>
             <h1><ion-icon name="mic-circle-sharp"></ion-icon>Speak Up!</h1>
+            <div class="stop-watch" id="stopwatch">00:00</div>
         </div>
     </div>
     <div>
@@ -43,10 +44,8 @@
             <button class="repeat" id="loop" onclick="toggleLoop()">
                 <ion-icon name="infinite-outline"></ion-icon>
             </button>
-            <button class="timer" id="timer" onclick="">
-                &#9650;
-                <br>
-                <ion-icon name="timer-outline"></ion-icon>
+            <button class="timer" id="timer" onclick="cycleTimers()">
+                &#10006;<ion-icon name="timer-outline"></ion-icon>
             </button>
             <button class="go" id="go" onclick="startRound()">GO</button>
         </div>
