@@ -30,20 +30,6 @@ body {
   align-items: center;
 }
 
-.qualifications{
-  color: white;
-  margin-right: 1vh;
-}
-
-.qual {
-  background-color: green;
-  font-size: 2vh;
-  padding: .5vh;
-  margin: .5vh;
-  border-radius: 1vh;
-  display: flex;
-}
-
 h1 {
   color: lightgreen;
   font-size: 6vh;
@@ -79,9 +65,10 @@ button {
   position: absolute;
   top: 0;
   width: 100%;
-  height: 90%;
-  border-radius: 2vh;
+  height: 85%;
+  border-top-left-radius: 2vh;
   padding: 20px;
+  overflow-y:scroll;
   background-color: rgb(100, 100, 100);
 }
 
@@ -211,9 +198,16 @@ label {
   text-align: center;
   line-height: 10vh;
   font-size: 6vh;
+  font-weight: bold;
 }
 .flip {
   background-color: rgb(255, 121, 121);
+}
+
+.awards{
+  margin-left: 1vh;
+  font-size: 5vh;
+  white-space: nowrap;
 }
 
 span {
@@ -239,4 +233,32 @@ span {
 .disappear {
   opacity: 0;
   display: none;
+}
+
+.qual{
+  display: flex;
+  height: 7vh;
+  width: 7vh;
+  background-color: red;
+  border-radius: 3.5vh;
+  justify-content: center;
+  align-items: center;
+  color: rgba(255, 255, 255, .8);
+  font-size: 800%;
+  margin-right: .5vh;
+}
+.qual.flip{
+  background-color: green;
+}
+
+svg {
+  height: 80%;
+}
+
+.behind{
+  z-index: 10;
+  position: absolute;
+  top: 44%;
+  left: 50%;
+  transform: translate(-50%, -50%)
 }
