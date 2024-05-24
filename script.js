@@ -2,6 +2,8 @@ const texts = document.querySelector(".texts");
 const target = document.querySelector(".target");
 const title = document.querySelector("h1")
 
+const chromeIcon = document.getElementById("chromeIcon");
+const mic = document.getElementById("mic");
 const columnWrap = document.getElementById("columnWrap");
 const startMenu = document.getElementById("startMenu");
 const textInput = document.getElementById("textInput");
@@ -11,9 +13,11 @@ const timerBtn = document.getElementById("timer")
 const loopBtn = document.getElementById("loop");
 const presetOpts = document.getElementById("presetOptions");
 const stopwatch = document.getElementById("stopwatch");
+const emoticons = document.getElementById("emoticons");
 
 divided = [];
-sentenceQueue = []
+sentenceQueue = [];
+indexArray = [];
 targetCount = 0;
 inputCount = 0;
 listenBool = false;
@@ -25,7 +29,7 @@ timerBool = false;
 defaultCountdown = 10;
 timerSetting = 0;
 timerInnerTexts = [
-  '&#10006;<ion-icon name="timer-outline"></ion-icon>',
+  '<div class="behind">&#10006;</div><ion-icon name="timer-outline"></ion-icon>',
   '&#9650;<br><ion-icon name="timer-outline"></ion-icon>',
   '<ion-icon name="timer-outline"></ion-icon><br>&#9660;'
 ]
@@ -34,11 +38,101 @@ let bookList;
 let titleList = [];
 awards = ['💪']
 
+
+
 let perfect = new Audio("sound/wow.mp3");
 
 sentenceCount = 0;
 
 numbersToText = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten']
+cutOut = ["mm", "mmm", "hm", "hmm", "mhm", "uh", "ah", "huh", "eh", "boka"]
+
+let userAgent = navigator.userAgent;
+
+if(userAgent.match(/chrome|chromium|crios/i)){
+  chromeIcon.classList.add('flip')
+}
+
+function micSuccess() {
+  console.log("mic connected");
+  mic.classList.add('flip');
+}
+
+function micFail(error) {
+  console.log(error);
+
+  if (error === 'NO_DEVICES_FOUND') {
+     // NO_DEVICES_FOUND (no microphone or microphone disabled)
+  }
+
+}
+
+navigator.getUserMedia({ audio: true }, micSuccess, micFail);
+
+
+// create event listener for microphone connections
+// UNFINISHED
+
+// async function getMicrophone() {
+//   // Use audio only.
+//   const constraints = { audio: true };
+
+//   // Create the events.
+//   const microphoneStartEvent = new Event('microphonestart');
+//   const microphoneStopEvent = new Event('microphonestop');
+
+//   // Create the stream.
+//   const stream = await navigator.mediaDevices.getUserMedia(constraints);
+
+//   // You'll want to know if a stream has randomly stopped without the user's intent. 
+//   const tracks = stream.getAudioTracks();
+//   for (const track of tracks) {
+//     track.addEventListener('ended', () => {
+//       window.dispatchEvent(microphoneStopEvent);
+//     });
+//   }
+
+//   // Internal function to stop the stream and fire the microphonestop event.
+//   const stopStream = () => {
+//     const tracks = stream.getAudioTracks();
+//     for (const track of tracks) {
+//       track.stop();
+//     }
+
+//     window.dispatchEvent(microphoneStopEvent);
+//   }
+
+//   // Stream is running, fire microphonestart event.
+//   window.dispatchEvent(microphoneStartEvent);
+
+//   // Return both the stream and the stopStream function.
+//   return {
+//     stream,
+//     stopStream
+//   };
+// }
+
+// // Listen to the microphonestart event.
+// window.addEventListener('microphonestart', () => {
+//   console.log('user using microphone');
+// });
+
+// // Listen to the microphonestop event.
+// window.addEventListener('microphonestop', () => {
+//   console.log('user stopped using microphone');
+// });
+
+// // Start the stream.
+// getMicrophone().then(({ stream, stopStream }) => {
+//   // Use the stream.
+//   console.log(stream);
+
+//   // Stop the stream when you need.
+//   stopStream();
+// }).catch(error => {
+//   console.error(error);
+// });
+
 
 window.SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -163,6 +257,8 @@ function loadTarget(sentence){
               .replace(/\s+/g, " ");
     divided = noPunct.toLowerCase().split(' ');
 
+    divided = omitWords(divided);
+
     convertNumsToText(divided);
 
     for (let n = 0; n < divided.length; n++){
@@ -176,6 +272,16 @@ function loadTarget(sentence){
     }
 }
 
+function omitWords(arr){
+  for (let n=0; n < arr.length; n++){
+    if(cutOut.includes(arr[n])){
+      arr.splice(n, 1);
+    }
+  }
+
+  return arr;
+}
+
 function updateSentenceVisual(num) {
     correctWord = document.getElementById('target' + num);
     correctWord.classList.add('correct')
@@ -185,8 +291,6 @@ function updateSentenceVisual(num) {
       nextWord.classList.add('next');
     } 
 }
-
-
 
 function checkSentence(arr) {
   inputCount = 0
@@ -204,6 +308,7 @@ function checkSentence(arr) {
         success.play();
         
         if (targetCount > divided.length - 1) {
+          perfect.currentTime = 0;
           perfect.play();
           setTimeout(function(){
             
@@ -211,7 +316,17 @@ function checkSentence(arr) {
               sentenceCount++
               loadTarget(sentenceQueue[sentenceCount])
             } else {
-              title.innerText += awards[0];
+              
+              if (presetBool){
+                
+                indexArray.forEach((num) => {
+                  emoticons.innerText += bookList[num].award;
+                })
+                
+              } else {
+                emoticons.innerText += bookList[0].award;
+              }
+              
               
               if(loopBool) {
                 startRound();
@@ -341,7 +456,7 @@ function loadJSON(){
           titleList.push((data[key].title + " pt. " + data[key].part));
       }
 
-      console.log(titleList);
+      //console.log(titleList);
   })
   .catch(error => console.log('ERROR'))
 
