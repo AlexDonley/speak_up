@@ -28,7 +28,7 @@ loopBool = false;
 timerBool = false;
 
 defaultCountdown = 10;
-timerSetting = 0;
+timerSetting = 1;
 timerInnerTexts = [
   '<div class="behind">&#10006;</div><ion-icon name="timer-outline"></ion-icon>',
   '&#9650;<br><ion-icon name="timer-outline"></ion-icon>',
@@ -39,13 +39,13 @@ let bookList;
 let titleList = [];
 let homophones;
 
-
+let next = new Audio("sound/chaching.webm");
 let perfect = new Audio("sound/wow.mp3");
 
 sentenceCount = 0;
 
 numbersToText = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten']
-cutOut = ["ah", "ahh", "mm", "mmm", "hm", "hmm", "mhm", "uh", "ah", "huh", "eh"]
+cutOut = ["ah", "ahh", "mm", "mmm", "hm", "hmm", "mhm", "uh", "ah", "huh", "eh", "sh", "shh"]
 
 let userAgent = navigator.userAgent;
 
@@ -320,8 +320,19 @@ function checkSentence(arr) {
         success.play();
         
         if (targetCount > divided.length - 1) {
-          perfect.currentTime = 0;
-          perfect.play();
+          
+          console.log(arr, divided)
+
+          if (JSON.stringify(arr) == JSON.stringify(divided)) {
+            perfect.currentTime = 0;
+            perfect.play();
+          } else {
+            next.currentTime = 0;
+            next.play();
+          }
+          
+          
+          
           setTimeout(function(){
             
             if (sentenceCount < sentenceQueue.length - 1) {
