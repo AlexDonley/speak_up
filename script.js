@@ -13,7 +13,8 @@ const timerBtn = document.getElementById("timer")
 const loopBtn = document.getElementById("loop");
 const presetOpts = document.getElementById("presetOptions");
 const stopwatch = document.getElementById("stopwatch");
-const emoticons = document.getElementById("emoticons");
+const currentAwards = document.getElementById("currentAwards");
+const previousAwards = document.getElementById("previousAwards");
 
 divided = [];
 sentenceQueue = [];
@@ -36,8 +37,7 @@ timerInnerTexts = [
 
 let bookList;
 let titleList = [];
-awards = ['💪']
-
+let homophones;
 
 
 let perfect = new Audio("sound/wow.mp3");
@@ -45,7 +45,7 @@ let perfect = new Audio("sound/wow.mp3");
 sentenceCount = 0;
 
 numbersToText = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten']
-cutOut = ["mm", "mmm", "hm", "hmm", "mhm", "uh", "ah", "huh", "eh", "boka"]
+cutOut = ["ah", "ahh", "mm", "mmm", "hm", "hmm", "mhm", "uh", "ah", "huh", "eh"]
 
 let userAgent = navigator.userAgent;
 
@@ -152,7 +152,7 @@ recognition.addEventListener("result", (e) => {
 
   wordlist = text.toLowerCase().split(' ')
 
-  console.log(wordlist)
+  //console.log(wordlist)
 
   texts.innerHTML = ""
   n = 0
@@ -170,9 +170,8 @@ recognition.addEventListener("result", (e) => {
   // inputWord.innerText = text;
 
   if (e.results[0].isFinal) {
-    
-    checkSentence(wordlist)
-
+    console.log('checking sentence');
+    checkSentence(wordlist);
   }
 });
 
@@ -298,7 +297,20 @@ function checkSentence(arr) {
   arr.forEach((element) => {
       inputCount++;
       setTimeout(function(){
-        if (element == divided[targetCount]) {
+        let correct = false;
+
+        if(element == divided[targetCount]){
+          correct = true;
+        } else {
+          homophones.forEach((set) =>{
+            if (set.includes(element) && set.includes(divided[targetCount])){
+              console.log(set);
+              correct = true;
+            }
+          })
+        }
+        
+        if (correct) {
           //console.log('correct word');
         
         updateSentenceVisual(targetCount);
@@ -317,16 +329,7 @@ function checkSentence(arr) {
               loadTarget(sentenceQueue[sentenceCount])
             } else {
               
-              if (presetBool){
-                
-                indexArray.forEach((num) => {
-                  emoticons.innerText += bookList[num].award;
-                })
-                
-              } else {
-                emoticons.innerText += bookList[0].award;
-              }
-              
+              updateAwards();              
               
               if(loopBool) {
                 startRound();
@@ -355,6 +358,21 @@ function convertNumsToText(arr) {
   })
 
   return arr;
+}
+
+function updateAwards() {
+  previousAwards.innerText += currentAwards.innerText;
+  currentAwards.innerText = ""
+  
+  if (presetBool){
+                
+    indexArray.forEach((num) => {
+      currentAwards.innerText += bookList[num].award;
+    })
+    
+  } else {
+    currentAwards.innerText += bookList[0].award;
+  }
 }
 
 function togglePresets() {
@@ -462,7 +480,25 @@ function loadJSON(){
 
 }
 
+function loadHomophones(){
+  fetch('./data/homophones.json')
+  .then(res => {
+      if (res.ok) {
+          console.log('SUCCESS');
+      } else {
+          console.log('FAILURE')
+      }
+      return res.json()
+  })
+  .then(data => {
+      homophones = data;
+  })
+  .catch(error => console.log('ERROR'))
+}
+
 loadJSON();
+
+loadHomophones();
 
 function startTimer(sec) {
   ding = new Audio("sound/ding.wav");

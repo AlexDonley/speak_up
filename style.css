@@ -47,6 +47,24 @@ h1 {
   width: 70vw;
 }
 
+.awards {
+  position: absolute; 
+  left: -13vw;
+  width: 11vw;
+  min-height: 11vw;
+  background-color: rgb(100, 100, 100);
+  border-radius: 2vh;
+  text-align: center;
+}
+.current-awards{
+  font-size: 7vw;
+}
+.previous-awards{
+  font-size: 2vw;
+  margin: 1vw;
+}
+
+
 .text-input {
   position: absolute;
   top: 0;
@@ -202,12 +220,6 @@ label {
 }
 .flip {
   background-color: rgb(255, 121, 121);
-}
-
-.awards{
-  margin-left: 1vh;
-  font-size: 5vh;
-  white-space: nowrap;
 }
 
 span {
