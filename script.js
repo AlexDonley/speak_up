@@ -248,53 +248,59 @@ function endRound() {
 }
 
 function loadTarget(sentence){
-    target.innerHTML = '';
-    texts.innerHTML = '';
-  
-    targetCount = 0;
-    noPunct = sentence.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()[\]?]/g,"")
-              .replace(/\s+/g, " ");
-    divided = noPunct.toLowerCase().split(' ');
+  target.innerHTML = '';
+  texts.innerHTML = '';
 
-    divided = omitWords(divided);
+  targetCount = 0;
+  sentence = omitPunctuation(sentence);
+  divided = sentence.toLowerCase().split(' ');
 
-    convertNumsToText(divided);
+  divided = omitWords(divided);
 
-    for (let n = 0; n < divided.length; n++){
-      newSpan = document.createElement('span');
-      newSpan.setAttribute('id', ('target' + n))
+  convertNumsToText(divided);
 
-      newContent = document.createTextNode((divided[n]).toLowerCase()+ " ");
-      newSpan.appendChild(newContent);
+  for (let n = 0; n < divided.length; n++){
+    newSpan = document.createElement('span');
+    newSpan.setAttribute('id', ('target' + n))
 
-      target.appendChild(newSpan);
-    }
+    newContent = document.createTextNode((divided[n]).toLowerCase()+ " ");
+    newSpan.appendChild(newContent);
+
+    target.appendChild(newSpan);
+  }
+}
+
+function omitPunctuation(str) {
+noPunct = str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()[\]?]/g,"")
+            .replace(/\s+/g, " ");
+return noPunct;
 }
 
 function omitWords(arr){
-  for (let n=0; n < arr.length; n++){
-    if(cutOut.includes(arr[n])){
-      arr.splice(n, 1);
-    }
+for (let n=0; n < arr.length; n++){
+  if(cutOut.includes(arr[n])){
+    arr.splice(n, 1);
   }
+}
 
-  return arr;
+return arr;
 }
 
 function updateSentenceVisual(num) {
-    correctWord = document.getElementById('target' + num);
-    correctWord.classList.add('correct')
+  correctWord = document.getElementById('target' + num);
+  correctWord.classList.add('correct')
 
-    if (num < divided.length - 1) {
-      nextWord = document.getElementById('target' + (num + 1));
-      nextWord.classList.add('next');
-    } 
+  if (num < divided.length - 1) {
+    nextWord = document.getElementById('target' + (num + 1));
+    nextWord.classList.add('next');
+  } 
 }
 
 function checkSentence(arr) {
   inputCount = 0
-  
+
   arr.forEach((element) => {
+    element = omitPunctuation(element);
       inputCount++;
       setTimeout(function(){
         let correct = false;
