@@ -5,6 +5,7 @@ const title = document.querySelector("h1")
 const chromeIcon = document.getElementById("chromeIcon");
 const mic = document.getElementById("mic");
 const columnWrap = document.getElementById("columnWrap");
+const leftOver = document.getElementById("leftOver");
 const startMenu = document.getElementById("startMenu");
 const textInput = document.getElementById("textInput");
 const presetBtn = document.getElementById("preset");
@@ -150,7 +151,7 @@ recognition.addEventListener("result", (e) => {
 
   //console.log(e.results)
 
-  wordlist = text.toLowerCase().split(' ')
+  wordlist = omitPunctuation(text).toLowerCase().split(' ');
 
   //console.log(wordlist)
 
@@ -261,7 +262,11 @@ function loadTarget(sentence){
 
   for (let n = 0; n < divided.length; n++){
     newSpan = document.createElement('span');
-    newSpan.setAttribute('id', ('target' + n))
+    newSpan.setAttribute('id', ('target' + n));
+    newSpan.classList.add('target');
+    newSpan.onclick = function clone(){
+      console.log('clone')
+    };
 
     newContent = document.createTextNode((divided[n]).toLowerCase()+ " ");
     newSpan.appendChild(newContent);
@@ -575,4 +580,26 @@ function flip(element) {
   } else {
     elStyle.add('flip');
   }
+}
+
+let clickTarg;
+
+document.body.onmousedown = function (e) {
+  // Get IE event object
+  e = e || window.event;
+  // Get target in W3C browsers & IE
+  var elementId = e.target ? e.target.id : e.srcElement.id;
+  // ...
+  if(elementId.includes('target')){
+    clickTarg = document.getElementById(elementId);
+    clickTarg.classList.add('drag')
+    
+    console.log(elementId);
+    leftOver.classList.add('appear');
+  }
+}
+
+function removeLeftovers() {
+  leftOver.classList.remove('appear');
+  clickTarg.classList.remove('drag');
 }
