@@ -22,7 +22,7 @@
     <script src="script.js" defer></script>
     <title>Speak Up!</title>
 </head>
-<body onmouseup = "removeLeftovers()">
+<body>
     <div class = "qual-panel">
         <div class="qual" id="chromeIcon">
             <svg version="1.1" id="Layer_1" style="fill:rgba(255, 255, 255, .8);" viewBox="0 0 512 512"; xml:space="preserve";>
@@ -71,12 +71,10 @@
             </button>
             <button class="go" id="go" onclick="startRound()">GO</button>
         </div>
-        
-        <div class="leftover" id="leftOver"></div>
 
         <div class="column-wrap disappear" id="columnWrap">
             
-            <div class="column target"></div>
+            <div class="column targetColumn"></div>
             <div class="column texts"></div>
             <button class="home" id="home" onclick="endRound();">
                 <ion-icon name="home"></ion-icon>

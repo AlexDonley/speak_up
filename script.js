@@ -1,11 +1,10 @@
 const texts = document.querySelector(".texts");
-const target = document.querySelector(".target");
+const targetColumn = document.querySelector(".targetColumn");
 const title = document.querySelector("h1")
 
 const chromeIcon = document.getElementById("chromeIcon");
 const mic = document.getElementById("mic");
 const columnWrap = document.getElementById("columnWrap");
-const leftOver = document.getElementById("leftOver");
 const startMenu = document.getElementById("startMenu");
 const textInput = document.getElementById("textInput");
 const presetBtn = document.getElementById("preset");
@@ -17,9 +16,11 @@ const stopwatch = document.getElementById("stopwatch");
 const currentAwards = document.getElementById("currentAwards");
 const previousAwards = document.getElementById("previousAwards");
 
-divided = [];
 sentenceQueue = [];
+divided = [];
 indexArray = [];
+leftoversList = [];
+targetList = [];
 targetCount = 0;
 inputCount = 0;
 listenBool = false;
@@ -182,9 +183,18 @@ recognition.addEventListener("end", () => {
   }
 });
 
+// leftOver.addEventListener("mouseover", () => {
+//   leftOver.classList.add('highlight')
+// })
+
+// leftOver.addEventListener("mouseout", () => {
+//   leftOver.classList.remove('highlight')
+// })
+
 function startRound() {
     // clear sentence queue
     sentenceQueue = [];
+    leftoversList = [];
 
     if(!timerBool & timerSetting > 0){
       timerBool = true;
@@ -211,17 +221,17 @@ function startRound() {
         }
       }
 
-      console.log(indexArray);
+      // console.log(indexArray);
 
       indexArray.forEach((num) => {
         sentenceQueue = sentenceQueue.concat(bookList[num].text)
       })
 
-      console.log(sentenceQueue);
+      // console.log(sentenceQueue);
 
     } else {
       let textArray = textInput.value.split('\n');
-      console.log(textArray);
+      // console.log(textArray);
       sentenceQueue = textArray;
     }
     
@@ -249,7 +259,7 @@ function endRound() {
 }
 
 function loadTarget(sentence){
-  target.innerHTML = '';
+  targetColumn.innerHTML = '';
   texts.innerHTML = '';
 
   targetCount = 0;
@@ -264,15 +274,45 @@ function loadTarget(sentence){
     newSpan = document.createElement('span');
     newSpan.setAttribute('id', ('target' + n));
     newSpan.classList.add('target');
-    newSpan.onclick = function clone(){
-      console.log('clone')
-    };
 
-    newContent = document.createTextNode((divided[n]).toLowerCase()+ " ");
+    leftButton = document.createElement('div');
+    leftButton.classList.add('leftButton');
+    leftButton.innerText = '◀';
+    // leftButton.addEventListener('click', () =>{
+    //   id = leftButton.parentNode;
+    //   container = leftButton.parentNode.parentNode;
+
+    //   for (var i = 0, len = container.children.length; i < len; i++)
+    //     {
+        
+    //         (function(index){
+    //             g.children[i].onclick = function(){
+    //                   alert(index)  ;
+    //             }    
+    //         })(i);
+        
+    //     }
+      // index = targetList.findIndex((item) => {
+      //   console.log(address)
+      //   item == address;
+      //   return true;
+      // })
+    //})
+    newSpan.appendChild(leftButton);
+
+    text = (divided[n]).toLowerCase()
+    newContent = document.createTextNode(text);
+
+    script = 'say the word ' + text.toString()
+    newSpan.onclick = function speak(script){
+      //console.log(script);
+    };
     newSpan.appendChild(newContent);
 
-    target.appendChild(newSpan);
+    targetColumn.appendChild(newSpan);
   }
+
+  updateTargetOrder();
 }
 
 function omitPunctuation(str) {
@@ -292,11 +332,11 @@ return arr;
 }
 
 function updateSentenceVisual(num) {
-  correctWord = document.getElementById('target' + num);
+  correctWord = targetList[num];
   correctWord.classList.add('correct')
 
   if (num < divided.length - 1) {
-    nextWord = document.getElementById('target' + (num + 1));
+    nextWord = targetList[num + 1];
     nextWord.classList.add('next');
   } 
 }
@@ -315,7 +355,7 @@ function checkSentence(arr) {
         } else {
           homophones.forEach((set) =>{
             if (set.includes(element) && set.includes(divided[targetCount])){
-              console.log(set);
+              // console.log(set);
               correct = true;
             }
           })
@@ -342,13 +382,13 @@ function checkSentence(arr) {
             next.play();
           }
           
-          
-          
           setTimeout(function(){
             
             if (sentenceCount < sentenceQueue.length - 1) {
               sentenceCount++
               loadTarget(sentenceQueue[sentenceCount])
+            } else if (leftoversList.length > 0){
+              leftoversRound();
             } else {
               
               updateAwards();              
@@ -368,6 +408,20 @@ function checkSentence(arr) {
 
   }, (50 * inputCount));
 })
+}
+
+function leftoversRound() {
+  let leftoversString = ""
+  
+  for (let n = 0; n < leftoversList.length; n++){
+    leftoversString = leftoversString.concat(leftoversList[n])
+    if (n<leftoversList.length - 1){
+      leftoversString = leftoversString.concat(' ')
+    }
+  }
+  
+  loadTarget(leftoversString);
+  leftoversList = [];
 }
 
 function convertNumsToText(arr) {
@@ -453,7 +507,7 @@ function shuffle(arr){
       shuffled.splice(randomPos, 0, word);
   })
   
-  console.log(shuffled);
+  // console.log(shuffled);
   return shuffled;
 }
 
@@ -582,75 +636,37 @@ function flip(element) {
   }
 }
 
-let clickTarg;
+function moveToleftoversList (n) {
+  leftoversList.push(divided[n]);
+  divided.splice(n, 1);
 
-document.body.onmousedown = function (e) {
-  // Get IE event object
+  deleteSpan = targetList[n];
+  deleteSpan.remove();
+
+  updateTargetOrder();
+  console.log(leftoversList);
+}
+
+function updateTargetOrder() {
+  targetList = Array.from(document.getElementsByClassName('target'));
+  console.log(targetList)
+}
+
+document.addEventListener('click', function(e) {
   e = e || window.event;
-  // Get target in W3C browsers & IE
-  var elementId = e.target ? e.target.id : e.srcElement.id;
-  // ...
-  if(elementId.includes('target')){
-    clickTarg = document.getElementById(elementId);
-    clickTarg.classList.add('drag')
+  var target = e.target || e.srcElement,
+      text = target.textContent || target.innerText;  
+  
+  if(target.classList.contains('leftButton')){
     
-    console.log(elementId);
-    leftOver.classList.add('appear');
+    currentID = target.parentNode.id
+    console.log(currentID)
 
-    dragElement(clickTarg);
-
-    function dragElement(elmnt) {
-      var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-      
-      elmnt.onmousedown = dragMouseDown;
-
-      
-      function dragMouseDown(e) {
-        e = e || window.event;
-        e.preventDefault();
-        // get the mouse cursor position at startup:
-        pos3 = e.clientX;
-        pos4 = e.clientY;
-        console.log (pos3, pos4);
-        document.onmouseup = closeDragElement;
-        // call a function whenever the cursor moves:
-        document.onmousemove = elementDrag;
-      }
-
-      function elementDrag(e) {
-        e = e || window.event;
-        e.preventDefault();
-        // calculate the new cursor position:
-        pos1 = e.clientX - pos3;
-        pos2 = e.clientY - pos4;
-        // pos3 = e.clientX;
-        // pos4 = e.clientY;
-        // set the element's new position:
-        // elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-        // elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-        elmnt.style.transform = "translate(" + (pos1) + "px, " 
-                                + (pos2) + "px)"
-        // elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-        // elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-      }
-
-      function closeDragElement() {
-        // stop moving when mouse button is released:
-        document.onmouseup = null;
-        document.onmousemove = null;
-
-        if (true) {
-          // elmnt.style.top = "0px";
-          // elmnt.style.left = "0px";
-          elmnt.style.transform = "translate(0px, 0px)";
-        }
-
+    for (let n = 0; n < targetList.length; n++){
+      if (targetList[n].id == currentID) {
+        moveToleftoversList(n);
       }
     }
   }
-}
-
-function removeLeftovers() {
-  leftOver.classList.remove('appear');
-  clickTarg.classList.remove('drag');
-}
+       
+}, false);
