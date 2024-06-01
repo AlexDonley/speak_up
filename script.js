@@ -15,6 +15,7 @@ const presetOpts = document.getElementById("presetOptions");
 const stopwatch = document.getElementById("stopwatch");
 const currentAwards = document.getElementById("currentAwards");
 const previousAwards = document.getElementById("previousAwards");
+const scoreMarker = document.getElementById("scoreMarker");
 
 sentenceQueue = [];
 divided = [];
@@ -44,6 +45,8 @@ let homophones;
 let next = new Audio("sound/chaching.webm");
 let perfect = new Audio("sound/wow.mp3");
 
+score = 0;
+scoreMarker.innerText = score;
 sentenceCount = 0;
 
 numbersToText = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten']
@@ -70,71 +73,6 @@ function micFail(error) {
 }
 
 navigator.getUserMedia({ audio: true }, micSuccess, micFail);
-
-
-// create event listener for microphone connections
-// UNFINISHED
-
-// async function getMicrophone() {
-//   // Use audio only.
-//   const constraints = { audio: true };
-
-//   // Create the events.
-//   const microphoneStartEvent = new Event('microphonestart');
-//   const microphoneStopEvent = new Event('microphonestop');
-
-//   // Create the stream.
-//   const stream = await navigator.mediaDevices.getUserMedia(constraints);
-
-//   // You'll want to know if a stream has randomly stopped without the user's intent. 
-//   const tracks = stream.getAudioTracks();
-//   for (const track of tracks) {
-//     track.addEventListener('ended', () => {
-//       window.dispatchEvent(microphoneStopEvent);
-//     });
-//   }
-
-//   // Internal function to stop the stream and fire the microphonestop event.
-//   const stopStream = () => {
-//     const tracks = stream.getAudioTracks();
-//     for (const track of tracks) {
-//       track.stop();
-//     }
-
-//     window.dispatchEvent(microphoneStopEvent);
-//   }
-
-//   // Stream is running, fire microphonestart event.
-//   window.dispatchEvent(microphoneStartEvent);
-
-//   // Return both the stream and the stopStream function.
-//   return {
-//     stream,
-//     stopStream
-//   };
-// }
-
-// // Listen to the microphonestart event.
-// window.addEventListener('microphonestart', () => {
-//   console.log('user using microphone');
-// });
-
-// // Listen to the microphonestop event.
-// window.addEventListener('microphonestop', () => {
-//   console.log('user stopped using microphone');
-// });
-
-// // Start the stream.
-// getMicrophone().then(({ stream, stopStream }) => {
-//   // Use the stream.
-//   console.log(stream);
-
-//   // Stop the stream when you need.
-//   stopStream();
-// }).catch(error => {
-//   console.error(error);
-// });
-
 
 window.SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -182,14 +120,6 @@ recognition.addEventListener("end", () => {
     recognition.start();
   }
 });
-
-// leftOver.addEventListener("mouseover", () => {
-//   leftOver.classList.add('highlight')
-// })
-
-// leftOver.addEventListener("mouseout", () => {
-//   leftOver.classList.remove('highlight')
-// })
 
 function startRound() {
     // clear sentence queue
@@ -278,26 +208,6 @@ function loadTarget(sentence){
     leftButton = document.createElement('div');
     leftButton.classList.add('leftButton');
     leftButton.innerText = '◀';
-    // leftButton.addEventListener('click', () =>{
-    //   id = leftButton.parentNode;
-    //   container = leftButton.parentNode.parentNode;
-
-    //   for (var i = 0, len = container.children.length; i < len; i++)
-    //     {
-        
-    //         (function(index){
-    //             g.children[i].onclick = function(){
-    //                   alert(index)  ;
-    //             }    
-    //         })(i);
-        
-    //     }
-      // index = targetList.findIndex((item) => {
-      //   console.log(address)
-      //   item == address;
-      //   return true;
-      // })
-    //})
     newSpan.appendChild(leftButton);
 
     text = (divided[n]).toLowerCase()
@@ -335,6 +245,8 @@ function updateSentenceVisual(num) {
   correctWord = targetList[num];
   correctWord.classList.add('correct')
 
+  correctWord.children[0].classList.add('remove-skip');
+
   if (num < divided.length - 1) {
     nextWord = targetList[num + 1];
     nextWord.classList.add('next');
@@ -362,7 +274,8 @@ function checkSentence(arr) {
         }
         
         if (correct) {
-          //console.log('correct word');
+          score++;
+          scoreMarker.innerText = score;;
         
         updateSentenceVisual(targetCount);
         targetCount++;
@@ -382,24 +295,7 @@ function checkSentence(arr) {
             next.play();
           }
           
-          setTimeout(function(){
-            
-            if (sentenceCount < sentenceQueue.length - 1) {
-              sentenceCount++
-              loadTarget(sentenceQueue[sentenceCount])
-            } else if (leftoversList.length > 0){
-              leftoversRound();
-            } else {
-              
-              updateAwards();              
-              
-              if(loopBool) {
-                startRound();
-              } else {
-                endRound();
-              }
-            }
-          }, 700)
+          setTimeout(function() {nextRound()}, 700)
         }
 
       } else {
@@ -408,6 +304,25 @@ function checkSentence(arr) {
 
   }, (50 * inputCount));
 })
+}
+
+function nextRound(){
+            
+  if (sentenceCount < sentenceQueue.length - 1) {
+    sentenceCount++
+    loadTarget(sentenceQueue[sentenceCount])
+  } else if (leftoversList.length > 0){
+    leftoversRound();
+  } else {
+    
+    updateAwards();              
+    
+    if(loopBool) {
+      startRound();
+    } else {
+      endRound();
+    }
+  }
 }
 
 function leftoversRound() {
@@ -644,12 +559,15 @@ function moveToleftoversList (n) {
   deleteSpan.remove();
 
   updateTargetOrder();
-  console.log(leftoversList);
+  //console.log(leftoversList);
+
+  if (n > targetList.length - 1){
+    nextRound();
+  }
 }
 
 function updateTargetOrder() {
   targetList = Array.from(document.getElementsByClassName('target'));
-  console.log(targetList)
 }
 
 document.addEventListener('click', function(e) {
