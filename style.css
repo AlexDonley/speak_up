@@ -215,10 +215,14 @@ label {
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: rotate 0.3s ease-in-out;
+  transition: rotate 0.3s ease-in-out,
+              color 0.3s,
+              background-color 0.3s;
 }
 .column-btn:hover{
-  rotate: 360deg;
+  /* rotate: 360deg; */
+  color: white;
+  background-color: maroon;
 }
 
 .read {
@@ -232,7 +236,7 @@ label {
 .stop-watch {
   height: 10vh;
   width: 20vh;
-  background-color: green;
+  background: radial-gradient(circle at center, green, 70%, limegreen);
   color: rgba(255, 255, 255, 0.9);
   border-radius: 1vh;
   margin-right: 2vh;
@@ -242,7 +246,7 @@ label {
   font-weight: bold;
 }
 .stop-watch.flip {
-  background-color: red;
+  background: radial-gradient(circle at center, red, 70%, hotpink);;
 }
 
 span {
@@ -338,14 +342,16 @@ span {
 }
 
 .leftover {
-  background-color: yellow;
-  border-radius: 8px;
+  background: linear-gradient(90deg, orange, yellow, orange);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
   height: 0%;
 }
 
 .complete{
-  background-color: limegreen;
+  background: linear-gradient(90deg, darkgreen, limegreen, darkgreen);
   height: 0%;
+  top: -2px;
 }
 
 .arrow-tip{
@@ -354,7 +360,7 @@ span {
   position: relative;
   top: -75px;
   left:-40px;
-  background-color: limegreen;
+  background: conic-gradient(at 50% 0, darkgreen, 140deg, limegreen, 215deg, darkgreen);
   clip-path: polygon(0 100%, 50% 0, 100% 100%);
 }
 

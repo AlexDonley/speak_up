@@ -180,7 +180,7 @@ function startRound() {
       totalWordsToRead = freeformText.split(' ').length;
       progress[0] = totalWordsToRead
 
-      console.log(progress)
+      // console.log(progress)
       
       let textArray = freeformText.split('\n');
       // console.log(textArray);
@@ -224,12 +224,16 @@ function nextRound(){
 }
 
 function endRound() {
-  listenBool = false;
+  stopSpeechRecognition();
+  
   timerBool = false;
-  recognition.abort();
-    
   columnWrap.classList.add('disappear');
   startMenu.classList.remove('disappear');
+}
+
+function stopSpeechRecognition() {
+  listenBool = false;
+  recognition.abort();
 }
 
 function loadTarget(sentence, leftovers){
@@ -344,7 +348,7 @@ function checkSentence(arr) {
         
         if (targetCount > divided.length - 1) {
           
-          console.log(arr, divided)
+          // console.log(arr, divided)
 
           if (JSON.stringify(arr) == JSON.stringify(divided)) {
             perfect.currentTime = 0;
@@ -593,7 +597,7 @@ function flip(element) {
 
 function moveToleftoversList (n) {
   leftoversList.push(divided[n]);
-  console.log('pushed item to leftovers')
+  // console.log('pushed item to leftovers')
   divided.splice(n, 1);
 
   deleteSpan = targetList[n];
@@ -607,7 +611,7 @@ function moveToleftoversList (n) {
 
   updateProgressBar(progress)
 
-  console.log (targetCount);
+  // console.log (targetCount);
   if (n > targetList.length - 1 && targetCount == n){
     nextRound();
   }
@@ -625,7 +629,7 @@ document.addEventListener('click', function(e) {
   if(target.classList.contains('leftButton')){
     
     currentID = target.parentNode.id
-    console.log(currentID)
+    // console.log(currentID)
 
     for (let n = 0; n < targetList.length; n++){
       if (targetList[n].id == currentID) {
@@ -645,7 +649,7 @@ function updateProgressBar(arr) {
   let leftover = 100 * arr[1] / totalWordsToRead;
   let complete = 100 * arr[2] / totalWordsToRead;
 
-  console.log(incomplete, leftover, complete)
+  // console.log(incomplete, leftover, complete)
 
   progressParts[0].style.height = incomplete + "%";
   progressParts[1].style.height = leftover + "%";
@@ -653,6 +657,8 @@ function updateProgressBar(arr) {
 }
 
 function speak(str) {
+  stopSpeechRecognition();
+  
   if(str) {
     utterance = new SpeechSynthesisUtterance(str);
     utterance.rate = 0.4;
@@ -669,4 +675,12 @@ function speak(str) {
   }
 
   speechSynthesis.speak(utterance);
+
+  utterance.addEventListener("end", (event) => {
+    console.log(
+      `Utterance has finished being spoken after ${event.elapsedTime} seconds.`,
+    );
+    listenBool = true;
+    recognition.start();
+  });
 }
