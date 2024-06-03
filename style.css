@@ -205,25 +205,34 @@ label {
   flex-direction: column;
 }
 
-.home {
+.column-btn {
   position: absolute;
-  bottom: 0;
   width: 7vh;
   height: 7vh;
   border-radius: 50%;
   font-size: 4vh;
   line-height: 7vh;
+  display: flex;
+  justify-content: center;
   align-items: center;
   transition: rotate 0.3s ease-in-out;
 }
-.home:hover{
+.column-btn:hover{
   rotate: 360deg;
+}
+
+.read {
+  bottom: 8vh;
+}
+
+.home {
+  bottom: 0;
 }
 
 .stop-watch {
   height: 10vh;
   width: 20vh;
-  background-color: blue;
+  background-color: green;
   color: rgba(255, 255, 255, 0.9);
   border-radius: 1vh;
   margin-right: 2vh;
@@ -321,7 +330,7 @@ span {
 }
 
 .bar-part{
-  transition: height 0.2s ease-in-out;
+  transition: height 0.4s ease-in-out;
 }
 
 .incomplete{
@@ -330,12 +339,23 @@ span {
 
 .leftover {
   background-color: yellow;
+  border-radius: 8px;
   height: 0%;
 }
 
 .complete{
   background-color: limegreen;
   height: 0%;
+}
+
+.arrow-tip{
+  width: 150px;
+  height: 75px;
+  position: relative;
+  top: -75px;
+  left:-40px;
+  background-color: limegreen;
+  clip-path: polygon(0 100%, 50% 0, 100% 100%);
 }
 
 svg {

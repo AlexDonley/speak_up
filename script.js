@@ -632,6 +632,10 @@ document.addEventListener('click', function(e) {
         setTimeout(function() {moveToleftoversList(n)}, 5);
       }
     }
+  } else if (target.classList.contains('target')){
+    word = target.innerText.replace(/◀/g,"")
+    
+    speak(word);
   }
        
 }, false);
@@ -646,4 +650,23 @@ function updateProgressBar(arr) {
   progressParts[0].style.height = incomplete + "%";
   progressParts[1].style.height = leftover + "%";
   progressParts[2].style.height = complete + "%";
+}
+
+function speak(str) {
+  if(str) {
+    utterance = new SpeechSynthesisUtterance(str);
+    utterance.rate = 0.4;
+  } else {
+    utterance = new SpeechSynthesisUtterance(sentenceQueue[sentenceCount]);
+    utterance.rate = 0.4;
+  }
+  
+  utterance.lang = 'en';
+
+  if (speechSynthesis.speaking) {
+    // SpeechSyn is currently speaking, cancel the current utterance(s)
+    speechSynthesis.cancel();
+  }
+
+  speechSynthesis.speak(utterance);
 }
