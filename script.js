@@ -1,3 +1,4 @@
+const userAgent = navigator.userAgent;
 const texts = document.querySelector(".texts");
 const targetColumn = document.querySelector(".targetColumn");
 const title = document.querySelector("h1");
@@ -59,7 +60,7 @@ sentenceCount = 0;
 numbersToText = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten']
 cutOut = ["ah", "ahh", "mm", "mmm", "hm", "hmm", "mhm", "uh", "ah", "huh", "eh", "sh", "shh"]
 
-let userAgent = navigator.userAgent;
+
 
 if(userAgent.match(/chrome|chromium|crios/i)){
   chromeIcon.classList.add('flip')
@@ -276,7 +277,7 @@ function loadTarget(sentence, leftovers){
 }
 
 function omitPunctuation(str) {
-noPunct = str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()[\]?]/g,"")
+noPunct = str.replace(/[.,\/#!$%\^&\*;:{}=_`~()[\]?]/g,"")
             .replace(/\s+/g, " ");
 return noPunct;
 }
@@ -316,17 +317,22 @@ function checkSentence(arr) {
       setTimeout(function(){
         let correct = false;
 
-        if(element == divided[targetCount]){
+        if(element == divided[targetCount] || element.replace(/['-]/g,"") == divided[targetCount].replace(/['-]/g,"")){
+          // are the two words exactly the same?
+          // are the two words the same if you subtract apostrophes and hyphens?
+          
           correct = true;
         } else {
+          // are the two words homophones?
+          
           homophones.forEach((set) =>{
             if (set.includes(element) && set.includes(divided[targetCount])){
               // console.log(set);
               correct = true;
             }
           })
-        }
-        
+        } 
+
         if (correct) {
           score++;
           scoreMarker.innerText = score;
@@ -611,7 +617,6 @@ function moveToleftoversList (n) {
 
   updateProgressBar(progress)
 
-  // console.log (targetCount);
   if (n > targetList.length - 1 && targetCount == n){
     nextRound();
   }

@@ -246,7 +246,7 @@ label {
   font-weight: bold;
 }
 .stop-watch.flip {
-  background: radial-gradient(circle at center, red, 70%, hotpink);;
+  background: radial-gradient(circle at center, maroon, 70%, red);;
 }
 
 span {
@@ -342,16 +342,19 @@ span {
 }
 
 .leftover {
-  background: linear-gradient(90deg, orange, yellow, orange);
+  /* background: linear-gradient(90deg, orange, yellow, orange); */
+  background: yellow;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   height: 0%;
 }
 
 .complete{
-  background: linear-gradient(90deg, darkgreen, limegreen, darkgreen);
+  /* background: linear-gradient(90deg, darkgreen, limegreen, darkgreen);
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px; */
+  background: limegreen;
   height: 0%;
-  top: -2px;
 }
 
 .arrow-tip{
@@ -360,7 +363,8 @@ span {
   position: relative;
   top: -75px;
   left:-40px;
-  background: conic-gradient(at 50% 0, darkgreen, 140deg, limegreen, 215deg, darkgreen);
+  background: limegreen;
+  /* background: conic-gradient(at 50% 0, darkgreen, 140deg, limegreen, 215deg, darkgreen); */
   clip-path: polygon(0 100%, 50% 0, 100% 100%);
 }
 
