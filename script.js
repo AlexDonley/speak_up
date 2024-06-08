@@ -689,3 +689,38 @@ function speak(str) {
     recognition.start();
   });
 }
+
+let microphone;
+
+function setup(){
+  let cnv = createCanvas(100, 100);
+  cnv.mousePressed(userStartAudio);
+  cnv.style.position = "absolute";
+  cnv.style.bottom = "0px";
+  textAlign(CENTER);
+  microphone = new p5.AudioIn();
+  microphone.start();
+}
+
+function draw(){
+  micLevel = microphone.getLevel();
+  let y = micLevel * height;
+  if(y < 1){
+    y = 0;
+  }
+
+  fill(0, 128, 0)
+  noStroke();
+  ellipse(width/2, height/2, width, height)
+
+  fill(205, 255, 205);
+  stroke(205, 255, 205);
+  strokeWeight(height/25);
+  
+  arc(width/2, height*3/5, width*.66, min(max(y*5, 0.00001), height*.66), 0, PI);
+
+  noFill();
+  arc(width/3, height*2/5, width/10, max(ceil(y/100) * height/10, 0.00001), PI, 0) 
+  arc(width*2/3, height*2/5, width/10, max(ceil(y/100) * height/10, 0.00001), PI, 0) 
+
+}

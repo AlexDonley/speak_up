@@ -385,3 +385,10 @@ svg {
   display: none;
   z-index: -1
 }
+
+canvas{
+  z-index: 1;
+  position: absolute;
+  top: 15px;
+  left: 60px;
+}
