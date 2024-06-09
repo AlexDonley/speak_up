@@ -57,7 +57,9 @@ updateProgressBar(progress);
 scoreMarker.innerText = score;
 sentenceCount = 0;
 
-numbersToText = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten']
+onesDigits = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+tweenDigits = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen']
+tensDigits = ['zero', 'teen', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
 cutOut = ["ah", "ahh", "mm", "mmm", "hm", "hmm", "mhm", "uh", "ah", "huh", "eh", "sh", "shh"]
 
 
@@ -393,7 +395,63 @@ function convertNumsToText(arr) {
   n = 0;
   arr.forEach((element) => {
     if (!isNaN(element)) {
-      arr.splice(n, 1, numbersToText[element])
+
+      console.log(element.length);
+
+      
+      onesNum = element % 10;
+
+      if (onesNum > 0) {
+        arr.splice(n, 1, onesDigits[onesNum])
+      } else {
+        arr.splice(n, 1)
+      }
+
+      if (element.length > 1){
+        tensNum = (element % 100 - element % 10) / 10;
+        if (tensNum > 0) {
+          if(tensNum < 2){
+            arr.splice(n, 1, tweenDigits[onesNum]);
+          } else {
+            arr.splice(n, 0, tensDigits[tensNum]);
+          }
+        }
+      }
+      if (element.length > 2){
+        hundredsNum = (element % 1000 - (element % 100))/100
+
+        if (hundredsNum > 0) {
+          arr.splice(n, 0, "hundred")
+          arr.splice(n, 0, onesDigits[hundredsNum])
+        }
+      }
+      if (element.length > 3){
+        thousandsNum = (element % 10000 - element % 1000)/1000
+        
+        arr.splice(n, 0, "thousand")
+        if (thousandsNum > 0){
+          arr.splice(n, 0, onesDigits[thousandsNum]);
+        }
+      }
+      if (element.length > 4){
+        tenThousandsNum = (element % 100000 - element % 10000)/10000
+
+        if (tenThousandsNum > 0) {
+          if (tenThousandsNum < 2) {
+            arr.splice(n, 1, tweenDigits[thousandsNum]);
+          } else {
+            arr.splice(n, 0, tensDigits[tenThousandsNum]);
+          }
+        }
+      }
+      if (element.length > 5){
+        hundredThousandsNum = (element % 1000000 - element % 100000)/100000
+
+        if (hundredThousandsNum > 0) {
+          arr.splice(n, 0, "hundred")
+          arr.splice(n, 0, onesDigits[hundredThousandsNum])
+        }
+      }
     }
     n++;
   })
