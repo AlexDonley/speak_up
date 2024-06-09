@@ -172,7 +172,12 @@ function startRound() {
       })
 
       sentenceQueue.forEach((str) => {
-        totalWordsToRead += str.split(' ').length;
+        splits = str.split(' ');
+        
+        // find a way to re-count based on numbers 
+        // splits = convertNumsToText(splits);
+
+        totalWordsToRead += splits.length;
       })
 
       // console.log(sentenceQueue);
