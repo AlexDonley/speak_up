@@ -301,7 +301,7 @@ span {
   display: flex;
   flex-direction: column;
   position: fixed;
-  left: 10px;
+  left: 110px;
   top: 10px;
 }
 
@@ -325,9 +325,9 @@ span {
 .progress-bar{
   z-index: -1;
   height: 100%;
-  width: 75px;
+  width: 70px;
   position: fixed;
-  left: 0;
+  left: 25px;
   top: 0;
   display: flex;
   flex-direction: column;
@@ -344,28 +344,18 @@ span {
 .leftover {
   /* background: linear-gradient(90deg, orange, yellow, orange); */
   background: yellow;
+  translate: 0 70px;
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   height: 0%;
 }
 
 .complete{
-  /* background: linear-gradient(90deg, darkgreen, limegreen, darkgreen);
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: 8px; */
   background: limegreen;
-  height: 0%;
-}
-
-.arrow-tip{
-  width: 150px;
-  height: 75px;
-  position: relative;
-  top: -75px;
-  left:-40px;
-  background: limegreen;
-  /* background: conic-gradient(at 50% 0, darkgreen, 140deg, limegreen, 215deg, darkgreen); */
-  clip-path: polygon(0 100%, 50% 0, 100% 100%);
+  height: calc(0% + 70px);
+  width: 140px;
+  transform: translateX(-35px);
+  clip-path: polygon(0 70px, 70px 0, 140px 70px, 105px 70px, 105px 100%, 35px 100%, 35px 70px);
 }
 
 svg {
@@ -390,5 +380,11 @@ canvas{
   z-index: 1;
   position: absolute;
   top: 15px;
-  left: 60px;
+  left: 10px;
+}
+
+.rainbow {
+  height: 100%;
+  width: 100%;
+  /* background: orange; */
 }

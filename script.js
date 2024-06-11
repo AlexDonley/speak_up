@@ -366,6 +366,7 @@ function checkSentence(arr) {
           if (JSON.stringify(arr) == JSON.stringify(divided)) {
             perfect.currentTime = 0;
             perfect.play();
+            startRainbow();
           } else {
             next.currentTime = 0;
             next.play();
@@ -721,7 +722,7 @@ function updateProgressBar(arr) {
 
   progressParts[0].style.height = incomplete + "%";
   progressParts[1].style.height = leftover + "%";
-  progressParts[2].style.height = complete + "%";
+  progressParts[2].style.height = "calc(" + complete + "% + 70px)";
 }
 
 function speak(str) {
@@ -786,4 +787,65 @@ function draw(){
   arc(width/3, height*2/5, width/10, max(ceil(y/100) * height/10, 0.00001), PI, 0) 
   arc(width*2/3, height*2/5, width/10, max(ceil(y/100) * height/10, 0.00001), PI, 0) 
 
+}
+
+const arrow = document.getElementById('rainbowEffect');
+
+const rainbowValues = [
+    "hsla(0, 100%, 50%, ",
+    "hsla(30, 100%, 50%, ",
+    "hsla(60, 100%, 50%, ",
+    "hsla(90, 100%, 50%, ",
+    "hsla(120, 100%, 50%, ",
+    "hsla(150, 100%, 50%, ",
+    "hsla(180, 100%, 50%, ",
+    "hsla(210, 100%, 50%, ",
+    "hsla(240, 100%, 50%, ",
+    "hsla(270, 100%, 50%, ",
+    "hsla(300, 100%, 50%, ",
+    "hsla(330, 100%, 50%, "
+]
+var movingRainbow = rainbowValues
+
+direction = 90;
+opacity = 1;
+
+function generateRainbow(arr){
+    // direction += 1;
+    opacity -= 0.01;
+
+    rainbowStr = "linear-gradient(" + direction + "deg, "
+
+    arr.forEach((element) =>{
+        rainbowStr += (element + opacity + "), ")
+    })
+    rainbowStr = rainbowStr.substring(0, rainbowStr.length - 2);
+    rainbowStr += ")";
+
+    //console.log(rainbowStr);
+    return rainbowStr;
+}
+
+function moveArray(arr) {
+    arr.push(arr[0]);
+    arr.shift();
+
+    return arr;
+}
+
+function startRainbow(){
+  opacity = 1;
+  direction = Math.floor(Math.random() * 180)
+  var timesRun = 0;
+  var rainbowCycle = setInterval(function() {
+    timesRun += 1;
+
+    if(timesRun > 100){
+      clearInterval(rainbowCycle);
+    }
+  
+    moveArray(movingRainbow);
+    arrow.style.background = generateRainbow(movingRainbow);
+  
+  }, 20);
 }
