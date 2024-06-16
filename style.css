@@ -378,7 +378,7 @@ svg {
 
 canvas{
   z-index: 1;
-  position: absolute;
+  position: fixed;
   top: 15px;
   left: 10px;
 }

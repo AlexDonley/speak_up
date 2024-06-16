@@ -46,8 +46,8 @@ let homophones;
 
 let next = new Audio("sound/chaching.webm");
 let perfect = new Audio("sound/wow.mp3");
-
-score = 0;
+let spokenSentence; 
+let score = 0;
 
 // order for progress bar data will be incomplete, leftover, complete
 progress = [0, 0, 0];
@@ -250,6 +250,7 @@ function loadTarget(sentence, leftovers){
 
   targetCount = 0;
   sentence = omitPunctuation(sentence);
+  spokenSentence = sentence
   divided = sentence.toLowerCase().split(' ');
 
   divided = omitWords(divided);
@@ -271,10 +272,6 @@ function loadTarget(sentence, leftovers){
     text = (divided[n]).toLowerCase()
     newContent = document.createTextNode(text);
 
-    script = 'say the word ' + text.toString()
-    newSpan.onclick = function speak(script){
-      //console.log(script);
-    };
     newSpan.appendChild(newContent);
 
     targetColumn.appendChild(newSpan);
@@ -732,7 +729,7 @@ function speak(str) {
     utterance = new SpeechSynthesisUtterance(str);
     utterance.rate = 0.4;
   } else {
-    utterance = new SpeechSynthesisUtterance(sentenceQueue[sentenceCount]);
+    utterance = new SpeechSynthesisUtterance(spokenSentence);
     utterance.rate = 0.4;
   }
   
