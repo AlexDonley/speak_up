@@ -165,8 +165,6 @@ function startRound() {
         }
       }
 
-      // console.log(indexArray);
-
       indexArray.forEach((num) => {
         sentenceQueue = sentenceQueue.concat(bookList[num].text)
       })
@@ -180,18 +178,15 @@ function startRound() {
         totalWordsToRead += splits.length;
       })
 
-      // console.log(sentenceQueue);
-
     } else {
-      freeformText = textInput.value
+      // The following grabs the text entered by the user and eliminates blank lines
+      
+      freeformText = textInput.value.replace(/^\s*\n/gm, "");
       
       totalWordsToRead = freeformText.split(' ').length;
-      progress[0] = totalWordsToRead
-
-      // console.log(progress)
+      progress[0] = totalWordsToRead;
       
       let textArray = freeformText.split('\n');
-      // console.log(textArray);
       sentenceQueue = textArray;
     }
     
@@ -331,7 +326,6 @@ function checkSentence(arr) {
           
           homophones.forEach((set) =>{
             if (set.includes(element) && set.includes(divided[targetCount])){
-              // console.log(set);
               correct = true;
             }
           })
@@ -357,8 +351,6 @@ function checkSentence(arr) {
           success.play();
         
         if (targetCount > divided.length - 1) {
-          
-          // console.log(arr, divided)
 
           if (JSON.stringify(arr) == JSON.stringify(divided)) {
             perfect.currentTime = 0;
@@ -575,8 +567,6 @@ function loadJSON(){
       for (var key in data) {
           titleList.push((data[key].title + " pt. " + data[key].part));
       }
-
-      //console.log(titleList);
   })
   .catch(error => console.log('ERROR'))
 
@@ -695,7 +685,6 @@ document.addEventListener('click', function(e) {
   if(target.classList.contains('leftButton')){
     
     currentID = target.parentNode.id
-    // console.log(currentID)
 
     for (let n = 0; n < targetList.length; n++){
       if (targetList[n].id == currentID) {
@@ -714,8 +703,6 @@ function updateProgressBar(arr) {
   let incomplete = 100 * arr[0] / totalWordsToRead;
   let leftover = 100 * arr[1] / totalWordsToRead;
   let complete = 100 * arr[2] / totalWordsToRead;
-
-  // console.log(incomplete, leftover, complete)
 
   progressParts[0].style.height = incomplete + "%";
   progressParts[1].style.height = leftover + "%";
@@ -808,7 +795,7 @@ direction = 90;
 opacity = 1;
 
 function generateRainbow(arr){
-    // direction += 1;
+    direction += 1;
     opacity -= 0.01;
 
     rainbowStr = "linear-gradient(" + direction + "deg, "
@@ -819,7 +806,6 @@ function generateRainbow(arr){
     rainbowStr = rainbowStr.substring(0, rainbowStr.length - 2);
     rainbowStr += ")";
 
-    //console.log(rainbowStr);
     return rainbowStr;
 }
 
