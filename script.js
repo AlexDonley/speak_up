@@ -32,6 +32,7 @@ shuffleBool = false;
 loopBool = false;
 timerBool = false;
 
+defaultFreq = 400
 defaultCountdown = 10;
 timerSetting = 1;
 timerInnerTexts = [
@@ -208,7 +209,9 @@ function startRound() {
 }
 
 function nextRound(){
-            
+  
+  defaultFreq = Math.floor(Math.random() * 400) + 100
+
   if (sentenceCount < sentenceQueue.length - 1) {
     sentenceCount++
     loadTarget(sentenceQueue[sentenceCount])
@@ -347,8 +350,17 @@ function checkSentence(arr) {
           updateSentenceVisual(targetCount);
           targetCount++;
 
-          let success = new Audio("sound/boop.wav");
-          success.play();
+          // let success = new Audio("sound/boop.wav");
+          // success.play();
+
+          defaultFreq += 30
+
+          beep.start();
+          beep.freq(defaultFreq);
+          beep.amp(.1);
+          setTimeout(function() {
+            beep.stop();
+          }, 45)
         
         if (targetCount > divided.length - 1) {
 
@@ -748,6 +760,9 @@ function setup(){
   textAlign(CENTER);
   microphone = new p5.AudioIn();
   microphone.start();
+
+  beep = new p5.Oscillator();
+  beep.setType('sawtooth')
 }
 
 function draw(){
