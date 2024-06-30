@@ -12,6 +12,45 @@
         ]
     },
     {
+        "title": "Summer Camp",
+        "part": 1,
+        "author": "Alex Donley",
+        "award": "🍞",
+        "text": [  
+            "peanut butter and chocolate",
+            "bread and cheese",
+            "caramel and cream cheese",
+            "apples and bananas",
+            "blueberry jam and strawberry jam",
+            "pork floss and cream cheese",
+            "lettuce and tomatoes"
+        ]
+    },
+    {
+        "title": "Summer Camp",
+        "part": 2,
+        "author": "Alex Donley",
+        "award": "🥜",
+        "text": [  
+            "I'd like some bread peanut butter and chocolate",
+            "I'd like some bananas cheese caramel and strawberry jam",
+            "I'd like some doritos blueberry jam and lettuce",
+            "I'd like some pork floss tomatoes cream cheese and apples"
+        ]
+    },
+    {
+        "title": "Summer Camp",
+        "part": 3,
+        "author": "Alex Donley",
+        "award": "💵",
+        "text": [  
+            "May I have some bread and peanut butter?",
+            "Yes, that will be two dollars",
+            "here you are",
+            "thank you! here's your food"
+        ]
+    },
+    {
         "title": "Big Green Monster",
         "part": 1,
         "author": "Ed Emberley",
