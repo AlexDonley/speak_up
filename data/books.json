@@ -22,7 +22,7 @@
             "caramel and cream cheese",
             "apples and bananas",
             "blueberry jam and strawberry jam",
-            "pork floss and cream cheese",
+            "pork floss and ham",
             "lettuce and tomatoes"
         ]
     },
@@ -32,10 +32,10 @@
         "author": "Alex Donley",
         "award": "🥜",
         "text": [  
-            "I'd like some bread peanut butter and chocolate",
-            "I'd like some bananas cheese caramel and strawberry jam",
-            "I'd like some doritos blueberry jam and lettuce",
-            "I'd like some pork floss tomatoes cream cheese and apples"
+            "I would like some bread peanut butter and chocolate",
+            "I would like some bananas cheese caramel and strawberry jam",
+            "I would like some doritos blueberry jam and lettuce",
+            "I would like some pork floss tomatoes cream cheese and apples"
         ]
     },
     {
@@ -44,10 +44,11 @@
         "author": "Alex Donley",
         "award": "💵",
         "text": [  
-            "May I have some bread and peanut butter?",
-            "Yes, that will be two dollars",
+            "What would you like",
+            "I would like some bread",
+            "That will be one dollar",
             "here you are",
-            "thank you! here's your food"
+            "thank you!"
         ]
     },
     {
