@@ -365,8 +365,10 @@ function checkSentence(arr) {
         if (targetCount > divided.length - 1) {
 
           if (JSON.stringify(arr) == JSON.stringify(divided)) {
-            perfect.currentTime = 0;
-            perfect.play();
+            // perfect.currentTime = 0;
+            // perfect.play();
+            next.currentTime = 0;
+            next.play();
             startRainbow();
           } else {
             next.currentTime = 0;
