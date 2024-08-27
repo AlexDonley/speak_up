@@ -1111,5 +1111,82 @@
             "Where's my lunch?",
             "I'm sorry."
         ]
+    },
+    {
+        "title": "Wonder World 7 Story",
+        "part": 1,
+        "author": "KNSH",
+        "award": "🍁",
+        "text": [  
+            "Welcome, everyone.",
+            "Hi, Tommy! I'm from the UK. Where are you from?",
+            "I'm from Canada.",
+            "Are you from the USA?",
+            "No, I'm not. I'm from France.",
+            "Look! There's a whale.",
+            "That's not a whale. It's a dolphin.",
+            "Wow! There are more dolphins.",
+            "Is that a whale?",
+            "Yes, it is.",
+            "What a big fish!",
+            "A whale is not a fish. It's a mammal.",
+            "Cool!"
+        ]
+    },
+    {
+        "title": "Wonder World 7 Story",
+        "part": 2,
+        "author": "KNSH",
+        "award": "🤒",
+        "text": [  
+            "Come on, everyone. Dinner is ready.",
+            "I don't feel well.",
+            "Does he have a fever?",
+            "Yes, he does.",
+            "Mom, I think Joe is sick.",
+            "Let me take you to the doctor now.",
+            "What's wrong?",
+            "I have a headache and a fever.",
+            "What's wrong? Do you have a stomachache?",
+            "No, I'm just hungry."
+        ]
+    },
+    {
+        "title": "Wonder World 7 Story",
+        "part": 3,
+        "author": "KNSH",
+        "award": "🍕",
+        "text": [  
+            "I can make some French fries.",
+            "I can make some sandwiches.",
+            "I can make a pizza.",
+            "What would you like to eat?",
+            "I'd like some pizza, please.",
+            "Would you like some sandwiches?",
+            "Yes, please.",
+            "Would you like some French fries, Jello?",
+            "No, thank you.",
+            "I'm so hungry. I could eat a horse.",
+            "What? A horse?"
+        ]
+    },
+    {
+        "title": "Wonder World 7 Story",
+        "part": 4,
+        "author": "KNSH",
+        "award": "⏰",
+        "text": [  
+            "Who's calling?",
+            "Morning, Amy. Let's go to the park.",
+            "Now? It's Saturday! It's six thirty in the morning. ",
+            "Do you get up at six thirty on Saturdays?",
+            "No, I get up at six o'clock every day.",
+            "You're an early bird.",
+            "Yes, I am. What time do you get up?",
+            "I get up at six thirty on weekdays. ",
+            "On weekends, I get up at eight.",
+            "Oops! Sorry for waking you up.",
+            "It's OK. See you at the park at seven thirty."
+        ]
     }
 ]
