@@ -1,1192 +1,1049 @@
 [
     {
         "title": "Sample",
-        "part": 1,
         "author": "Alex Donley",
-        "award": "😄",
-        "text": [  
-            "this is a sample",
-            "practice reading English text",
-            "shuffle your input",
-            "loop your input"
+        "parts": [
+            {
+                "award": "😄",
+                "text": [  
+                    "this is a sample",
+                    "practice reading English text",
+                    "shuffle your input",
+                    "loop your input"
+                ]
+            }
         ]
     },
     {
         "title": "Summer Camp",
-        "part": 1,
         "author": "Alex Donley",
-        "award": "🍞",
-        "text": [  
-            "peanut butter and chocolate",
-            "bread and cheese",
-            "caramel and cream cheese",
-            "apples and bananas",
-            "blueberry jam and strawberry jam",
-            "pork floss and ham",
-            "lettuce and tomatoes"
-        ]
-    },
-    {
-        "title": "Summer Camp",
-        "part": 2,
-        "author": "Alex Donley",
-        "award": "🥜",
-        "text": [  
-            "I would like some bread peanut butter and chocolate",
-            "I would like some bananas cheese caramel and strawberry jam",
-            "I would like some doritos blueberry jam and lettuce",
-            "I would like some pork floss tomatoes cream cheese and apples"
-        ]
-    },
-    {
-        "title": "Summer Camp",
-        "part": 3,
-        "author": "Alex Donley",
-        "award": "💵",
-        "text": [  
-            "What would you like",
-            "I would like some bread",
-            "That will be one dollar",
-            "here you are",
-            "thank you!"
+        "parts": [
+            {
+                "award": "🍞",
+                "text": [  
+                    "peanut butter and chocolate",
+                    "bread and cheese",
+                    "caramel and cream cheese",
+                    "apples and bananas",
+                    "blueberry jam and strawberry jam",
+                    "pork floss and ham",
+                    "lettuce and tomatoes"
+                ]
+            },
+            {
+                "award": "🥜",
+                "text": [  
+                    "I would like some bread peanut butter and chocolate",
+                    "I would like some bananas cheese caramel and strawberry jam",
+                    "I would like some doritos blueberry jam and lettuce",
+                    "I would like some pork floss tomatoes cream cheese and apples"
+                ]
+            },
+            {
+                "award": "💵",
+                "text": [  
+                    "What would you like",
+                    "I would like some bread",
+                    "That will be one dollar",
+                    "here you are",
+                    "thank you!"
+                ]
+            }
         ]
     },
     {
         "title": "Big Green Monster",
-        "part": 1,
         "author": "Ed Emberley",
-        "award": "👀",
-        "text": [
-            "big green monster has 2 big yellow eyes",
-            "a long bluish greenish nose",
-            "a big red mouth with sharp white teeth",
-            "two little squiggly ears",
-            "scraggly purple hair", 
-            "and a big scary green face",
-            "but you don't scare me"
-        ]
-    },
-    {
-        "title": "Big Green Monster",
-        "part": 2,
-        "author": "Ed Emberley",
-        "award": "👄",
-        "text": [
-            "so go away scraggly purple hair",
-            "go away two little squiggly ears",
-            "go away long bluish greenish nose",
-            "go away big green face",
-            "go away big red mouth",
-            "go away sharp white teeth",
-            "go away two big yellow eyes",
-            "go away big green monster", 
-            "and don't come back until I say so"
-        ]
-    },
-    {
-        "title": "A New House",
-        "part": 1,
-        "author": "Arnold Lobel",
-        "award": "🍎",
-        "text": [
-            "the road went up a steep hill",
-            "grasshopper climbed to the top",
-            "look a large apple lying on the ground",
-            "I will have my lunch",
-            "he ate a big bite of the apple",
-            "look what you did",
-            "there was a worm living in the apple",
-            "you have made a hole in my roof"
+        "parts": [
+            {
+                "award": "👀",
+                "text": [
+                    "big green monster has 2 big yellow eyes",
+                    "a long bluish greenish nose",
+                    "a big red mouth with sharp white teeth",
+                    "two little squiggly ears",
+                    "scraggly purple hair", 
+                    "and a big scary green face",
+                    "but you don't scare me"
+                ]
+            },
+            {
+                "award": "👄",
+                "text": [
+                    "so go away scraggly purple hair",
+                    "go away two little squiggly ears",
+                    "go away long bluish greenish nose",
+                    "go away big green face",
+                    "go away big red mouth",
+                    "go away sharp white teeth",
+                    "go away two big yellow eyes",
+                    "go away big green monster", 
+                    "and don't come back until I say so"
+                ]
+            }
         ]
     },
     {
         "title": "A New House",
-        "part": 2,
         "author": "Arnold Lobel",
-        "award": "🐛",
-        "text": [
-            "it is not polite to eat a person's house",
-            "I am sorry",
-            "just then the apple began to roll down the road",
-            "it rolled down the other side of the hill",
-            "stop me catch me",
-            "you are rolling faster and faster"
-        ]
-    },
-    {
-        "title": "A New House",
-        "part": 3,
-        "author": "Arnold Lobel",
-        "award": "🛁",
-        "text": [
-            "worm's head was bumping on the walls",
-            "i hear his dishes falling off the shelf",
-            "grasshopper ran after the apple",
-            "my bathtub is in the living room",
-            "my bed is in the kitchen",
-            "grasshopper kept running down the hill",
-            "but he could not catch the apple",
-            "everything is a mess in there"
-        ]
-    },
-    {
-        "title": "A New House",
-        "part": 4,
-        "author": "Arnold Lobel",
-        "award": "💥",
-        "text": [
-            "are you getting dizzy?",
-            "my floor is on the ceiling",
-            "my attic is in the cellar",
-            "the apple rolled all the way down to the bottom of the hill",
-            "the apple hit a tree",
-            "it smashed into a hundred pieces",
-            "too bad worm your house is gone"
-        ]
-    },
-    {
-        "title": "A New House",
-        "part": 5,
-        "author": "Arnold Lobel",
-        "award": "🌳",
-        "text": [  
-            "the worm climbed up the side of the tree",
-            "oh never mind",
-            "it was old and it had a big bite in it anyway",
-            "this is a fine time for you to find a new house",
-            "grasshopper looked up into the tree", 
-            "it was filled with apples", 
-            "grasshopper smiled and he went on down the road"
+        "parts":[
+            {
+                "award": "🍎",
+                "text": [
+                    "the road went up a steep hill",
+                    "grasshopper climbed to the top",
+                    "look a large apple lying on the ground",
+                    "I will have my lunch",
+                    "he ate a big bite of the apple",
+                    "look what you did",
+                    "there was a worm living in the apple",
+                    "you have made a hole in my roof"
+                ]
+            },
+            {
+                "award": "🐛",
+                "text": [
+                    "it is not polite to eat a person's house",
+                    "I am sorry",
+                    "just then the apple began to roll down the road",
+                    "it rolled down the other side of the hill",
+                    "stop me catch me",
+                    "you are rolling faster and faster"
+                ]
+            },
+            {
+                "award": "🛁",
+                "text": [
+                    "worm's head was bumping on the walls",
+                    "i hear his dishes falling off the shelf",
+                    "grasshopper ran after the apple",
+                    "my bathtub is in the living room",
+                    "my bed is in the kitchen",
+                    "grasshopper kept running down the hill",
+                    "but he could not catch the apple",
+                    "everything is a mess in there"
+                ]
+            },
+            {
+                "award": "💥",
+                "text": [
+                    "are you getting dizzy?",
+                    "my floor is on the ceiling",
+                    "my attic is in the cellar",
+                    "the apple rolled all the way down to the bottom of the hill",
+                    "the apple hit a tree",
+                    "it smashed into a hundred pieces",
+                    "too bad worm your house is gone"
+                ]
+            },
+            {
+                "award": "🌳",
+                "text": [  
+                    "the worm climbed up the side of the tree",
+                    "oh never mind",
+                    "it was old and it had a big bite in it anyway",
+                    "this is a fine time for you to find a new house",
+                    "grasshopper looked up into the tree", 
+                    "it was filled with apples", 
+                    "grasshopper smiled and he went on down the road"
+                ]
+            }
         ]
     },
     {
         "title": "Brown Bear",
-        "part": 1,
         "author": "Eric Carle",
-        "award": "🐻",
-        "text": [  
-            "Brown bear, brown bear, what do you see?",
-            "I see a red bird looking at me",
-            "Red bird, red bird, what do you see?",
-            "I see a yellow duck looking at me",
-            "Yellow duck, yellow duck, what do you see?",
-            "I see a blue horse looking at me",
-            "Blue horse, blue horse, what do you see?",
-            "I see a green frog looking at me",
-            "Green frog, green frog, what do you see?",
-            "I see a purple cat looking at me"
-        ]
-    },
-    {
-        "title": "Brown Bear",
-        "part": 2,
-        "author": "Eric Carle",
-        "award": "🐈",
-        "text": [  
-            "Purple cat, purple cat, what do you see?",
-            "I see a white dog looking at me",
-            "White dog, white dog, what do you see?",
-            "I see a black sheep looking at me",
-            "Black sheep, black sheep, what do you see?",
-            "I see a goldfish looking at me",
-            "Goldfish, goldfish, what do you see?",
-            "I see a teacher looking at me",
-            "Teacher, teacher, what do you see?",
-            "I see children looking at me"
-        ]
-    },
-    {
-        "title": "Brown Bear",
-        "part": 3,
-        "author": "Eric Carle",
-        "award": "👪",
-        "text": [  
-            "Children, children, what do you see?",
-            "We see a brown bear, a red bird",
-            "a yellow duck, a blue horse, a green frog",
-            "a purple cat, a white dog, a black sheep",
-            "a goldfish, and a teacher, looking at us",
-            "That's what we see."
-        ]
-    },
-    {
-        "title": "Black Lagoon",
-        "part": 1,
-        "author": "Mike Thaler",
-        "award": "😬",
-        "text": [  
-            "It's the first day of school",
-            "I wonder who my teacher is.",
-            "I hear Mr. Smith has dandruff and warts",
-            "and Mrs. Jones has a whip and a wig",
-            "But Mrs. Green is supposed to be a real monster."
+        "parts":[
+            {
+                "award": "🐻",
+                "text": [  
+                    "Brown bear, brown bear, what do you see?",
+                    "I see a red bird looking at me",
+                    "Red bird, red bird, what do you see?",
+                    "I see a yellow duck looking at me",
+                    "Yellow duck, yellow duck, what do you see?",
+                    "I see a blue horse looking at me",
+                    "Blue horse, blue horse, what do you see?",
+                    "I see a green frog looking at me",
+                    "Green frog, green frog, what do you see?",
+                    "I see a purple cat looking at me"
+                ]
+            },
+            {
+                "award": "🐈",
+                "text": [  
+                    "Purple cat, purple cat, what do you see?",
+                    "I see a white dog looking at me",
+                    "White dog, white dog, what do you see?",
+                    "I see a black sheep looking at me",
+                    "Black sheep, black sheep, what do you see?",
+                    "I see a goldfish looking at me",
+                    "Goldfish, goldfish, what do you see?",
+                    "I see a teacher looking at me",
+                    "Teacher, teacher, what do you see?",
+                    "I see children looking at me"
+                ]
+            },
+            {
+                "award": "👪",
+                "text": [  
+                    "Children, children, what do you see?",
+                    "We see a brown bear, a red bird",
+                    "a yellow duck, a blue horse, a green frog",
+                    "a purple cat, a white dog, a black sheep",
+                    "a goldfish, and a teacher, looking at us",
+                    "That's what we see."
+                ]
+            }
         ]
     },
     {
         "title": "Black Lagoon",
-        "part": 2,
         "author": "Mike Thaler",
-        "award": "🙏",
-        "text": [  
-            "Oh my. I have her!",
-            "Mrs. Green... room 109.",
-            "What a bummer!",
-            "I sit at a desk",
-            "I fold my hands",
-            "I close my eyes.",
-            "I'm too young to die.",
-            "Suddenly a shadow covers the door.",
-            "It opens..."
+        "parts": [
+            {
+                "award": "😬",
+                "text": [  
+                    "It's the first day of school",
+                    "I wonder who my teacher is.",
+                    "I hear Mr. Smith has dandruff and warts",
+                    "and Mrs. Jones has a whip and a wig",
+                    "But Mrs. Green is supposed to be a real monster."
+                ]
+            },
+            {
+                "award": "🙏",
+                "text": [  
+                    "Oh my. I have her!",
+                    "Mrs. Green... room 109.",
+                    "What a bummer!",
+                    "I sit at a desk",
+                    "I fold my hands",
+                    "I close my eyes.",
+                    "I'm too young to die.",
+                    "Suddenly a shadow covers the door.",
+                    "It opens..."
+                ]
+            },
+            {
+                "award": "🌎",
+                "text": [  
+                    "In slithers Mrs. Green",
+                    "She's really green!",
+                    "She has a tail",
+                    "She scratches her name on the blackboard, with her claws!",
+                    "Freddy Jones throws a spitball",
+                    "She curls her lip and breathes fire at him",
+                    "Freddy's gone.",
+                    "There is just a little pile of ashes on his desk.",
+                    "Talk about bad breath, giggles Eric Porter.",
+                    "She slithers over, unscrews his head,",
+                    "and puts it on the globe stand."
+                ]
+            },
+            {
+                "award": "➗",
+                "text": [  
+                    "I bet she gives homework on the first day of school.",
+                    "Your homework for today, grins Mrs. Green",
+                    "smoke rising from her nostrils",
+                    "is pages 1 to 2 in your math book",
+                    "all the fraction problems.",
+                    "We've never had fractions, shouts Derek Bloom",
+                    "Come up here, she beckons with her claw.",
+                    "Derek stands by her desk.",
+                    "This is a whole boy, she smirks.",
+                    "She takes a big bite.",
+                    "This is half a boy. Now you've had fractions."
+                ]
+            },
+            {
+                "award": "🚪",
+                "text": [  
+                    "Doris Noodle cracks her gum",
+                    "Mrs. Green swallows her in one gulp!",
+                    "No chewing in class, she smiles",
+                    "Mr. Bender, the principal, sticks his head in.",
+                    "Keep up the good work,",
+                    "he nods and closes the door.",
+                    "I wish I could get sent to the principal's office.",
+                    "Let's call the roll, cackles Mrs. Green."
+                ]
+            },
+            {
+                "award": "🐸",
+                "text": [  
+                    "Freddy Jones is absent.",
+                    "Derek Bloom is half here.",
+                    "Eric Porter is here and there.",
+                    "Doris Noodle is digesting.",
+                    "What about spelling? shouts Randy Potts.",
+                    "Spelling can be fun! beams Mrs. Green.",
+                    "wiggling her fingers at him.",
+                    "Abracadabra Kazam!",
+                    "That's tough to spell, says Randy.",
+                    "Suddenly there's a flash of light, a puff of smoke,",
+                    "and Randy's a frog."
+                ]
+            },
+            {
+                "award": "📍",
+                "text": [  
+                    "Penny Weber raises her hand.",
+                    "Can I go to the nurse? she whines.",
+                    "What's wrong? asks Mrs. Green.",
+                    "I have a huge headache, says Penny.",
+                    "Mrs. Green wriggles her fingers.",
+                    "There's another flash of light", 
+                    "and Penny's head is the size of a pin.",
+                    "Better? asks Mrs. Green.",
+                    "Now it's nap time.",
+                    "Everyone who still has one, put your head on the desk.",
+                    "I hope I make it to recess.",
+                    "Sweet dreams, she cackles as I close my eyes."
+                ]
+            },
+            {
+                "award": "🤗",
+                "text": [  
+                    "Suddenly the bell rings",
+                    "I wake up",
+                    "There's a pretty woman writing her name on the blackboard.",
+                    "She has real skin and no tail.",
+                    "I'm Mrs. Green, your teacher, she smiles.",
+                    "I jump out of my chair, run up, and hug her.",
+                    "Well thank you, she says.",
+                    "I'm glad to be here.",
+                    "Not as glad as I am!"
+                ]
+            }
         ]
     },
     {
-        "title": "Black Lagoon",
-        "part": 3,
-        "author": "Mike Thaler",
-        "award": "🌎",
-        "text": [  
-            "In slithers Mrs. Green",
-            "She's really green!",
-            "She has a tail",
-            "She scratches her name on the blackboard, with her claws!",
-            "Freddy Jones throws a spitball",
-            "She curls her lip and breathes fire at him",
-            "Freddy's gone.",
-            "There is just a little pile of ashes on his desk.",
-            "Talk about bad breath, giggles Eric Porter.",
-            "She slithers over, unscrews his head,",
-            "and puts it on the globe stand."
-        ]
-    },
-    {
-        "title": "Black Lagoon",
-        "part": 4,
-        "author": "Mike Thaler",
-        "award": "➗",
-        "text": [  
-            "I bet she gives homework on the first day of school.",
-            "Your homework for today, grins Mrs. Green",
-            "smoke rising from her nostrils",
-            "is pages 1 to 2 in your math book",
-            "all the fraction problems.",
-            "We've never had fractions, shouts Derek Bloom",
-            "Come up here, she beckons with her claw.",
-            "Derek stands by her desk.",
-            "This is a whole boy, she smirks.",
-            "She takes a big bite.",
-            "This is half a boy. Now you've had fractions."
-        ]
-    },
-    {
-        "title": "Black Lagoon",
-        "part": 5,
-        "author": "Mike Thaler",
-        "award": "🚪",
-        "text": [  
-            "Doris Noodle cracks her gum",
-            "Mrs. Green swallows her in one gulp!",
-            "No chewing in class, she smiles",
-            "Mr. Bender, the principal, sticks his head in.",
-            "Keep up the good work,",
-            "he nods and closes the door.",
-            "I wish I could get sent to the principal's office.",
-            "Let's call the roll, cackles Mrs. Green."
-        ]
-    },
-    {
-        "title": "Black Lagoon",
-        "part": 6,
-        "author": "Mike Thaler",
-        "award": "🐸",
-        "text": [  
-            "Freddy Jones is absent.",
-            "Derek Bloom is half here.",
-            "Eric Porter is here and there.",
-            "Doris Noodle is digesting.",
-            "What about spelling? shouts Randy Potts.",
-            "Spelling can be fun! beams Mrs. Green.",
-            "wiggling her fingers at him.",
-            "Abracadabra Kazam!",
-            "That's tough to spell, says Randy.",
-            "Suddenly there's a flash of light, a puff of smoke,",
-            "and Randy's a frog."
-        ]
-    },
-    {
-        "title": "Black Lagoon",
-        "part": 7,
-        "author": "Mike Thaler",
-        "award": "📍",
-        "text": [  
-            "Penny Weber raises her hand.",
-            "Can I go to the nurse? she whines.",
-            "What's wrong? asks Mrs. Green.",
-            "I have a huge headache, says Penny.",
-            "Mrs. Green wriggles her fingers.",
-            "There's another flash of light", 
-            "and Penny's head is the size of a pin.",
-            "Better? asks Mrs. Green.",
-            "Now it's nap time.",
-            "Everyone who still has one, put your head on the desk.",
-            "I hope I make it to recess.",
-            "Sweet dreams, she cackles as I close my eyes."
-        ]
-    },
-    {
-        "title": "Black Lagoon",
-        "part": 8,
-        "author": "Mike Thaler",
-        "award": "🤗",
-        "text": [  
-            "Suddenly the bell rings",
-            "I wake up",
-            "There's a pretty woman writing her name on the blackboard.",
-            "She has real skin and no tail.",
-            "I'm Mrs. Green, your teacher, she smiles.",
-            "I jump out of my chair, run up, and hug her.",
-            "Well thank you, she says.",
-            "I'm glad to be here.",
-            "Not as glad as I am!"
-        ]
-    },
-    {
-        "title": "Hip Hip Hooray 2 Story",
-        "part": "1a",
+        "title": "Hip Hip Hooray 2",
         "author": "Pearson",
-        "award": "🤖",
-        "text": [  
-            "Good morning.",
-            "Good morning. Can you give away toys?",
-            "Yes, we can.",
-            "What does he do?",
-            "He's a toy maker.",
-            "Watch out!",
-            "Oh, dear!",
-            "Ouch! Are you okay, Lola?",
-            "Yes, I'm fine."
+        "parts": [
+            {
+                "award": "🏬",
+                "text": [  
+                    "The store is messy.",
+                    "Let's clean up.",
+                    "What do you need?",
+                    "I need a broom.",
+                    "It's under the table.",
+                    "No it isn't.",
+                    "Ah! It's under you!",
+                    "Sorry."
+                ]
+            },
+            {
+                "award": "🗑️",
+                "text": [  
+                    "I can sweep the floor.",
+                    "Can you mop the floor, please?",
+                    "Sure, no problem.",
+                    "I need a bucket. Where's the bucket?",
+                    "Is it next to the table?",
+                    "Ah! Yes, it is!",
+                    "We're done. Now let's make toys.",
+                    "Yes, I can make toys."
+                ]
+            },
+            {
+                "award": "💡",
+                "text": [  
+                    "Look at the store. It's clean!",
+                    "Wow! There are new toys on the table.",
+                    "Oh! There's a lamp on the table.",
+                    "Hmm... there's a hole in the window.",
+                    "Hush!"
+                ]
+            },
+            {
+                "award": "☁️",
+                "text": [  
+                    "Good morning. How's the weather?",
+                    "It's cloudy and windy.",
+                    "Oh! There's a robot on the table.",
+                    "Wow! It can walk!",
+                    "Huh? Excuse me?",
+                    "Oh... Is there a flower behind the lamp?",
+                    "No, there isn't.",
+                    "Oh, excuse me! It's so windy."
+                ]
+            },
+            {
+                "award": "🚗",
+                "text": [  
+                    "Welcome.",
+                    "These cars are shiny.",
+                    "That doll is cute!",
+                    "Wow! That ball is cool!",
+                    "Ball? What ball?"
+                ]
+            },
+            {
+                "award": "💵",
+                "text": [  
+                    "Is that doll expensive?",
+                    "No, it isn't.",
+                    "How much is it?",
+                    "It's $25.",
+                    "How much are they?",
+                    "They're $85.",
+                    "27, 28, 29, 30! Cool! 30 cars!",
+                    "That ball, how much is it?",
+                    "Come here!",
+                    "What ball?",
+                    "We'll take the train, too.",
+                    "OK. 85 plus 15 equals 100.",
+                    "Here's $100.",
+                    "Thank you."
+                ]
+            },
+            {
+                "award": "😴",
+                "text": [  
+                    "What a good day!",
+                    "Hmm, I wonder... Who makes the toys?",
+                    "Let's find out.",
+                    "See anyone?",
+                    "No, not yet.",
+                    "What are you doing?",
+                    "Shh... I'm listening.",
+                    "They're sleeping.",
+                    "He's snoring!"
+                ]
+            },
+            {
+                "award": "🛏️",
+                "text": [  
+                    "What's that? Is it singing?",
+                    "I don't know. Let's find out.",
+                    "This is the bedroom.",
+                    "No one's here.",
+                    "This is the living room.",
+                    "No one's here.",
+                    "This is the kitchen.",
+                    "What are you doing?",
+                    "I'm running!",
+                    "Ah! I'm running, too!"
+                ]
+            },
+            {
+                "award": "📷",
+                "text": [  
+                    "What's that?",
+                    "I don't know.",
+                    "Look at the store. It's clean again.",
+                    "Hmm... I have an idea!",
+                    "What are you doing?",
+                    "I'm looking for something.",
+                    "Aha! Here it is.",
+                    "What do you have?",
+                    "I have a camera."
+                ]
+            },
+            {
+                "award": "💃",
+                "text": [  
+                    "Phew! We're safe!",
+                    "Wow! Look at the clothes!",
+                    "I'm wearing shoes! What are you wearing?",
+                    "I'm wearing a dress!",
+                    "Look! What does she have?",
+                    "I don't know! Does she have a snake?",
+                    "Yes, she does!",
+                    "Ah! Let's get out of here!"
+                ]
+            },
+            {
+                "award": "👞",
+                "text": [  
+                    "Who are they?",
+                    "I don't know!",
+                    "Hey! That's my dress.",
+                    "Whose shoes are those?",
+                    "They're your shoes.",
+                    "Say Cheese"
+                ]
+            },
+            {
+                "award": "👃",
+                "text": [  
+                    "Oh, no! I can't see!",
+                    "Ahh! Watch out!",
+                    "Ouch! My nose hurts.",
+                    "My head hurts!",
+                    "Whose hat is this?",
+                    "It's her hat.",
+                    "Not again! Now I have a headache."
+                ]
+            },
+            {
+                "award": "🛑",
+                "text": [  
+                    "Thank you for helping us.",
+                    "No problem.",
+                    "You're welcome.",
+                    "Watch out!",
+                    "Don't touch that!",
+                    "Help! Stop!",
+                    "That's not a lamp! What is it?"
+                ]
+            },
+            {
+                "award": "🌕",
+                "text": [  
+                    "Wow, a spaceship!",
+                    "Where are you going?",
+                    "I'm going to the spaceship.",
+                    "Look at the new toys!",
+                    "Wow! Thank you for making the toys.",
+                    "You're welcome.",
+                    "Now it's time to go.",
+                    "Are you going to the moon?",
+                    "No, we're going home!",
+                    "Oh, no! Not another hole!"
+                ]
+            }
         ]
-    },
-    {
-        "title": "Hip Hip Hooray 2 Story",
-        "part": "1b",
-        "author": "Pearson",
-        "award": "👮",
-        "text": [  
-            "Is she a mail carrier?",
-            "No, she isn't.",
-            "What does she do then?",
-            "She's a police officer.",
-            "Who is she?",
-            "She's Mrs. Jones.",
-            "He's Mr. Jones.",
-            "What's he like?",
-            "He's hard-working.",
-            "Here you are.",
-            "Thank you! You're generous!",
-            "Be careful, Bobo!"
-        ]
-    },
-    {
-        "title": "Hip Hip Hooray 2 Story",
-        "part": "2a",
-        "author": "Pearson",
-        "award": "🏬",
-        "text": [  
-            "The store is messy.",
-            "Let's clean up.",
-            "What do you need?",
-            "I need a broom.",
-            "It's under the table.",
-            "No it isn't.",
-            "Ah! It's under you!",
-            "Sorry."
-        ]
-    },
-    {
-        "title": "Hip Hip Hooray 2 Story",
-        "part": "2b",
-        "author": "Pearson",
-        "award": "🗑️",
-        "text": [  
-            "I can sweep the floor.",
-            "Can you mop the floor, please?",
-            "Sure, no problem.",
-            "I need a bucket. Where's the bucket?",
-            "Is it next to the table?",
-            "Ah! Yes, it is!",
-            "We're done. Now let's make toys.",
-            "Yes, I can make toys."
-        ]
-    },
-    {
-        "title": "Hip Hip Hooray 2 Story",
-        "part": "3a",
-        "author": "Pearson",
-        "award": "💡",
-        "text": [  
-            "Look at the store. It's clean!",
-            "Wow! There are new toys on the table.",
-            "Oh! There's a lamp on the table.",
-            "Hmm... there's a hole in the window.",
-            "Hush!"
-        ]
-    },
-    {
-        "title": "Hip Hip Hooray 2 Story",
-        "part": "3b",
-        "author": "Pearson",
-        "award": "☁️",
-        "text": [  
-            "Good morning. How's the weather?",
-            "It's cloudy and windy.",
-            "Oh! There's a robot on the table.",
-            "Wow! It can walk!",
-            "Huh? Excuse me?",
-            "Oh... Is there a flower behind the lamp?",
-            "No, there isn't.",
-            "Oh, excuse me! It's so windy."
-        ]
-    },
-    {
-        "title": "Hip Hip Hooray 2 Story",
-        "part": "4a",
-        "author": "Pearson",
-        "award": "🚗",
-        "text": [  
-            "Welcome.",
-            "These cars are shiny.",
-            "That doll is cute!",
-            "Wow! That ball is cool!",
-            "Ball? What ball?"
-        ]
-    },
-    {
-        "title": "Hip Hip Hooray 2 Story",
-        "part": "4b",
-        "author": "Pearson",
-        "award": "💵",
-        "text": [  
-            "Is that doll expensive?",
-            "No, it isn't.",
-            "How much is it?",
-            "It's $25.",
-            "How much are they?",
-            "They're $85.",
-            "27, 28, 29, 30! Cool! 30 cars!",
-            "That ball, how much is it?",
-            "Come here!",
-            "What ball?",
-            "We'll take the train, too.",
-            "OK. 85 plus 15 equals 100.",
-            "Here's $100.",
-            "Thank you."
-        ]
-    },
-    {
-        "title": "Hip Hip Hooray 2 Story",
-        "part": "5a",
-        "author": "Pearson",
-        "award": "😴",
-        "text": [  
-            "What a good day!",
-            "Hmm, I wonder... Who makes the toys?",
-            "Let's find out.",
-            "See anyone?",
-            "No, not yet.",
-            "What are you doing?",
-            "Shh... I'm listening.",
-            "They're sleeping.",
-            "He's snoring!"
-        ]
-    },
-    {
-        "title": "Hip Hip Hooray 2 Story",
-        "part": "5b",
-        "author": "Pearson",
-        "award": "🛏️",
-        "text": [  
-            "What's that? Is it singing?",
-            "I don't know. Let's find out.",
-            "This is the bedroom.",
-            "No one's here.",
-            "This is the living room.",
-            "No one's here.",
-            "This is the kitchen.",
-            "What are you doing?",
-            "I'm running!",
-            "Ah! I'm running, too!"
-        ]
-    },
-    {
-        "title": "Hip Hip Hooray 2 Story",
-        "part": "6a",
-        "author": "Pearson",
-        "award": "📷",
-        "text": [  
-            "What's that?",
-            "I don't know.",
-            "Look at the store. It's clean again.",
-            "Hmm... I have an idea!",
-            "What are you doing?",
-            "I'm looking for something.",
-            "Aha! Here it is.",
-            "What do you have?",
-            "I have a camera."
-        ]
-    },
-    {
-        "title": "Hip Hip Hooray 2 Story",
-        "part": "6b",
-        "author": "Pearson",
-        "award": "💃",
-        "text": [  
-            "Phew! We're safe!",
-            "Wow! Look at the clothes!",
-            "I'm wearing shoes! What are you wearing?",
-            "I'm wearing a dress!",
-            "Look! What does she have?",
-            "I don't know! Does she have a snake?",
-            "Yes, she does!",
-            "Ah! Let's get out of here!"
-        ]
-    },
-    {
-        "title": "Hip Hip Hooray 2 Story",
-        "part": "7a",
-        "author": "Pearson",
-        "award": "👞",
-        "text": [  
-            "Who are they?",
-            "I don't know!",
-            "Hey! That's my dress.",
-            "Whose shoes are those?",
-            "They're your shoes.",
-            "Say Cheese"
-        ]
-    },
-    {
-        "title": "Hip Hip Hooray 2 Story",
-        "part": "7b",
-        "author": "Pearson",
-        "award": "👃",
-        "text": [  
-            "Oh, no! I can't see!",
-            "Ahh! Watch out!",
-            "Ouch! My nose hurts.",
-            "My head hurts!",
-            "Whose hat is this?",
-            "It's her hat.",
-            "Not again! Now I have a headache."
-        ]
-    },
-    {
-        "title": "Hip Hip Hooray 2 Story",
-        "part": "8a",
-        "author": "Pearson",
-        "award": "🛑",
-        "text": [  
-            "Thank you for helping us.",
-            "No problem.",
-            "You're welcome.",
-            "Watch out!",
-            "Don't touch that!",
-            "Help! Stop!",
-            "That's not a lamp! What is it?"
-        ]
-    },
-    {
-        "title": "Hip Hip Hooray 2 Story",
-        "part": "8b",
-        "author": "Pearson",
-        "award": "🌕",
-        "text": [  
-            "Wow, a spaceship!",
-            "Where are you going?",
-            "I'm going to the spaceship.",
-            "Look at the new toys!",
-            "Wow! Thank you for making the toys.",
-            "You're welcome.",
-            "Now it's time to go.",
-            "Are you going to the moon?",
-            "No, we're going home!",
-            "Oh, no! Not another hole!"
-        ]
+
     },
     {
         "title": "Wonder World 1 Story",
-        "part": 1,
         "author": "KNSH",
-        "award": "🎂",
-        "text": [  
-            "Happy birthday, Boka!",
-            "Thank you.",
-            "You're welcome.",
-            "How old are you, Boka.",
-            "I'm one.",
-            "One?",
-            "How old are you?",
-            "I'm eight years old.",
-            "I'm nine.",
-            "This is for you.",
-            "Thank you.",
-            "Oh, no!"
+        "parts":[
+            {
+                "award": "🎂",
+                "text": [  
+                    "Happy birthday, Boka!",
+                    "Thank you.",
+                    "You're welcome.",
+                    "How old are you, Boka.",
+                    "I'm one.",
+                    "One?",
+                    "How old are you?",
+                    "I'm eight years old.",
+                    "I'm nine.",
+                    "This is for you.",
+                    "Thank you.",
+                    "Oh, no!"
+                ]
+            },
+            {
+                "award": "🥛",
+                "text": [  
+                    "Are you OK?",
+                    "Oh, I'm fine.",
+                    "Are you hungry?",
+                    "Yes, I am.",
+                    "Here you are.",
+                    "Thank you.",
+                    "Are you thirsty?",
+                    "Yes, I am.",
+                    "Oops!",
+                    "I'm hungry and thirsty. I'm sad.",
+                    "Drink it.",
+                    "Five, four, three, two, one!",
+                    "Phew!"
+                ]
+            },
+            {
+                "award": "⚽",
+                "text": [  
+                    "Good morning!",
+                    "Good morning!",
+                    "What's this?",
+                    "It's a ball.",
+                    "Cool!",
+                    "What's that?",
+                    "It's a car.",
+                    "Look!",
+                    "Come here.",
+                    "Wow! It's a robot!",
+                    "Oops! I'm sorry."
+                ]
+            },
+            {
+                "award": "💚",
+                "text": [  
+                    "Ouch!",
+                    "Uh-oh!",
+                    "Please get a ball, Boka!",
+                    "What color is it?",
+                    "It's yellow.",
+                    "Please get a kite, Kevin!",
+                    "What color is it?",
+                    "It's green.",
+                    "Try again.",
+                    "OK.",
+                    "Great!",
+                    "Good job, everyone!"
+                ]
+            }
         ]
-    },
-    {
-        "title": "Wonder World 1 Story",
-        "part": 2,
-        "author": "KNSH",
-        "award": "🥛",
-        "text": [  
-            "Are you OK?",
-            "Oh, I'm fine.",
-            "Are you hungry?",
-            "Yes, I am.",
-            "Here you are.",
-            "Thank you.",
-            "Are you thirsty?",
-            "Yes, I am.",
-            "Oops!",
-            "I'm hungry and thirsty. I'm sad.",
-            "Drink it.",
-            "Five, four, three, two, one!",
-            "Phew!"
-        ]
-    },
-    {
-        "title": "Wonder World 1 Story",
-        "part": 3,
-        "author": "KNSH",
-        "award": "⚽",
-        "text": [  
-            "Good morning!",
-            "Good morning!",
-            "What's this?",
-            "It's a ball.",
-            "Cool!",
-            "What's that?",
-            "It's a car.",
-            "Look!",
-            "Come here.",
-            "Wow! It's a robot!",
-            "Oops! I'm sorry."
-        ]
-    },
-    {
-        "title": "Wonder World 1 Story",
-        "part": 4,
-        "author": "KNSH",
-        "award": "💚",
-        "text": [  
-            "Ouch!",
-            "Uh-oh!",
-            "Please get a ball, Boka!",
-            "What color is it?",
-            "It's yellow.",
-            "Please get a kite, Kevin!",
-            "What color is it?",
-            "It's green.",
-            "Try again.",
-            "OK.",
-            "Great!",
-            "Good job, everyone!"
-        ]
+
     },
     {
         "title": "Wonder World 2 Story",
-        "part": 1,
         "author": "KNSH",
-        "award": "🐇",
-        "text": [  
-            "Are you ready?",
-            "Yes!",
-            "Hurry up, Boka!",
-            "Look! A bird.",
-            "A bird?",
-            "Yes! It's a bird.",
-            "Let's take a selfie.",
-            "Let's find a dog.",
-            "Is it a dog?",
-            "No, it's not. It's a rabbit.",
-            "What's that?",
-            "It's a dog.",
-            "Say cheese."
-        ]
-    },
-    {
-        "title": "Wonder World 2 Story",
-        "part": 2,
-        "author": "KNSH",
-        "award": "🎤",
-        "text": [  
-            "Can you sing?",
-            "Yes, I can.",
-            "Oh, please stop!",
-            "Can you sing, Boka?",
-            "Yes, I can.",
-            "Can you fly, Jello?",
-            "No, I can't.",
-            "Wait a minute.",
-            "Can you fly a kite?",
-            "Yes, I can.",
-            "Good job!",
-            "Hooray."
-        ]
-    },
-    {
-        "title": "Wonder World 2 Story",
-        "part": 3,
-        "author": "KNSH",
-        "award": "👨",
-        "text": [  
-            "He's tall. Who's he?",
-            "He's my dad.",
-            "Hi, Jello!",
-            "Who's she?",
-            "She's my mom.",
-            "Hi, Boka!",
-            "Who's she? Your sister?",
-            "No, she's my grandma.",
-            "Grandma, this is Kevin.",
-            "Nice to meet you, Kevin.",
-            "Nice to meet you, too.",
-            "It's Dad.",
-            "Wow!",
-            "Oh, I'm hungry."
-        ]
-    },
-    {
-        "title": "Wonder World 2 Story",
-        "part": 4,
-        "author": "KNSH",
-        "award": "👴",
-        "text": [  
-            "Grandpa, I'm home.",
-            "Welcome home.",
-            "Time for dinner!",
-            "Is your dad a cook?",
-            "Yes, he is.",
-            "Who's she?",
-            "She's my sister.",
-            "Is she a student?",
-            "No, she's not. She's a teacher.",
-            "Time for school. See you.",
-            "Is your grandpa a student?",
-            "Yes, he is.",
-            "Sorry, I'm late.",
-            "It's OK."
+        "parts":[
+            {
+                "award": "🐇",
+                "text": [  
+                    "Are you ready?",
+                    "Yes!",
+                    "Hurry up, Boka!",
+                    "Look! A bird.",
+                    "A bird?",
+                    "Yes! It's a bird.",
+                    "Let's take a selfie.",
+                    "Let's find a dog.",
+                    "Is it a dog?",
+                    "No, it's not. It's a rabbit.",
+                    "What's that?",
+                    "It's a dog.",
+                    "Say cheese."
+                ]
+            },
+            {
+                "award": "🎤",
+                "text": [  
+                    "Can you sing?",
+                    "Yes, I can.",
+                    "Oh, please stop!",
+                    "Can you sing, Boka?",
+                    "Yes, I can.",
+                    "Can you fly, Jello?",
+                    "No, I can't.",
+                    "Wait a minute.",
+                    "Can you fly a kite?",
+                    "Yes, I can.",
+                    "Good job!",
+                    "Hooray."
+                ]
+            },
+            {
+                "award": "👨",
+                "text": [  
+                    "He's tall. Who's he?",
+                    "He's my dad.",
+                    "Hi, Jello!",
+                    "Who's she?",
+                    "She's my mom.",
+                    "Hi, Boka!",
+                    "Who's she? Your sister?",
+                    "No, she's my grandma.",
+                    "Grandma, this is Kevin.",
+                    "Nice to meet you, Kevin.",
+                    "Nice to meet you, too.",
+                    "It's Dad.",
+                    "Wow!",
+                    "Oh, I'm hungry."
+                ]
+            },
+            {
+                "award": "👴",
+                "text": [  
+                    "Grandpa, I'm home.",
+                    "Welcome home.",
+                    "Time for dinner!",
+                    "Is your dad a cook?",
+                    "Yes, he is.",
+                    "Who's she?",
+                    "She's my sister.",
+                    "Is she a student?",
+                    "No, she's not. She's a teacher.",
+                    "Time for school. See you.",
+                    "Is your grandpa a student?",
+                    "Yes, he is.",
+                    "Sorry, I'm late.",
+                    "It's OK."
+                ]
+            }
         ]
     },
     {
         "title": "Wonder World 3 Story",
-        "part": 1,
         "author": "KNSH",
-        "award": "💨",
-        "text": [  
-            "Kevin, wake up!",
-            "Let's go to the park.",
-            "How's the weather?",
-            "It's sunny.",
-            "No, it's rainy.",
-            "How come?",
-            "Look! It's Boka!",
-            "Let's go, Kevin.",
-            "Line up, please.",
-            "Look! It's cloudy.",
-            "It's windy.",
-            "Oh, no! My cap!",
-            "What's going on?"
-        ]
-    },
-    {
-        "title": "Wonder World 3 Story",
-        "part": 2,
-        "author": "KNSH",
-        "award": "🕓",
-        "text": [  
-            "We're back.",
-            "Great!",
-            "Listen!",
-            "It's the school bell.",
-            "Oh, it's four o'clock. Time to go home.",
-            "Look!",
-            "It's a bird.",
-            "That's a frog.",
-            "It's four fifteen. We must go home.",
-            "What's that?",
-            "It's a dog.",
-            "What time is it?",
-            "Oh no! It's four fifty!",
-            "Bye!",
-            "Sorry, I'm late, Mom."
-        ]
-    },
-    {
-        "title": "Wonder World 3 Story",
-        "part": 3,
-        "author": "KNSH",
-        "award": "✏️",
-        "text": [  
-            "Nice!",
-            "Is this your pencil?",
-            "No, it's not.",
-            "Is this your eraser?",
-            "No, it's not.",
-            "Let's take them to the lost and found.",
-            "But they're so cool. I like them.",
-            "It's not your pencil.",
-            "It's not your eraser.",
-            "What happened?",
-            "Phew! It's just a dream."
-        ]
-    },
-    {
-        "title": "Wonder World 3 Story",
-        "part": 4,
-        "author": "KNSH",
-        "award": "🎒",
-        "text": [  
-            "Where's the eraser?",
-            "It's under the chair.",
-            "Earthquake! Please take cover.",
-            "Jello, get under the desk.",
-            "On the desk?",
-            "No! Not on the desk. Under the desk.",
-            "OK.",
-            "Where's my schoolbag?",
-            "It's on the chair.",
-            "Where's Boka?",
-            "I'm here. Give me a hand, please.",
-            "One, two, three!",
-            "Watch out!"
+        "parts":[
+            {
+                "award": "💨",
+                "text": [  
+                    "Kevin, wake up!",
+                    "Let's go to the park.",
+                    "How's the weather?",
+                    "It's sunny.",
+                    "No, it's rainy.",
+                    "How come?",
+                    "Look! It's Boka!",
+                    "Let's go, Kevin.",
+                    "Line up, please.",
+                    "Look! It's cloudy.",
+                    "It's windy.",
+                    "Oh, no! My cap!",
+                    "What's going on?"
+                ]
+            },
+            {
+                "award": "🕓",
+                "text": [  
+                    "We're back.",
+                    "Great!",
+                    "Listen!",
+                    "It's the school bell.",
+                    "Oh, it's four o'clock. Time to go home.",
+                    "Look!",
+                    "It's a bird.",
+                    "That's a frog.",
+                    "It's four fifteen. We must go home.",
+                    "What's that?",
+                    "It's a dog.",
+                    "What time is it?",
+                    "Oh no! It's four fifty!",
+                    "Bye!",
+                    "Sorry, I'm late, Mom."
+                ]
+            },
+            {
+                "award": "✏️",
+                "text": [  
+                    "Nice!",
+                    "Is this your pencil?",
+                    "No, it's not.",
+                    "Is this your eraser?",
+                    "No, it's not.",
+                    "Let's take them to the lost and found.",
+                    "But they're so cool. I like them.",
+                    "It's not your pencil.",
+                    "It's not your eraser.",
+                    "What happened?",
+                    "Phew! It's just a dream."
+                ]
+            },
+            {
+                "award": "🎒",
+                "text": [  
+                    "Where's the eraser?",
+                    "It's under the chair.",
+                    "Earthquake! Please take cover.",
+                    "Jello, get under the desk.",
+                    "On the desk?",
+                    "No! Not on the desk. Under the desk.",
+                    "OK.",
+                    "Where's my schoolbag?",
+                    "It's on the chair.",
+                    "Where's Boka?",
+                    "I'm here. Give me a hand, please.",
+                    "One, two, three!",
+                    "Watch out!"
+                ]
+            }
         ]
     },
     {
         "title": "Wonder World 4 Story",
-        "part": 1,
         "author": "KNSH",
-        "award": "🎁",
-        "text": [  
-            "Amy!",
-            "Amy, where are you?",
-            "I'm here. I'm in the bedroom.",
-            "This is for you, Jello.",
-            "Wow! Thank you. It's a dollhouse!",
-            "Cool!",
-            "That's my father.",
-            "He's in the kitchen.",
-            "Where is my mother?",
-            "She's in the dining room.",
-            "Look! My sister is in the living room.",
-            "Where is the bathroom?",
-            "Over there.",
-            "Uh, I need to use the bathroom."
-        ]
-    },
-    {
-        "title": "Wonder World 4 Story",
-        "part": 2,
-        "author": "KNSH",
-        "award": "🏃",
-        "text": [  
-            "Hi, Mom. I miss you so much.",
-            "Me too.",
-            "Hi, Mrs. Blue.",
-            "Hi, Amy. What are you doing?",
-            "I'm eating an apple.",
-            "Is that Grandma?",
-            "Yes. She's running.",
-            "Hi, Boka. Look! I can run very fast.",
-            "Wow! That's great.",
-            "What's Grandpa doing?",
-            "He's writing.",
-            "Yay! I'm done.",
-            "Dinner is ready.",
-            "It's dinner time. Bye, Mom!",
-            "Dinner! Oh, no!"
-        ]
-    },
-    {
-        "title": "Wonder World 4 Story",
-        "part": 3,
-        "author": "KNSH",
-        "award": "🍔",
-        "text": [  
-            "All set and ready to go!",
-            "Dad, I'm hungry. Let's have lunch.",
-            "Good idea!",
-            "Here we are.",
-            "Thank you, Mr. Lee.",
-            "Hurry up!",
-            "What do you want for lunch?",
-            "Mmm, let me see. I want a hamburger.",
-            "What do you want?",
-            "I want a hot dog.",
-            "I want a hamburger and some juice. How about you, Boka?",
-            "Mmm, I want two hot dogs, three hamburgers, and some ice cream.",
-            "Uh-oh!"
-        ]
-    },
-    {
-        "title": "Wonder World 4 Story",
-        "part": 4,
-        "author": "KNSH",
-        "award": "🐒",
-        "text": [  
-            "Cool!",
-            "Hello, monkeys.",
-            "I like monkeys. They are cute!",
-            "Have fun!",
-            "Do you like zebras?",
-            "Yes, I do.",
-            "Me too.",
-            "I like bears. Do you like bears?",
-            "No, I don't. They are big.",
-            "Wow! What's that?",
-            "It's a tiger.",
-            "I don't like bears.",
-            "I don't like tigers.",
-            "A bear! Help!",
-            "A tiger! Run!"
+        "parts": [
+            {
+                "award": "🎁",
+                "text": [  
+                    "Amy!",
+                    "Amy, where are you?",
+                    "I'm here. I'm in the bedroom.",
+                    "This is for you, Jello.",
+                    "Wow! Thank you. It's a dollhouse!",
+                    "Cool!",
+                    "That's my father.",
+                    "He's in the kitchen.",
+                    "Where is my mother?",
+                    "She's in the dining room.",
+                    "Look! My sister is in the living room.",
+                    "Where is the bathroom?",
+                    "Over there.",
+                    "Uh, I need to use the bathroom."
+                ]
+            },
+            {
+                "award": "🏃",
+                "text": [  
+                    "Hi, Mom. I miss you so much.",
+                    "Me too.",
+                    "Hi, Mrs. Blue.",
+                    "Hi, Amy. What are you doing?",
+                    "I'm eating an apple.",
+                    "Is that Grandma?",
+                    "Yes. She's running.",
+                    "Hi, Boka. Look! I can run very fast.",
+                    "Wow! That's great.",
+                    "What's Grandpa doing?",
+                    "He's writing.",
+                    "Yay! I'm done.",
+                    "Dinner is ready.",
+                    "It's dinner time. Bye, Mom!",
+                    "Dinner! Oh, no!"
+                ]
+            },
+            {
+                "award": "🍔",
+                "text": [  
+                    "All set and ready to go!",
+                    "Dad, I'm hungry. Let's have lunch.",
+                    "Good idea!",
+                    "Here we are.",
+                    "Thank you, Mr. Lee.",
+                    "Hurry up!",
+                    "What do you want for lunch?",
+                    "Mmm, let me see. I want a hamburger.",
+                    "What do you want?",
+                    "I want a hot dog.",
+                    "I want a hamburger and some juice. How about you, Boka?",
+                    "Mmm, I want two hot dogs, three hamburgers, and some ice cream.",
+                    "Uh-oh!"
+                ]
+            },
+            {
+                "award": "🐒",
+                "text": [  
+                    "Cool!",
+                    "Hello, monkeys.",
+                    "I like monkeys. They are cute!",
+                    "Have fun!",
+                    "Do you like zebras?",
+                    "Yes, I do.",
+                    "Me too.",
+                    "I like bears. Do you like bears?",
+                    "No, I don't. They are big.",
+                    "Wow! What's that?",
+                    "It's a tiger.",
+                    "I don't like bears.",
+                    "I don't like tigers.",
+                    "A bear! Help!",
+                    "A tiger! Run!"
+                ]
+            }
         ]
     },
     {
         "title": "Wonder World 5 Story",
-        "part": 1,
         "author": "KNSH",
-        "award": "💧",
-        "text": [  
-            "I'm thirsty.",
-            "Me too. I need more water.",
-            "Juice! I like juice. Do you like juice?",
-            "No, I don't. I like water.",
-            "Does Kevin like juice?",
-            "Yes, he does.",
-            "Boka likes milk tea.",
-            "Kevin, one for you and one for me.",
-            "Thank you, but I need water now.",
-            "I'm still thirsty.",
-            "Me too. How come?",
-            "Drink some water.",
-            "Water is the best!"
+        "parts": [
+            {
+                "award": "💧",
+                "text": [  
+                    "I'm thirsty.",
+                    "Me too. I need more water.",
+                    "Juice! I like juice. Do you like juice?",
+                    "No, I don't. I like water.",
+                    "Does Kevin like juice?",
+                    "Yes, he does.",
+                    "Boka likes milk tea.",
+                    "Kevin, one for you and one for me.",
+                    "Thank you, but I need water now.",
+                    "I'm still thirsty.",
+                    "Me too. How come?",
+                    "Drink some water.",
+                    "Water is the best!"
+                ]
+            },
+            {
+                "award": "🍇",
+                "text": [  
+                    "Let's make fruit salad!",
+                    "Let's wash our hands first.",
+                    "How many oranges do we need?",
+                    "We need six oranges.",
+                    "Save the peel, Jello. We can make orange peel cleaner.",
+                    "So many grapes! How many grapes do we need?",
+                    "We need a lot.",
+                    "I like grapes.",
+                    "Boka!",
+                    "Phew!",
+                    "Be careful next time, Boka."
+                ]
+            },
+            {
+                "award": "🍇",
+                "text": [  
+                    "It's sunny. Let's go to the zoo.",
+                    "Good idea!",
+                    "Is it Sunday today?",
+                    "No it isn't.",
+                    "What day is today?",
+                    "It's Monday. It's a holiday.",
+                    "The zoo is closed today.",
+                    "Where can we go?",
+                    "Let's go to the park.",
+                    "It's raining.",
+                    "Oh, no! What can we do?",
+                    "Let's go home.",
+                    "It's a fun day!"
+                ]
+            },
+            {
+                "award": "🎨",
+                "text": [  
+                    "I love math.",
+                    "Not me. I don't like numbers.",
+                    "And I really don't like THIS number.",
+                    "Then what's your favorite subject?",
+                    "My favorite subject is English.",
+                    "How about you, Jello?",
+                    "My favorite subject is art.",
+                    "What's Boka's favorite subject?",
+                    "His favorite subject is PE.",
+                    "Boka, I guess you like Tuesday.",
+                    "Yes! How did you know that?",
+                    "You have PE class on Tuesday.",
+                    "I also have cooking class on Tuesday. That's my favorite class too."
+                ]
+            }
         ]
-    },
-    {
-        "title": "Wonder World 5 Story",
-        "part": 2,
-        "author": "KNSH",
-        "award": "🍇",
-        "text": [  
-            "Let's make fruit salad!",
-            "Let's wash our hands first.",
-            "How many oranges do we need?",
-            "We need six oranges.",
-            "Save the peel, Jello. We can make orange peel cleaner.",
-            "So many grapes! How many grapes do we need?",
-            "We need a lot.",
-            "I like grapes.",
-            "Boka!",
-            "Phew!",
-            "Be careful next time, Boka."
-        ]
-    },
-    {
-        "title": "Wonder World 5 Story",
-        "part": 3,
-        "author": "KNSH",
-        "award": "🍇",
-        "text": [  
-            "It's sunny. Let's go to the zoo.",
-            "Good idea!",
-            "Is it Sunday today?",
-            "No it isn't.",
-            "What day is today?",
-            "It's Monday. It's a holiday.",
-            "The zoo is closed today.",
-            "Where can we go?",
-            "Let's go to the park.",
-            "It's raining.",
-            "Oh, no! What can we do?",
-            "Let's go home.",
-            "It's a fun day!"
-        ]
-    },
-    {
-        "title": "Wonder World 5 Story",
-        "part": 4,
-        "author": "KNSH",
-        "award": "🎨",
-        "text": [  
-            "I love math.",
-            "Not me. I don't like numbers.",
-            "And I really don't like THIS number.",
-            "Then what's your favorite subject?",
-            "My favorite subject is English.",
-            "How about you, Jello?",
-            "My favorite subject is art.",
-            "What's Boka's favorite subject?",
-            "His favorite subject is PE.",
-            "Boka, I guess you like Tuesday.",
-            "Yes! How did you know that?",
-            "You have PE class on Tuesday.",
-            "I also have cooking class on Tuesday. That's my favorite class too."
-        ]
+
     },
     {
         "title": "Wonder World 6 Story",
-        "part": 1,
         "author": "KNSH",
-        "award": "💝",
-        "text": [  
-            "It's my birthday today.",
-            "Good morning Boka. What day is today?",
-            "It's Saturday.",
-            "Saturday? It's your turn to walk the dog, Jello.",
-            "Where are you going, Lucky?",
-            "Look! I want that cake for my birthday.",
-            "Hi Jello. Are you going to the park?",
-            "Yes, I am. Bye, Amy.",
-            "Let's go home.",
-            "Surprise!",
-            "Happy birthday, Jello!"
-        ]
-    },
-    {
-        "title": "Wonder World 6 Story",
-        "part": 2,
-        "author": "KNSH",
-        "award": "🚲",
-        "text": [  
-            "Let's go to Wonder Park.",
-            "Excuse me. We're going to Wonder Park. How can we get there.",
-            "Let me check. You can get there by bus 101.",
-            "Can we walk there?",
-            "No, it's too far away.",
-            "OK. Thanks a lot!",
-            "Let's ride a bike to the zoo, Jello.",
-            "OK!",
-            "Here we are!",
-            "Happy Zoo?"
-        ]
-    },
-    {
-        "title": "Wonder World 6 Story",
-        "part": 3,
-        "author": "KNSH",
-        "award": "🛒",
-        "text": [  
-            "Let's go shopping! You need new clothes for the wedding.",
-            "Great!",
-            "This dress looks nice. How much is it?",
-            "It's nine hundred dollars.",
-            "How much are they?",
-            "They're four hundred and fifty dollars.",
-            "I like these shorts, Mom.",
-            "Those shorts are not good for the wedding.",
-            "How about this skirt? It's cute.",
-            "Mom, please. I don't want skirts or dresses.",
-            "I want to wear pants to the wedding.",
-            "Hmm, try them on.",
-            "The pants look good on you.",
-            "How much are the pants?",
-            "They're six hundred dollars.",
-            "At Uncle John's wedding."
-        ]
-    },
-    {
-        "title": "Wonder World 6 Story",
-        "part": 4,
-        "author": "KNSH",
-        "award": "🔑",
-        "text": [  
-            "Where's my backpack?",
-            "Aha! Here it is.",
-            "Mmm, it's yummy.",
-            "I need a tissue.",
-            "Keys? Whose keys are they?",
-            "An umbrella?",
-            "It's Kevin's backpack!",
-            "Boka, this is your backpack.",
-            "Thank you, Kevin. And this is your backpack.",
-            "Where's my lunch?",
-            "I'm sorry."
+        "parts":[
+            {
+                "award": "💝",
+                "text": [  
+                    "It's my birthday today.",
+                    "Good morning Boka. What day is today?",
+                    "It's Saturday.",
+                    "Saturday? It's your turn to walk the dog, Jello.",
+                    "Where are you going, Lucky?",
+                    "Look! I want that cake for my birthday.",
+                    "Hi Jello. Are you going to the park?",
+                    "Yes, I am. Bye, Amy.",
+                    "Let's go home.",
+                    "Surprise!",
+                    "Happy birthday, Jello!"
+                ]
+            },
+            {
+                "award": "🚲",
+                "text": [  
+                    "Let's go to Wonder Park.",
+                    "Excuse me. We're going to Wonder Park. How can we get there.",
+                    "Let me check. You can get there by bus 101.",
+                    "Can we walk there?",
+                    "No, it's too far away.",
+                    "OK. Thanks a lot!",
+                    "Let's ride a bike to the zoo, Jello.",
+                    "OK!",
+                    "Here we are!",
+                    "Happy Zoo?"
+                ]
+            },
+            {
+                "award": "🛒",
+                "text": [  
+                    "Let's go shopping! You need new clothes for the wedding.",
+                    "Great!",
+                    "This dress looks nice. How much is it?",
+                    "It's nine hundred dollars.",
+                    "How much are they?",
+                    "They're four hundred and fifty dollars.",
+                    "I like these shorts, Mom.",
+                    "Those shorts are not good for the wedding.",
+                    "How about this skirt? It's cute.",
+                    "Mom, please. I don't want skirts or dresses.",
+                    "I want to wear pants to the wedding.",
+                    "Hmm, try them on.",
+                    "The pants look good on you.",
+                    "How much are the pants?",
+                    "They're six hundred dollars.",
+                    "At Uncle John's wedding."
+                ]
+            },
+            {
+                "award": "🔑",
+                "text": [  
+                    "Where's my backpack?",
+                    "Aha! Here it is.",
+                    "Mmm, it's yummy.",
+                    "I need a tissue.",
+                    "Keys? Whose keys are they?",
+                    "An umbrella?",
+                    "It's Kevin's backpack!",
+                    "Boka, this is your backpack.",
+                    "Thank you, Kevin. And this is your backpack.",
+                    "Where's my lunch?",
+                    "I'm sorry."
+                ]
+            }
         ]
     },
     {
         "title": "Wonder World 7 Story",
-        "part": 1,
         "author": "KNSH",
-        "award": "🍁",
-        "text": [  
-            "Welcome, everyone.",
-            "Hi, Tommy! I'm from the UK. Where are you from?",
-            "I'm from Canada.",
-            "Are you from the USA?",
-            "No, I'm not. I'm from France.",
-            "Look! There's a whale.",
-            "That's not a whale. It's a dolphin.",
-            "Wow! There are more dolphins.",
-            "Is that a whale?",
-            "Yes, it is.",
-            "What a big fish!",
-            "A whale is not a fish. It's a mammal.",
-            "Cool!"
-        ]
-    },
-    {
-        "title": "Wonder World 7 Story",
-        "part": 2,
-        "author": "KNSH",
-        "award": "🤒",
-        "text": [  
-            "Come on, everyone. Dinner is ready.",
-            "I don't feel well.",
-            "Does he have a fever?",
-            "Yes, he does.",
-            "Mom, I think Joe is sick.",
-            "Let me take you to the doctor now.",
-            "What's wrong?",
-            "I have a headache and a fever.",
-            "What's wrong? Do you have a stomachache?",
-            "No, I'm just hungry."
-        ]
-    },
-    {
-        "title": "Wonder World 7 Story",
-        "part": 3,
-        "author": "KNSH",
-        "award": "🍕",
-        "text": [  
-            "I can make some French fries.",
-            "I can make some sandwiches.",
-            "I can make a pizza.",
-            "What would you like to eat?",
-            "I'd like some pizza, please.",
-            "Would you like some sandwiches?",
-            "Yes, please.",
-            "Would you like some French fries, Jello?",
-            "No, thank you.",
-            "I'm so hungry. I could eat a horse.",
-            "What? A horse?"
-        ]
-    },
-    {
-        "title": "Wonder World 7 Story",
-        "part": 4,
-        "author": "KNSH",
-        "award": "⏰",
-        "text": [  
-            "Who's calling?",
-            "Morning, Amy. Let's go to the park.",
-            "Now? It's Saturday! It's six thirty in the morning. ",
-            "Do you get up at six thirty on Saturdays?",
-            "No, I get up at six o'clock every day.",
-            "You're an early bird.",
-            "Yes, I am. What time do you get up?",
-            "I get up at six thirty on weekdays. ",
-            "On weekends, I get up at eight.",
-            "Oops! Sorry for waking you up.",
-            "It's OK. See you at the park at seven thirty."
+        "parts": [
+            {
+                "award": "🍁",
+                "text": [  
+                    "Welcome, everyone.",
+                    "Hi, Tommy! I'm from the UK. Where are you from?",
+                    "I'm from Canada.",
+                    "Are you from the USA?",
+                    "No, I'm not. I'm from France.",
+                    "Look! There's a whale.",
+                    "That's not a whale. It's a dolphin.",
+                    "Wow! There are more dolphins.",
+                    "Is that a whale?",
+                    "Yes, it is.",
+                    "What a big fish!",
+                    "A whale is not a fish. It's a mammal.",
+                    "Cool!"
+                ]
+            },
+            {
+                "award": "🤒",
+                "text": [  
+                    "Come on, everyone. Dinner is ready.",
+                    "I don't feel well.",
+                    "Does he have a fever?",
+                    "Yes, he does.",
+                    "Mom, I think Joe is sick.",
+                    "Let me take you to the doctor now.",
+                    "What's wrong?",
+                    "I have a headache and a fever.",
+                    "What's wrong? Do you have a stomachache?",
+                    "No, I'm just hungry."
+                ]
+            },
+            {
+                "award": "🍕",
+                "text": [  
+                    "I can make some French fries.",
+                    "I can make some sandwiches.",
+                    "I can make a pizza.",
+                    "What would you like to eat?",
+                    "I'd like some pizza, please.",
+                    "Would you like some sandwiches?",
+                    "Yes, please.",
+                    "Would you like some French fries, Jello?",
+                    "No, thank you.",
+                    "I'm so hungry. I could eat a horse.",
+                    "What? A horse?"
+                ]
+            },
+            {
+                "text": [  
+                    "Who's calling?",
+                    "Morning, Amy. Let's go to the park.",
+                    "Now? It's Saturday! It's six thirty in the morning. ",
+                    "Do you get up at six thirty on Saturdays?",
+                    "No, I get up at six o'clock every day.",
+                    "You're an early bird.",
+                    "Yes, I am. What time do you get up?",
+                    "I get up at six thirty on weekdays. ",
+                    "On weekends, I get up at eight.",
+                    "Oops! Sorry for waking you up.",
+                    "It's OK. See you at the park at seven thirty."
+                ]
+            }
         ]
     }
 ]

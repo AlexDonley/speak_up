@@ -1,38 +1,114 @@
+// - - - ELEMENTS - - - //
+
 const userAgent = navigator.userAgent;
-const texts = document.querySelector(".texts");
-const targetColumn = document.querySelector(".targetColumn");
-const title = document.querySelector("h1");
-const progressParts = Array.from(document.getElementsByClassName('bar-part'));
+
+// ux elements that show the user whether their setup can successfully run Speak Up!
+// currently requires Chromium and mic permissions
 
 const chromeIcon = document.getElementById("chromeIcon");
 const mic = document.getElementById("mic");
-const columnWrap = document.getElementById("columnWrap");
+
+
+// ux elements that show user progress through arrow movement, score, timer, and awards
+
+const progressParts = Array.from(document.getElementsByClassName('bar-part'));
+const arrow = document.getElementById('rainbowEffect');
+const stopwatch = document.getElementById("stopwatch");
+const currentAwards = document.getElementById("currentAwards");
+const previousAwards = document.getElementById("previousAwards");
+const scoreMarker = document.getElementById("scoreMarker");
+
+
+// elements contained in the setting section
+
 const startMenu = document.getElementById("startMenu");
 const textInput = document.getElementById("textInput");
 const presetBtn = document.getElementById("preset");
 const shuffleBtn = document.getElementById("shuffle");
 const timerBtn = document.getElementById("timer")
 const loopBtn = document.getElementById("loop");
+
 const presetOpts = document.getElementById("presetOptions");
-const stopwatch = document.getElementById("stopwatch");
-const currentAwards = document.getElementById("currentAwards");
-const previousAwards = document.getElementById("previousAwards");
-const scoreMarker = document.getElementById("scoreMarker");
+const searchTitles = document.getElementById("searchTitles");
+const titleCards = document.getElementById("titleCards");
+const partsCards = document.getElementById("partsCards");
+
+searchTitles.addEventListener("input", e => {
+  const value = e.target.value.toLowerCase()
+
+  searchList = []
+  titleList.forEach(title => {
+    if (title.toLowerCase().includes(value)){
+      searchList.push(title);
+    }
+  })
+
+  updateTitles(searchList);
+})
+
+// elements contained in the action section
+// action section contains two columns, one for target words and the other for user input
+
+const columnWrap = document.getElementById("columnWrap");
+const targetColumn = document.querySelector(".targetColumn");
+const texts = document.querySelector(".texts");
+
+
+
+// - - - VARIABLES - - - //
+
+
+// arrays for sentences and subdivisions
 
 sentenceQueue = [];
 divided = [];
 indexArray = [];
-leftoversList = [];
 targetList = [];
+leftoversList = [];
+
+// index markers for working through the above arrays
+
 targetCount = 0;
 inputCount = 0;
-listenBool = false;
+sentenceCount = 0;
+textIndex = 0;
+
+
+// arrays for processing numbers (numerals to strings)
+
+onesDigits = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
+tweenDigits = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen']
+tensDigits = ['zero', 'teen', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
+
+
+// array of words to omit from target language and user input
+
+cutOut = ["ah", "ahh", "aha", "mm", "mmm", "hm", "hmm", "mhm", "uh", "ah", "huh", "eh", "sh", "shh"]
+
+
+// boolean variables that control whether features are on or off
+//    presetBool   - false means freeform, true means preset
+//    shuffleBool  - false means chronological targets, true means shuffled targets
+//    loopBool     - false means finishes after 1 iteration, true means continues iterating until the user stops
+//    timerBool    - false means timer does not count, true means timer counts
+//    listenBool   - false means the browser does not intake mic input, true means the browser does intake mic input
+
 presetBool = false;
 shuffleBool = false;
 loopBool = false;
 timerBool = false;
+listenBool = false;
+
+let microphone;
+
+
+// setting for P5 sawtooth frequency
 
 defaultFreq = 400
+
+
+// settings for timer
+
 defaultCountdown = 10;
 timerSetting = 1;
 timerInnerTexts = [
@@ -41,28 +117,54 @@ timerInnerTexts = [
   '<ion-icon name="timer-outline"></ion-icon><br>&#9660;'
 ]
 
+
+// settings for the arrow and rainbow
+
+const rainbowValues = [
+  "hsla(0, 100%, 50%, ",
+  "hsla(30, 100%, 50%, ",
+  "hsla(60, 100%, 50%, ",
+  "hsla(90, 100%, 50%, ",
+  "hsla(120, 100%, 50%, ",
+  "hsla(150, 100%, 50%, ",
+  "hsla(180, 100%, 50%, ",
+  "hsla(210, 100%, 50%, ",
+  "hsla(240, 100%, 50%, ",
+  "hsla(270, 100%, 50%, ",
+  "hsla(300, 100%, 50%, ",
+  "hsla(330, 100%, 50%, "
+]
+var movingRainbow = rainbowValues
+
+direction = 90;
+opacity = 1;
+
+
+// variables to fill with JSON data using fetch
+
 let bookList;
 let titleList = [];
 let homophones;
 
+
+// sound effects
+
 let next = new Audio("sound/chaching.webm");
 let perfect = new Audio("sound/wow.mp3");
 let spokenSentence; 
+
+
+// variables for scoring and progress
+
 let score = 0;
 
 // order for progress bar data will be incomplete, leftover, complete
+
 progress = [0, 0, 0];
 totalWordsToRead = 0;
 updateProgressBar(progress);
 
 scoreMarker.innerText = score;
-sentenceCount = 0;
-
-onesDigits = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
-tweenDigits = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen']
-tensDigits = ['zero', 'teen', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
-cutOut = ["ah", "ahh", "mm", "mmm", "hm", "hmm", "mhm", "uh", "ah", "huh", "eh", "sh", "shh"]
-
 
 
 if(userAgent.match(/chrome|chromium|crios/i)){
@@ -99,11 +201,11 @@ recognition.addEventListener("result", (e) => {
     .map((result) => result.transcript)
     .join("");
 
-  //console.log(e.results)
+  // console.log(e.results)
 
   wordlist = omitPunctuation(text).toLowerCase().split(' ');
 
-  //console.log(wordlist)
+  // console.log(wordlist)
 
   texts.innerHTML = ""
   n = 0
@@ -154,11 +256,11 @@ function startRound() {
     // check if the sentence queue will be preset or freeform
 
     if (presetBool) {
-      // see which boxes are checked
-
-      checkboxes = document.querySelectorAll('input');
-
+      // clear the index array
       indexArray = [];
+      
+      // see which boxes are checked
+      checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
       for (let n = 0; n < checkboxes.length; n++){
         if (checkboxes[n].checked) {
@@ -167,7 +269,7 @@ function startRound() {
       }
 
       indexArray.forEach((num) => {
-        sentenceQueue = sentenceQueue.concat(bookList[num].text)
+        sentenceQueue = sentenceQueue.concat(bookList[textIndex].parts[num].text)
       })
 
       sentenceQueue.forEach((str) => {
@@ -475,25 +577,27 @@ function updateAwards() {
   if (presetBool){
                 
     indexArray.forEach((num) => {
-      currentAwards.innerText += bookList[num].award;
+      currentAwards.innerText += bookList[textIndex].parts[num].award;
     })
     
   } else {
-    currentAwards.innerText += bookList[0].award;
+    currentAwards.innerText += bookList[0].parts[0].award;
   }
 }
 
 function togglePresets() {
   if (presetBool) {
+
     presetBtn.innerHTML = 'Preset'
     presetBool = false;
     textInput.classList.remove('disappear');
-    presetOpts.innerHTML = '';
+
   } else {
+    
     presetBtn.innerHTML = 'Freeform'
     presetBool = true;
     textInput.classList.add('disappear');
-    spawnPresetOptions();
+
   }
 }
 
@@ -543,26 +647,15 @@ function shuffle(arr){
   return shuffled;
 }
 
-function spawnPresetOptions() {
-  n = 0;
-
-  titleList.forEach((element) => {
-    currentID = 'preset' + n;
-    
-    let preset = document.createElement('input');
-    preset.type = 'checkbox';
-    preset.id = currentID;
-    preset.classList.add('opt');
-
-    let newLabel = document.createElement('label');
-    newLabel.htmlFor = currentID;
-    newLabel.innerText = titleList[n];
-
-    presetOpts.appendChild(preset);
-    presetOpts.appendChild(newLabel);
-    presetOpts.appendChild(document.createElement('br'));
-    n++
-  })
+function updateTitles(arr) {
+  titleCards.innerHTML = ""
+  
+  arr.forEach((element) => {
+    newTitle = document.createElement('div');
+    newTitle.innerText = element;
+    newTitle.classList.add('one-title');
+    titleCards.appendChild(newTitle)
+  });
 }
 
 function loadJSON(){
@@ -579,12 +672,15 @@ function loadJSON(){
       bookList = data;
 
       for (var key in data) {
-          titleList.push((data[key].title + " pt. " + data[key].part));
+          titleList.push(data[key].title);
       }
+      updateTitles(titleList);
   })
   .catch(error => console.log('ERROR'))
 
 }
+
+
 
 function loadHomophones(){
   fetch('./data/homophones.json')
@@ -705,13 +801,56 @@ document.addEventListener('click', function(e) {
         setTimeout(function() {moveToleftoversList(n)}, 5);
       }
     }
+
   } else if (target.classList.contains('target')){
-    word = target.innerText.replace(/◀/g,"")
     
+    word = target.innerText.replace(/◀/g,"")
     speak(word);
+
+  } else if (target.classList.contains('one-title')) {
+    
+    clearHighlight = document.getElementsByClassName('title-highlight')
+    if(clearHighlight[0]) {
+      clearHighlight[0].classList.remove('title-highlight')
+    }
+
+    target.classList.add('title-highlight');
+    textIndex = titleList.indexOf(target.innerText);
+    updateParts(textIndex);
+
   }
        
 }, false);
+
+function updateParts(n) {
+  partsCards.innerHTML = "";
+
+  x = 0;
+
+  bookList[n].parts.forEach(element =>{
+    currentID = 'part' + x;
+    preview = "Pt " + (x + 1) + " - " + element.text[0];
+    
+    let preset = document.createElement('input');
+    preset.type = 'checkbox';
+    preset.id = currentID;
+    
+    let partPreview = document.createElement('div');
+    partPreview.id = "label" + x;
+    partPreview.innerText = preview;
+    partPreview.classList.add("part-text");
+
+    let divWrap = document.createElement('div');
+    divWrap.appendChild(preset);
+    divWrap.appendChild(partPreview);
+    // divWrap.innerText = preview;
+    divWrap.classList.add('one-part');
+
+    partsCards.appendChild(divWrap);
+    //partsCards.appendChild(document.createElement('br'));
+    x++
+  })
+}
 
 function updateProgressBar(arr) {
   let incomplete = 100 * arr[0] / totalWordsToRead;
@@ -752,7 +891,6 @@ function speak(str) {
   });
 }
 
-let microphone;
 
 function setup(){
   let cnv = createCanvas(100, 100);
@@ -789,27 +927,6 @@ function draw(){
   arc(width*2/3, height*2/5, width/10, max(ceil(y/100) * height/10, 0.00001), PI, 0) 
 
 }
-
-const arrow = document.getElementById('rainbowEffect');
-
-const rainbowValues = [
-    "hsla(0, 100%, 50%, ",
-    "hsla(30, 100%, 50%, ",
-    "hsla(60, 100%, 50%, ",
-    "hsla(90, 100%, 50%, ",
-    "hsla(120, 100%, 50%, ",
-    "hsla(150, 100%, 50%, ",
-    "hsla(180, 100%, 50%, ",
-    "hsla(210, 100%, 50%, ",
-    "hsla(240, 100%, 50%, ",
-    "hsla(270, 100%, 50%, ",
-    "hsla(300, 100%, 50%, ",
-    "hsla(330, 100%, 50%, "
-]
-var movingRainbow = rainbowValues
-
-direction = 90;
-opacity = 1;
 
 function generateRainbow(arr){
     direction += 1;

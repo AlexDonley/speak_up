@@ -64,7 +64,19 @@
     </div>
     <div>
         <div class="start-menu" id="startMenu">
-            <div class="preset-options" id="presetOptions"></div>
+            <div class="preset-options" id="presetOptions">
+                <div class="search-wrap">
+                    <ion-icon name="search-outline"></ion-icon>
+                    <input type="search" class="clear" id="searchTitles">
+                </div>
+                <div class="titles-and-parts">
+                    <div class="title-cards" id="titleCards">
+                    </div>
+                    
+                    <div class="parts-cards" id="partsCards">
+                    </div>
+                </div>
+            </div>
             <textarea class="text-input" id="textInput">hello how are you</textarea>
             <button class="preset" id="preset" onclick="togglePresets()">Preset</button>
             <button class="shuffle" id="shuffle" onclick="toggleShuffle()">
