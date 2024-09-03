@@ -96,8 +96,8 @@ button {
   top: 0;
   width: 100%;
   height: 85%;
-  border-top-left-radius: 2vh;
-  border-top-right-radius: 2vh;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
   background-color: rgb(100, 100, 100);
   overflow: hidden;
 }
@@ -172,12 +172,6 @@ button {
   height: 3.5vh;
   width: 3.5vh;
   border-radius: 5px;
-}
-
-label {
-  color: white;
-  padding-left: 2vh;
-  font-size: 5vh;
 }
 
 .column-wrap {
@@ -414,7 +408,7 @@ canvas{
 
 .titles-and-parts {
   display: flex;
-  height: calc(100% - 50px);
+  height: calc(100% - 60px);
   margin-left: 10px;
   margin-right: 10px;
 }
@@ -435,12 +429,12 @@ canvas{
   scrollbar-width: none;  /* Firefox */
 }
 
-.one-title{
+.preset-line {
   color: white;
   background: rgb(154, 154, 154);
-  font-size: 5vh;
+  font-size: 30px;
   height: 50px;
-  padding-left: 2vh;
+  line-height: 50px;
   margin: 3px;
   text-align: left;
   border: none;
@@ -448,62 +442,46 @@ canvas{
   overflow: hidden;
 }
 
-.one-card:active{
-  background: rgb(62, 62, 62);
-}
-
-.one-part{
-  height: 48px;
-  color: white;
-  background: rgb(154, 154, 154);
-  margin-bottom: 5px;
-  text-align: left;
-  border: none;
-  border-radius: 25px;
-  overflow: hidden;
-  display: flex;
-}
-
-.part-text {
-  color: white;
-  font-size: 5vh;
-  width: calc(100% - 50px);
-  height: 50px;
-}
-
-input[type="checkbox"] {
-  appearance: none;
-  -webkit-appearance: none;
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  height: 40px;
-  width: 40px;
-  border-radius: 20px;
-  padding: 10px;
-  margin: 5px;
-}
-
-input[type="checkbox"]::before {
-  content: "";
-  width: 20px;
-  height: 20px;
-  clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
-  transform: scale(0);
-  background-color: white;
-  transition: transform .2s;
-}
-
-input[type="checkbox"]:checked::before {
-  transform: scale(1);
-}
-
-input[type="checkbox"]:hover {
-  color: black;
+.one-title{
+  padding-left: 3vh;
+  font-weight: bold;
 }
 
 .title-highlight {
   color: black;
   background: yellow;
+}
+
+.one-part{
+  background: rgb(154, 154, 154);
+  display: flex;
+}
+
+input[type="checkbox"]:not(:checked), 
+input[type="checkbox"]:checked {
+  display: none;
+}
+
+input[type="checkbox"] + label {
+  cursor: pointer;
+  background: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  font-size: 30px;
+  display: inline-block;
+  padding: 0px 5px;
+  margin-right: 10px;
+  letter-spacing: 10px;
+  user-select: none;
+  transition: background .2s ease-in-out;
+}
+
+input[type="checkbox"]:checked + label {
+  background: yellow;
+}
+
+input[type="checkbox"]:hover {
+  background: black;
 }
 

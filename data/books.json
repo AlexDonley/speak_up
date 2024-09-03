@@ -324,6 +324,37 @@
         "author": "Pearson",
         "parts": [
             {
+                "award": "🤖",
+                "text": [
+                    "Good morning.",
+                    "Good morning. Can you give away toys?",
+                    "Yes, we can.",
+                    "What does he do?",
+                    "He's a toy maker.",
+                    "Watch out!",
+                    "Oh, dear!",
+                    "Ouch! Are you OK, Lola?",
+                    "Yes, I'm fine."
+                ]
+            },
+            {
+                "award": "👮",
+                "text": [
+                    "Is she a mail carrier?",
+                    "No, she isn't.",
+                    "What does she do then?",
+                    "She's a police officer.",
+                    "Who's she?",
+                    "She's Mrs. Jones.",
+                    "He's Mr. Jones.",
+                    "What's he like?",
+                    "He's hard-working.",
+                    "Here you are.",
+                    "Thank you! You're generous!",
+                    "Be careful, Bobo!"
+                ]
+            },
+            {
                 "award": "🏬",
                 "text": [  
                     "The store is messy.",

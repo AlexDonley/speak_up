@@ -653,6 +653,7 @@ function updateTitles(arr) {
   arr.forEach((element) => {
     newTitle = document.createElement('div');
     newTitle.innerText = element;
+    newTitle.classList.add('preset-line');
     newTitle.classList.add('one-title');
     titleCards.appendChild(newTitle)
   });
@@ -829,25 +830,28 @@ function updateParts(n) {
 
   bookList[n].parts.forEach(element =>{
     currentID = 'part' + x;
-    preview = "Pt " + (x + 1) + " - " + element.text[0];
+    preview = (x + 1) + " - " + element.text[0];
     
     let preset = document.createElement('input');
     preset.type = 'checkbox';
     preset.id = currentID;
+
+    let preLabel = document.createElement('label');
+    preLabel.htmlFor = currentID;
+    preLabel.innerText = element.award;
     
     let partPreview = document.createElement('div');
     partPreview.id = "label" + x;
     partPreview.innerText = preview;
-    partPreview.classList.add("part-text");
 
     let divWrap = document.createElement('div');
     divWrap.appendChild(preset);
+    divWrap.appendChild(preLabel);
     divWrap.appendChild(partPreview);
-    // divWrap.innerText = preview;
     divWrap.classList.add('one-part');
+    divWrap.classList.add('preset-line');
 
     partsCards.appendChild(divWrap);
-    //partsCards.appendChild(document.createElement('br'));
     x++
   })
 }
