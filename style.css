@@ -45,6 +45,33 @@ h1 {
   width: 70vw;
 }
 
+.stop-watch {
+  height: 10vh;
+  width: 20vh;
+  background: radial-gradient(circle at center, green, 70%, limegreen);
+  color: rgba(255, 255, 255, 0.9);
+  border-radius: 15px 0 0 15px;
+  margin-left: 5vh;
+  text-align: center;
+  line-height: 10vh;
+  font-size: 6vh;
+  font-weight: bold;
+}
+.stop-watch.flip {
+  background: radial-gradient(circle at center, maroon, 70%, red);;
+}
+
+.awards {
+  display: flex;
+  margin-right: 2vh;
+  max-height: 10vh;
+  background-color: rgb(100, 100, 100);
+  border-radius: 0 15px 15px 0;
+  padding: 1vh;
+  text-align: center;
+  user-select: none;
+}
+
 .score{
   font-size: 6vh;
   color: white;
@@ -56,15 +83,7 @@ h1 {
   margin-right: 2vh;
 }
 
-.awards {
-  display: flex;
-  margin-left: 2vh;
-  max-height: 10vh;
-  background-color: rgb(100, 100, 100);
-  border-radius: 2vh;
-  padding: 1vh;
-  text-align: center;
-}
+
 .current-awards{
   font-size: 6vh;
   white-space: nowrap;
@@ -222,22 +241,6 @@ button {
 
 .home {
   bottom: 0;
-}
-
-.stop-watch {
-  height: 10vh;
-  width: 20vh;
-  background: radial-gradient(circle at center, green, 70%, limegreen);
-  color: rgba(255, 255, 255, 0.9);
-  border-radius: 1vh;
-  margin-right: 2vh;
-  text-align: center;
-  line-height: 10vh;
-  font-size: 6vh;
-  font-weight: bold;
-}
-.stop-watch.flip {
-  background: radial-gradient(circle at center, maroon, 70%, red);;
 }
 
 span {
