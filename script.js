@@ -275,7 +275,7 @@ function startRound() {
 
     if (presetBool) {
       // set the target language
-      if (bookList[textIndex].lang) {
+      if (bookList[textIndex].lang != undefined) {
         console.log(bookList[textIndex].lang)
         setLanguage(bookList[textIndex].lang)
       } else {
@@ -378,7 +378,7 @@ function loadTarget(sentence, leftovers){
   sentence = omitPunctuation(sentence);
   spokenSentence = sentence
 
-  if (targetLang = 'zh') {
+  if (targetLang == 'zh') {
     divided = sentence.toLowerCase().split('');
   } else {
     divided = sentence.toLowerCase().split(' ');
