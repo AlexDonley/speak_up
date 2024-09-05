@@ -153,6 +153,7 @@ let next = new Audio("sound/chaching.webm");
 let perfect = new Audio("sound/wow.mp3");
 let spokenSentence; 
 
+let targetLang = 'en'
 
 // variables for scoring and progress
 
@@ -187,12 +188,22 @@ function micFail(error) {
 
 navigator.getUserMedia({ audio: true }, micSuccess, micFail);
 
+
+
+// - - - SPEECH RECOGNITION SNIPPET - - - //
+
 window.SpeechRecognition =
   window.SpeechRecognition || window.webkitSpeechRecognition;
 
 const recognition = new SpeechRecognition();
 recognition.interimResults = true;
-recognition.lang = 'en'
+
+function setLanguage(str) {
+  targetLang = str
+  recognition.lang = targetLang
+}
+
+setLanguage('en');
 
 recognition.addEventListener("result", (e) => {
   
@@ -203,7 +214,11 @@ recognition.addEventListener("result", (e) => {
 
   // console.log(e.results)
 
-  wordlist = omitPunctuation(text).toLowerCase().split(' ');
+  if (targetLang == 'zh') {
+    wordlist = omitPunctuation(text).toLowerCase().split('');
+  } else {
+    wordlist = omitPunctuation(text).toLowerCase().split(' ');
+  }
 
   // console.log(wordlist)
 
@@ -234,6 +249,9 @@ recognition.addEventListener("end", () => {
   }
 });
 
+// - - - END OF SPEECH RECOGNITION SNIPPET - - - //
+
+
 function startRound() {
     // clear sentence queue
     sentenceQueue = [];
@@ -256,6 +274,14 @@ function startRound() {
     // check if the sentence queue will be preset or freeform
 
     if (presetBool) {
+      // set the target language
+      if (bookList[textIndex].lang) {
+        console.log(bookList[textIndex].lang)
+        setLanguage(bookList[textIndex].lang)
+      } else {
+        setLanguage('en')
+      }
+      
       // clear the index array
       indexArray = [];
       
@@ -351,7 +377,12 @@ function loadTarget(sentence, leftovers){
   targetCount = 0;
   sentence = omitPunctuation(sentence);
   spokenSentence = sentence
-  divided = sentence.toLowerCase().split(' ');
+
+  if (targetLang = 'zh') {
+    divided = sentence.toLowerCase().split('');
+  } else {
+    divided = sentence.toLowerCase().split(' ');
+  }
 
   divided = omitWords(divided);
 
@@ -381,7 +412,7 @@ function loadTarget(sentence, leftovers){
 }
 
 function omitPunctuation(str) {
-noPunct = str.replace(/[.,\/#!$%\^&\*;:{}=_`~()[\]?]/g,"")
+noPunct = str.replace(/[.。,，\/#!$%\^&\*;；:{}=_`~()[\]?]/g,"")
             .replace(/\s+/g, " ");
 return noPunct;
 }
@@ -877,7 +908,7 @@ function speak(str) {
     utterance.rate = 0.4;
   }
   
-  utterance.lang = 'en';
+  utterance.lang = targetLang;
 
   if (speechSynthesis.speaking) {
     // SpeechSyn is currently speaking, cancel the current utterance(s)
