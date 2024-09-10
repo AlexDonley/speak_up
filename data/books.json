@@ -336,6 +336,222 @@
             }
         ]
     },
+        {
+        "title": "Hip Hip Hooray 1",
+        "author": "Pearson",
+        "parts": [
+            {
+                "award": "⚽",
+                "text": [
+                    "Hello.",
+                    "Hi.",
+                    "I'm Sally. What's your name?",
+                    "My name's Sam.",
+                    "It's nice to meet you.",
+                    "It's nice to meet you, too.",
+                    "Hmm... Nice!"
+                ]
+            },
+            {
+                "award": "",
+                "text": [
+                    "Is it a chicken?",
+                    "Yes, it is.",
+                    "Hi. How are you?",
+                    "I'm fine, thanks.",
+                    "My name's Sally. It's nice to meet you.",
+                    "It's nice to meet you, too.",
+                    "Is it a chicken, too?",
+                    "No, it isn't. It's a cat!",
+                    "Oh, no!",
+                    "Run for your life!"
+                ]
+            },
+            {
+                "award": "",
+                "text": [
+                    "Oh, no! Are you hurt?",
+                    "No, I'm not. I'm fine.",
+                    "Here, let me help you.",
+                    "Thank you.",
+                    "Is it a cat?",
+                    "No, it isn't. It's a rabbit."
+                ]
+            },
+            {
+                "award": "",
+                "text": [
+                    "What's that?",
+                    "It's a bird.",
+                    "Hello. How are you?",
+                    "I'm fine, thanks.",
+                    "Are you sad?",
+                    "No, I'm not. I'm tired.",
+                    "Ouch!",
+                    "A cat! I'm scared.",
+                    "Come to my house. Hurry!"
+                ]
+            },
+            {
+                "award": "",
+                "text": [
+                    "Ouch!",
+                    "Today's my birthday. ",
+                    "Really? Happy birthday!",
+                    "How old are you?",
+                    "I'm eight.",
+                    "How old are you?",
+                    "I'm seven.",
+                    "Two mice and a cake! Yummy!"
+                ]
+            },
+            {
+                "award": "",
+                "text": [
+                    "How many gifts are there?",
+                    "There are five gifts.",
+                    "Is it a book?",
+                    "I'm not sure.",
+                    "It's a CD!",
+                    "Cool!",
+                    "What toys do you like?",
+                    "I like yo-yos.",
+                    "And I like mice!"
+                ]
+            },
+            {
+                "award": "",
+                "text": [
+                    "Look! I can swim. Can you swim?",
+                    "No, I can't.",
+                    "Can you climb?",
+                    "Yes, I can.",
+                    "Let's climb a tree!",
+                    "OK!",
+                    "Ouch!"
+                ]
+            },
+            {
+                "award": "",
+                "text": [
+                    "Come on, Sally!",
+                    "Be careful.",
+                    "Look! It's a bird. It's big.",
+                    "Uh-oh! It's angry, too.",
+                    "Can you jump?",
+                    "Yes, I can.",
+                    "Aah!",
+                    "Are you hurt?",
+                    "Er... No, I'm not."
+                ]
+            },
+            {
+                "award": "",
+                "text": [
+                    "What are those?",
+                    "They're worms.",
+                    "Oh no! What are those?",
+                    "They're ants.",
+                    "I don't like ants. Let's go.",
+                    "OK!"
+                ]
+            },
+            {
+                "award": "",
+                "text": [
+                    "They're small. What are those?",
+                    "They're ladybugs.",
+                    "Wow! They're big. What are those?",
+                    "They're butterflies.",
+                    "Huh? Where are the butterflies now?",
+                    "They're on the flowers.",
+                    "Are they flowers?",
+                    "Er... I'm not sure.",
+                    "It's the cat! Run!",
+                    "Look! It's a taxi. Hurry!"
+                ]
+            },
+            {
+                "award": "",
+                "text": [
+                    "Who's he?",
+                    "He's my brother.",
+                    "Who's she?",
+                    "She's my mother.",
+                    "Look! The city!",
+                    "Stop, please.",
+                    "Ouch!"
+                ]
+            },
+            {
+                "award": "",
+                "text": [
+                    "Look at that bus. It's big!",
+                    "Hey, Sally. How are you?",
+                    "Oh! Hi, Dolly. I'm fine, thanks.",
+                    "Is she your sister?",
+                    "No, she isn't. She's my cousin.",
+                    "Hi! My name's Sam. ",
+                    "I'm Dolly. It's nice to meet you.",
+                    "It's nice to meet you, too.",
+                    "Look! What's that?",
+                    "I don't know. Let's go."
+                ]
+            },
+            {
+                "award": "",
+                "text": [
+                    "Wow! Look!",
+                    "Watch out!",
+                    "Stop on red. Go on green.",
+                    "I see.",
+                    "What's your favorite color?",
+                    "I like blue."
+                ]
+            },
+            {
+                "award": "",
+                "text": [
+                    "Do you like bananas?",
+                    "Yes, I do.",
+                    "Let's go to the mall.",
+                    "Good idea!",
+                    "I don't like bananas.",
+                    "Look at the balloons. What's your favorite color?",
+                    "I like blue.",
+                    "What toys do you like?",
+                    "I like kites."
+                ]
+            },
+            {
+                "award": "",
+                "text": [
+                    "I'm hungry. Let's eat.",
+                    "OK!",
+                    "What do you want?",
+                    "I want bread.",
+                    "I want watermelon.",
+                    "Let's go to the park.",
+                    "Good idea!"
+                ]
+            },
+            {
+                "award": "",
+                "text": [
+                    "How's the bread?",
+                    "It's sweet.",
+                    "What does he want?",
+                    "I don't know.",
+                    "Excuse me. Do you want watermelon?",
+                    "No! I want you!",
+                    "Ahh!",
+                    "Here!",
+                    "I don't like mice!",
+                    "Ha-ha-ha!"
+                ]
+            }
+        ]
+    },
     {
         "title": "Hip Hip Hooray 2",
         "author": "Pearson",
