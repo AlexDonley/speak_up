@@ -145,6 +145,7 @@ opacity = 1;
 let bookList;
 let titleList = [];
 let homophones;
+let zhuyin;
 
 
 // sound effects
@@ -460,11 +461,26 @@ function checkSentence(arr) {
         } else {
           // are the two words homophones?
           
-          homophones.forEach((set) =>{
-            if (set.includes(element) && set.includes(divided[targetCount])){
+          if (targetLang = 'zh') {
+            var elemIndex = zhuyin.findIndex(p => p.char == element);
+            var divIndex = zhuyin.findIndex(p => p.char == divided[targetCount]);
+
+            zhu1 = zhuyin[elemIndex].bpmf[0];
+            zhu2 = zhuyin[divIndex].bpmf[0];
+
+            console.log(zhu1, zhu2)
+            
+            if (zhu1 == zhu2) {
               correct = true;
             }
-          })
+          } else {
+            homophones.forEach((set) =>{
+              if (set.includes(element) && set.includes(divided[targetCount])){
+                correct = true;
+              }
+            })
+          }
+
         } 
 
         if (correct) {
@@ -690,13 +706,13 @@ function updateTitles(arr) {
   });
 }
 
-function loadJSON(){
+function loadBooks(){
   fetch('./data/books.json')
   .then(res => {
       if (res.ok) {
-          console.log('SUCCESS');
+          console.log('BOOKS FETCHED');
       } else {
-          console.log('FAILURE')
+          console.log('BOOKS FAILURE')
       }
       return res.json()
   })
@@ -708,31 +724,45 @@ function loadJSON(){
       }
       updateTitles(titleList);
   })
-  .catch(error => console.log('ERROR'))
+  .catch(error => console.log(error))
 
 }
-
-
 
 function loadHomophones(){
   fetch('./data/homophones.json')
   .then(res => {
       if (res.ok) {
-          console.log('SUCCESS');
+          console.log('HOMOPHONES FETCHED');
       } else {
-          console.log('FAILURE')
+          console.log('HOMOPHONES FAILURE')
       }
       return res.json()
   })
   .then(data => {
       homophones = data;
   })
-  .catch(error => console.log('ERROR'))
+  .catch(error => console.log(error))
 }
 
-loadJSON();
+function loadZhuyin() {
+  fetch('./data/hz-bpmf.json')
+  .then(res => {
+    if (res.ok) {
+      console.log('ZHUYIN FETCHED');
+    } else {
+        console.log('ZHUYIN FAILURE')
+    }
+    return res.json()
+  })
+  .then(data => {
+    zhuyin = data;
+  })
+  .catch(error => console.log(error))
+}
 
+loadBooks();
 loadHomophones();
+loadZhuyin();
 
 function startTimer(sec) {
   ding = new Audio("sound/ding.wav");
