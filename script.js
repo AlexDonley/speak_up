@@ -461,7 +461,7 @@ function checkSentence(arr) {
         } else {
           // are the two words homophones?
           
-          if (targetLang = 'zh') {
+          if (targetLang == 'zh') {
             var elemIndex = zhuyin.findIndex(p => p.char == element);
             var divIndex = zhuyin.findIndex(p => p.char == divided[targetCount]);
 
