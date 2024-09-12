@@ -21,6 +21,37 @@
             {
                 "award": "🔠",
                 "text": [  
+                    "A A A",
+                    "B B B",
+                    "C C C",
+                    "D D D",
+                    "E E E",
+                    "F F F",
+                    "G G G",
+                    "H H H",
+                    "I I I",
+                    "J J J",
+                    "K K K",
+                    "L L L",
+                    "M M M",
+                    "N N N",
+                    "O O O",
+                    "P P P",
+                    "Q Q Q",
+                    "R R R",
+                    "S S S",
+                    "T T T",
+                    "U U U",
+                    "V V V",
+                    "W W W",
+                    "X X X",
+                    "Y Y Y",
+                    "Z Z Z"
+                ]
+            },
+            {
+                "award": "♫",
+                "text": [  
                     "A, B, C, D, E, F, G",
                     "H, I, J, K, L, M, N, O, P",
                     "Q, R, S, T, U, V",
@@ -215,6 +246,62 @@
         ]
     },
     {
+        "title": "Apple",
+        "author": "Bad Time Stories",
+        "parts": [
+            {
+                "award": "🍎",
+                "text": [  
+                    "Hello! I'm an apple!",
+                    "I am an apple too!",
+                    "But... you don't look like an apple.",
+                    "I'm a WAX apple.",
+                    "Apple is like me, it's red.",
+                    "I am an apple.",
+                    "No. You're not an apple!",
+                    "I am an apple just like you!"
+                ]
+            },
+            {
+                "award": "🍍",
+                "text": [  
+                    "I am an apple too!",
+                    "Who are you?",
+                    "I am a PINEAPPLE!",
+                    "But apples don't have hair!",
+                    "Yes, I have!",
+                    "No, you don't.",
+                    "Yes! Because I'm a PINEAPPLE.",
+                    "Pineapple!"
+                ]
+            },
+            {
+                "award": "😒",
+                "text": [  
+                    "Hello apples!",
+                    "Hi! Are you an apple too?",
+                    "Yeah, I'm a I'm a SUGAR APPLE.",
+                    "SUGAR APPLE!",
+                    "No you are not apple.",
+                    "But we are!"
+                ]
+            },
+            {
+                "award": "🍩",
+                "text": [  
+                    "You're apple, I'm apple, we all apples!",
+                    "You are so sweet.",
+                    "Thank you, I like sweet.",
+                    "No, I'm the apple.",
+                    "We are apples!",
+                    "Hey, do you wanna eat some apples?",
+                    "Sure.",
+                    "I'm not apple!"
+                ]
+            }
+        ]
+    },
+    {
         "title": "Black Lagoon",
         "author": "Mike Thaler",
         "parts": [
@@ -336,7 +423,7 @@
             }
         ]
     },
-        {
+    {
         "title": "Hip Hip Hooray 1",
         "author": "Pearson",
         "parts": [
