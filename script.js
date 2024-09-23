@@ -267,7 +267,7 @@ function startRound() {
       
       if (timerSetting == 1) {
         startTimer(0)
-      } else if (timerSetting ==2) {
+      } else if (timerSetting == 2) {
         startTimer(defaultCountdown);
       }
     }
@@ -362,6 +362,7 @@ function endRound() {
   stopSpeechRecognition();
   
   timerBool = false;
+  clearInterval(timerInterval);
   columnWrap.classList.add('disappear');
   startMenu.classList.remove('disappear');
 }
