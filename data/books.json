@@ -1,15 +1,16 @@
 [
     {
-        "title": "Sample",
+        "title": "Instructions",
         "author": "Alex Donley",
         "parts": [
             {
                 "award": "😄",
                 "text": [  
-                    "this is a sample",
-                    "practice reading English text",
-                    "shuffle your input",
-                    "loop your input"
+                    "Type something in the box and press go to practice speaking",
+                    "When you say words correctly, the arrow moves up",
+                    "Press the play button to hear a speech sample",
+                    "Press menu buttons to shuffle, loop, or start a timer",
+                    "This site requires Chrome and a microphone to function"
                 ]
             }
         ]
@@ -445,12 +446,12 @@
             {
                 "award": "😵",
                 "text": [  
-                    "And there's one more—that's seventeen,",
+                    "And there's one more - that's seventeen,",
                     "And don't you think my face looks green?",
-                    "My leg is cut—my eyes are blue—",
+                    "My leg is cut - my eyes are blue -",
                     "It might be instamatic flu.",
                     "I cough and sneeze and gasp and choke,",
-                    "I'm sure that my left leg is broke—",
+                    "I'm sure that my left leg is broke -",
                     "My hip hurts when I move my chin,",
                     "My belly button's caving in,"
                 ]
@@ -459,7 +460,7 @@
                 "award": "👅",
                 "text": [  
                     "My back is wrenched, my ankle's sprained, ",
-                    "My 'pendix pains each time it rains.",
+                    "My appendix pains each time it rains.",
                     "My nose is cold, my toes are numb.",
                     "I have a sliver in my thumb.",
                     "My neck is stiff, my voice is weak,",
@@ -472,13 +473,13 @@
                 "award": "🌡️",
                 "text": [  
                     "My elbow's bent, my spine ain't straight,",
-                    "My temperature is one-o-eight.",
+                    "My temperature is 108.",
                     "My brain is shrunk, I cannot hear,",
                     "There is a hole inside my ear.",
-                    "I have a hangnail, and my heart is—what?",
+                    "I have a hangnail, and my heart is - what?",
                     "What's that? What's that you say?",
-                    "You say today is… Saturday?",
-                    "G'bye, I'm going out to play!"
+                    "You say today is... Saturday?",
+                    "Goodbye, I'm going out to play!"
                 ]
             }
         ]
@@ -490,13 +491,13 @@
             {
                 "award": "☕",
                 "text": [  
-                    "Alright, here's your small fries and your small drink.",
-                    "Thank you… ",
+                    "All right, here's your small fries and your small drink.",
+                    "Thank you...",
                     "you know, I'd like to pay for the guy's meal behind me too, ",
                     "you know. Just pay it forward.",
                     "Oh, wow, that's really nice of you!",
                     "Yeah, who knows? Maybe it'll catch on.",
-                    "Alright, well you have a great day sir."
+                    "All right, well you have a great day sir."
                 ]
             },
             {
@@ -505,13 +506,13 @@
                     "Stop, stop, stop, please let me go! ",
                     "Please let me go first, I'm doing something!",
                     "Hi can I take your order?",
-                    "55 burgers, 55 fries, ",
+                    "55 burgers, 55 fries,",
                     "55 tacos, 55 pies,",
-                    "55 Cokes, 100 tater tots, ",
+                    "55 Cokes, 100 tater tots,",
                     "100 pizzas, 100 tenders,",
-                    "100 meatballs, 100 coffees, ",
-                    "55 wings, 55 shakes, ",
-                    "55 pancakes, 55 pasta, ",
+                    "100 meatballs, 100 coffees,",
+                    "55 wings, 55 shakes,",
+                    "55 pancakes, 55 pasta,",
                     "55 peppers, and 155 taters.",
                     "Okay, that'll be 680 dollars. ",
                     "Okay."
@@ -534,7 +535,7 @@
                 "award": "🏃",
                 "text": [  
                     "55 burgers, 55…",
-                    "Ah, look what you did! Come on! Ah, ah, ahhh!",
+                    "Look what you did! Come on!",
                     "Thought you could just pull that on me?",
                     "Fine. You win. That's fine. ",
                     "I just wanted to do something good this morning before alcohol class.",

@@ -413,7 +413,7 @@ function loadTarget(sentence, leftovers){
 }
 
 function omitPunctuation(str) {
-noPunct = str.replace(/[.。,，\/#!$%\^&\*;；:{}=_`~()[\]?]/g,"")
+noPunct = str.replace(/[.。…—,，\/#!$%\^&\*;；:{}=_`~()[\]?]/g,"")
             .replace(/\s+/g, " ");
 return noPunct;
 }
