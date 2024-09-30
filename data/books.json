@@ -64,6 +64,25 @@
         ]
     },
     {
+        "title": "Vocabulary",
+        "author": "none",
+        "parts": [
+            {
+                "award": "😴",
+                "text": [  
+                    "get up",
+                    "have breakfast",
+                    "leave for school",
+                    "have lunch",
+                    "go home",
+                    "take a nap",
+                    "have dinner",
+                    "go to sleep"
+                ]
+            }
+        ]
+    },
+    {
         "title": "Summer Camp",
         "author": "Alex Donley",
         "parts": [
