@@ -16,6 +16,38 @@
         ]
     },
     {
+        "title": "Halloween Broadcast",
+        "author": "Alex Donley",
+        "parts": [
+            {
+                "award": "🎃",
+                "text": [  
+                    "Hi, Tom! Are you excited for Halloween?",
+                    "Hi, Casey! Hmm, a little. We don’t have Halloween in my country. What do you do?",
+                    "Oh, Halloween is so fun! We dress up in costumes and go trick or treating.",
+                    "What is trick or treating?",
+                    "We walk around to people’s houses and say, trick or treat!",
+                    "Then, they give us candy!",
+                    "Wow! That sounds great! Do we have to wear costumes?",
+                    "Yes, we wear costumes to pretend to be someone or something.",
+                    "You can be a superhero, a princess, or even a scary monster!"
+                ]
+            },
+            {
+                "award": "🍬",
+                "text": [  
+                    "Oh, I see! I think I want to be a pirate. What about you?",
+                    "I’m going to be an astronaut. I will have a helmet and a jet pack!",
+                    "That’s cool! Do you like Halloween?",
+                    "I love it! It’s my favorite holiday.",
+                    "You get to have fun with friends, eat candy, and dress up in costumes!",
+                    "I think I’m going to like Halloween too. I can’t wait to dress up like a pirate!",
+                    "You’re going to have so much fun, Tom!"
+                ]
+            }
+        ]
+    },
+    {
         "title": "ABCs",
         "author": "none",
         "parts": [
