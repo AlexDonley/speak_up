@@ -255,8 +255,9 @@ recognition.addEventListener("end", () => {
 
 function startRound() {
     // clear sentence queue
-    sentenceQueue = [];
-    leftoversList = [];
+    sentenceQueue = []
+    leftoversList = []
+    fullTextArray = []
 
     totalWordsToRead = 0;
     progress = [0, 0, 0];
@@ -275,9 +276,10 @@ function startRound() {
     // check if the sentence queue will be preset or freeform
 
     if (presetBool) {
+      // PRESET INPUT
       // set the target language
+
       if (bookList[textIndex].lang != undefined) {
-        console.log(bookList[textIndex].lang)
         setLanguage(bookList[textIndex].lang)
       } else {
         setLanguage('en')
@@ -299,28 +301,36 @@ function startRound() {
         sentenceQueue = sentenceQueue.concat(bookList[textIndex].parts[num].text)
       })
 
-      sentenceQueue.forEach((str) => {
-        splits = str.split(' ');
-        
-        // find a way to re-count based on numbers 
-        // splits = convertNumsToText(splits);
-
-        totalWordsToRead += splits.length;
-      })
-
     } else {
+      // FREEFORM INPUT
       // The following grabs the text entered by the user and eliminates blank lines
       
       freeformText = textInput.value.replace(/^\s*\n/gm, "");
-      
-      totalWordsToRead = freeformText.split(' ').length;
-      progress[0] = totalWordsToRead;
-      
-      let textArray = freeformText.split('\n');
-      sentenceQueue = textArray;
+      sentenceQueue = freeformText.split('\n');
     }
     
-    progress[0] = totalWordsToRead;
+    sentenceQueue.forEach((str) => {
+      
+      str = omitPunctuation(str)
+
+      if (targetLang == 'zh') {
+        splits = str.toLowerCase().split('');
+      } else {
+        splits = str.toLowerCase().split(' ');
+      }
+
+      console.log(splits)
+
+      fullTextArray = fullTextArray.concat(splits);
+
+    })
+
+    console.log(fullTextArray)
+
+    totalWordsToRead = fullTextArray.length
+    console.log(totalWordsToRead)
+
+    progress[0] = totalWordsToRead
     updateProgressBar(progress);
 
     if (shuffleBool) {
@@ -551,12 +561,11 @@ function leftoversRound() {
 }
 
 function convertNumsToText(arr) {
+  // this can be simplified with recursion
+
   n = 0;
   arr.forEach((element) => {
     if (!isNaN(element)) {
-
-      console.log(element.length);
-
       
       onesNum = element % 10;
 
@@ -587,15 +596,20 @@ function convertNumsToText(arr) {
       if (element.length > 3){
         thousandsNum = (element % 10000 - element % 1000)/1000
         
-        arr.splice(n, 0, "thousand")
         if (thousandsNum > 0){
+          arr.splice(n, 0, "thousand")
           arr.splice(n, 0, onesDigits[thousandsNum]);
         }
       }
       if (element.length > 4){
         tenThousandsNum = (element % 100000 - element % 10000)/10000
 
+        
         if (tenThousandsNum > 0) {
+          if (!arr.includes("thousand")) {
+            arr.splice(n, 0, "thousand")
+          }
+
           if (tenThousandsNum < 2) {
             arr.splice(n, 1, tweenDigits[thousandsNum]);
           } else {
@@ -607,8 +621,19 @@ function convertNumsToText(arr) {
         hundredThousandsNum = (element % 1000000 - element % 100000)/100000
 
         if (hundredThousandsNum > 0) {
+          if (!arr.includes("thousand")) {
+            arr.splice(n, 0, "thousand")
+          }
           arr.splice(n, 0, "hundred")
           arr.splice(n, 0, onesDigits[hundredThousandsNum])
+        }
+      }
+      if (element.length > 6){
+        millionsNum = (element % 10000000 - element % 1000000)/1000000
+        
+        if (millionsNum > 0) {
+          arr.splice(n, 0, "million")
+          arr.splice(n, 0, onesDigits[millionsNum])
         }
       }
     }
