@@ -213,20 +213,10 @@ recognition.addEventListener("result", (e) => {
     .map((result) => result.transcript)
     .join("");
 
-  // console.log(e.results)
-
-  if (targetLang == 'zh') {
-    wordlist = omitPunctuation(text).toLowerCase().split('');
-  } else {
-    wordlist = omitPunctuation(text).toLowerCase().split(' ');
-  }
-
-  // console.log(wordlist)
+  wordlist = processStrToArr(text)
 
   texts.innerHTML = ""
   n = 0
-
-  convertNumsToText(wordlist);
 
   wordlist.forEach((element) => {
     let inputWord = document.createElement('span');
@@ -235,8 +225,6 @@ recognition.addEventListener("result", (e) => {
     texts.appendChild(inputWord);
     n++;
   })
-
-  // inputWord.innerText = text;
 
   if (e.results[0].isFinal) {
     console.log('checking sentence');
@@ -310,18 +298,8 @@ function startRound() {
     }
     
     sentenceQueue.forEach((str) => {
-      
-      str = omitPunctuation(str)
-
-      if (targetLang == 'zh') {
-        splits = str.toLowerCase().split('');
-      } else {
-        splits = str.toLowerCase().split(' ');
-      }
-
-      console.log(splits)
-
-      fullTextArray = fullTextArray.concat(splits);
+  
+      fullTextArray = fullTextArray.concat(processStrToArr(str));
 
     })
 
@@ -387,18 +365,8 @@ function loadTarget(sentence, leftovers){
   texts.innerHTML = '';
 
   targetCount = 0;
-  sentence = omitPunctuation(sentence);
-  spokenSentence = sentence
 
-  if (targetLang == 'zh') {
-    divided = sentence.toLowerCase().split('');
-  } else {
-    divided = sentence.toLowerCase().split(' ');
-  }
-
-  divided = omitWords(divided);
-
-  convertNumsToText(divided);
+  divided = processStrToArr(sentence);
 
   for (let n = 0; n < divided.length; n++){
     newSpan = document.createElement('span');
@@ -424,7 +392,7 @@ function loadTarget(sentence, leftovers){
 }
 
 function omitPunctuation(str) {
-noPunct = str.replace(/[.。…—,，\/#!$%\^&\*;；:{}=_`~()[\]?]/g,"")
+noPunct = str.replace(/[.。…—,，\/#!$%\^&\*;；{}=_`~()[\]?]/g,"")
             .replace(/\s+/g, " ");
 return noPunct;
 }
@@ -565,6 +533,24 @@ function convertNumsToText(arr) {
 
   n = 0;
   arr.forEach((element) => {
+    // first, the function parses the use of : to determine if it should be kept or omitted
+    // if the : is used in a timestamp such as 6:00, it should be kept
+    // the if statement below checks for a word that contains a semicolon, but the characters on either side of that colon are not numbers
+    // that word is replaced by an word without the semicolon
+    
+    colonIndex = element.indexOf(":")
+
+    if (
+      colonIndex >= 0 &&
+      (isNaN(element.substring(colonIndex - 1, colonIndex)) ||
+      isNaN(element.substring(colonIndex + 1, colonIndex + 2)) ||
+      colonIndex - 1 < 0 ||
+      colonIndex + 1 >= element.length)
+    ) {
+      element = element.replace(/[:]/g,"")
+      arr.splice(n, 1, element)
+    }
+    
     if (!isNaN(element)) {
       
       onesNum = element % 10;
@@ -942,6 +928,36 @@ function updateParts(n) {
     x++
   })
 }
+
+
+function processStrToArr(str) {
+  // first, cut out general punctuation from the entire string
+  // this function does not cut out -, ', and : since they have semantic use
+  
+  zeroPunct = omitPunctuation(str)
+
+  // second, split the string into an array of words
+  // this will depend on language: most languages split based on spaces, but others split on every word
+  
+  if (targetLang == 'zh') {
+    splitArr = zeroPunct.toLowerCase().split('')
+  } else {
+    splitArr = zeroPunct.toLowerCase().split(' ')
+  }
+
+  // third, convert digits to text strings
+  // this function will parse the use of : to see if it's necessary to communicate a time, or if it's grammatical and should be omitted
+  
+  numsArr = convertNumsToText(splitArr)
+
+  // fourth, omit words from the array that aren't possible to produce through speech recognition
+  // or are inappropriate for general use.
+
+  finalArr = omitWords(numsArr)
+
+  return finalArr
+}
+
 
 function updateProgressBar(arr) {
   let incomplete = 100 * arr[0] / totalWordsToRead;

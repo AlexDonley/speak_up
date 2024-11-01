@@ -165,6 +165,163 @@
         ]
     },
     {
+        "title": "Go Dog Go",
+        "author": "P.D. Eastman",
+        "parts": [
+            {
+                "award": "🤠",
+                "text": [
+                    "Dog. Big dog. Little dog.",
+                    "Big dogs and little dogs.",
+                    "Black and white dogs.",
+                    "Hello!", 
+                    "Hello!",
+                    "Do you like my hat?",
+                    "I do not.",
+                    "Goodbye!",
+                    "Goodbye!"
+                ]
+            },
+            {
+                "award": "🐕",
+                "text": [
+                    "One little dog going in.",
+                    "Three big dogs going out.",
+                    "A red dog on a blue tree.",
+                    "A blue dog on a red tree.", 
+                    "A green dog on a yellow tree.",
+                    "Some big dogs and some little dogs going around in cars.",
+                    "A dog out of a car.",
+                    "Two big dogs going up.", 
+                    "One little dog going down.",
+                    "The green dog is up.",
+                    "The yellow dog is down."
+                ]
+            },
+            {
+                "award": "🏘️",
+                "text": [
+                    "The blue dog is in.",
+                    "The red dog is out.",
+                    "One dog up on a house.",
+                    "Three dogs down in the water.",
+                    "A green dog over a tree.",
+                    "A yellow dog under a tree.",
+                    "Two dogs in a house on a boat in the water.",
+                    "A dog over the water.",
+                    "A dog under the water."
+                ]
+            },
+            {
+                "award": "↩️",
+                "text": [
+                    "Hello again.",
+                    "Hello.",
+                    "Do you like my hat?",
+                    "I do not like it.",
+                    "Goodbye again.",
+                    "Goodbye.",
+                    "The dogs are all going around, and around, and around.",
+                    "Go around again!"
+                ]
+            },
+            {
+                "award": "🌞",
+                "text": [
+                    "The sun is up.",
+                    "The sun is yellow.",
+                    "The yellow sun is over the house.",
+                    "It is hot out here in the sun.",
+                    "It is not hot here under the house.",
+                    "Now it is night.",
+                    "Three dogs at a party on a boat at night.",
+                    "Dogs at work.",
+                    "Work, dogs, work!",
+                    "Dogs at play.",
+                    "Play, dogs, play!"
+                ]
+            },
+            {
+                "award": "🚦",
+                "text": [
+                    "Hello again.",
+                    "Hello.",
+                    "Do you like my hat?",
+                    "I do not like that hat.",
+                    "Goodbye again.",
+                    "Goodbye!",
+                    "Dogs in cars again.",
+                    "Going away. Going away fast.",
+                    "Look at those dogs go.",
+                    "Go, dogs. Go!",
+                    "Stop, dogs. Stop!",
+                    "The light is red now.",
+                    "Go, dogs. Go!",
+                    "The light is green now."
+                ]
+            },
+            {
+                "award": "🌜",
+                "text": [
+                    "Two dogs at play. At play up on top.",
+                    "Go down, dogs.",
+                    "Do not play up there. Go down.",
+                    "Now it is night.",
+                    "Night is not a time for play.",
+                    "It is time for sleep.",
+                    "The dogs go to sleep.",
+                    "They will sleep all night.",
+                    "Now it is day.",
+                    "The sun is up.",
+                    "Now is the time for all dogs to get up."
+                ]
+            },
+            {
+                "award": "🏎️",
+                "text": [
+                    "Get up! It is day.",
+                    "Time to get going.",
+                    "Go, dogs. Go!",
+                    "There they go.",
+                    "Look at those dogs go!",
+                    "Why are they going fast in those cars?",
+                    "What are they going to do?",
+                    "Where are those dogs going?",
+                    "Look where they are going.",
+                    "They are all going to that big tree over there."
+                ]
+            },
+            {
+                "award": "🌳",
+                "text": [
+                    "Now the cars stop.",
+                    "Now all the dogs get out.", 
+                    "And now look where those dogs are going!",
+                    "To the tree! To the tree!",
+                    "Up the tree! Up the tree!",
+                    "Up they go to the top of the tree. Why?",
+                    "Will they work there?",
+                    "Will they play there?",
+                    "What is up there on top of that tree?"
+                ]
+            },
+            {
+                "award": "🎉",
+                "text": [
+                    "A dog party! A big dog party!",
+                    "Big dogs, little dogs, red dogs, blue dogs,", 
+                    "yellow dogs, green dogs, black dogs, white dogs", 
+                    "are all at a dog party! What a dog party!",
+                    "Hello again. And now do you like my hat?",
+                    "I do. What a hat! I like it!",
+                    "I like that party hat!",
+                    "Goodbye!",
+                    "Goodbye."
+                ]
+            }
+        ]
+    },
+    {
         "title": "Big Green Monster",
         "author": "Ed Emberley",
         "parts": [
@@ -390,7 +547,7 @@
                 "award": "⚾",
                 "text": [  
                     "And the really loud one?",
-                    "Texas is still Texas. ",
+                    "Texas is still Texas.",
                     "Oh, Canada, we should hang out sometime, ",
                     "maybe play some baseball or hockey",
                     "What's baseball? ",
@@ -439,9 +596,9 @@
                 "award": "🍞",
                 "text": [  
                     "I've just been having so much success lately,",
-                    "with the Beatles and Harry Potter and Downton Abbey. ",
+                    "with the Beatles and Harry Potter and Downton Abbey.",
                     "I don't even think about us anymore.",
-                    "That's great. ",
+                    "That's great.",
                     "Take me back, please?",
                     "Is it another man? Is it France?",
                     "Gross, no.",
@@ -467,7 +624,7 @@
                     "We broke up and you found every excuse you could to get me over",
                     "like oh, USA, I'm having a war, oh, come help me, ",
                     "oh, USA, I'm having another war, ",
-                    "oh, I'm having an Olympics, come destroy me in every event. ",
+                    "oh, I'm having an Olympics, come destroy me in every event.",
                     "Desperate. Am I right, Switzerland?",
                     "I'm staying out of this.",
                     "Look me in the eyes and tell me you're over it.",
@@ -567,7 +724,7 @@
             {
                 "award": "🍔",
                 "text": [  
-                    "Stop, stop, stop, please let me go! ",
+                    "Stop, stop, stop, please let me go!",
                     "Please let me go first, I'm doing something!",
                     "Hi can I take your order?",
                     "55 burgers, 55 fries,",
@@ -578,7 +735,7 @@
                     "55 wings, 55 shakes,",
                     "55 pancakes, 55 pasta,",
                     "55 peppers, and 155 taters.",
-                    "Okay, that'll be 680 dollars. ",
+                    "Okay, that'll be 680 dollars.",
                     "Okay."
                 ]
             },
@@ -601,11 +758,11 @@
                     "55 burgers, 55…",
                     "Look what you did! Come on!",
                     "Thought you could just pull that on me?",
-                    "Fine. You win. That's fine. ",
+                    "Fine. You win. That's fine.",
                     "I just wanted to do something good this morning before alcohol class.",
                     "But you won.",
                     "That's the last time I try to do something good ever again.",
-                    "Maybe you did have some good intentions. ",
+                    "Maybe you did have some good intentions.",
                     "And maybe I did jump to conclusions.",
                     "Oh I can just run!"
                 ]
@@ -857,7 +1014,7 @@
                 "award": "🎂",
                 "text": [
                     "Ouch!",
-                    "Today's my birthday. ",
+                    "Today's my birthday.",
                     "Really? Happy birthday!",
                     "How old are you?",
                     "I'm eight.",
@@ -952,7 +1109,7 @@
                     "Oh! Hi, Dolly. I'm fine, thanks.",
                     "Is she your sister?",
                     "No, she isn't. She's my cousin.",
-                    "Hi! My name's Sam. ",
+                    "Hi! My name's Sam.",
                     "I'm Dolly. It's nice to meet you.",
                     "It's nice to meet you, too.",
                     "Look! What's that?",
@@ -1418,15 +1575,15 @@
                     "Great!",
                     "Listen!",
                     "It's the school bell.",
-                    "Oh, it's four o'clock. Time to go home.",
+                    "Oh, it's 4:00. Time to go home.",
                     "Look!",
                     "It's a bird.",
                     "That's a frog.",
-                    "It's four fifteen. We must go home.",
+                    "It's 4:15. We must go home.",
                     "What's that?",
                     "It's a dog.",
                     "What time is it?",
-                    "Oh no! It's four fifty!",
+                    "Oh no! It's 4:50!",
                     "Bye!",
                     "Sorry, I'm late, Mom."
                 ]
@@ -1759,12 +1916,12 @@
                 "text": [  
                     "Who's calling?",
                     "Morning, Amy. Let's go to the park.",
-                    "Now? It's Saturday! It's six thirty in the morning. ",
+                    "Now? It's Saturday! It's six thirty in the morning.",
                     "Do you get up at six thirty on Saturdays?",
                     "No, I get up at six o'clock every day.",
                     "You're an early bird.",
                     "Yes, I am. What time do you get up?",
-                    "I get up at six thirty on weekdays. ",
+                    "I get up at six thirty on weekdays.",
                     "On weekends, I get up at eight.",
                     "Oops! Sorry for waking you up.",
                     "It's OK. See you at the park at seven thirty."
