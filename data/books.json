@@ -1962,5 +1962,69 @@
                 ]
             }
         ]
+    },
+    {
+        "title": "Leron Leron Sinta",
+        "lang": "fil-PH",
+        "parts":
+        [       
+            {
+                "award": "🥭",
+                "text": [
+                    "Leron Leron sinta",
+                    "Buko ng papaya",
+                    "Dala-dalai buslo",
+                    "Sisidlan ng sinta",
+                    "Pagdating sa dulo'y",
+                    "Nabali ang sanga",
+                    "Kapos kapalaran",
+                    "Humanap ng iba"
+                ]
+            },
+            {
+                "award": "🗑️",
+                "text": [
+                    "Gumising ka Neneng",
+                    "Tayo'y manampalok",
+                    "Dalhin mo ang buslo",
+                    "Sisidlan ng hinog",
+                    "Pagdating sa dulo'y",
+                    "Lalamba-lambayog",
+                    "Kumapit ka Neneng",
+                    "Baka ka mahulog"
+                ]
+            },
+            {
+                "award": "🔫",
+                "text": [
+                    "Ako'y ibigin mo",
+                    "Lalaking matapang",
+                    "Ang baril ko'y pito",
+                    "Ang sundang ko'y siyam",
+                    "Ang lalakarin ko'y",
+                    "Parte ng dinulang",
+                    "Isang pinggang pansit",
+                    "Ang aking kalaban"
+                ]
+            }
+        ]
+    },
+    {
+        "title": "곰세마리",
+        "lang": "ko-KR",
+        "parts":
+        [       
+            {
+                "award": "🐻",
+                "text": [
+                    "곰 세 마리가 한 집에 있어",
+                    "아빠 곰, 엄마 곰, 아기 곰!",
+                    "아빠 곰은 뚱뚱해",
+                    "엄마 곰은 날씬해",
+                    "아기 곰은 너무 귀여워",
+                    "으쓱! 으쓱! 잘한다!"
+                ]
+            }
+        ]
     }
 ]
