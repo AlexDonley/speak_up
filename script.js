@@ -366,6 +366,7 @@ function loadTarget(sentence, leftovers){
 
   targetCount = 0;
 
+  spokenSentence = sentence
   divided = processStrToArr(sentence);
 
   for (let n = 0; n < divided.length; n++){
