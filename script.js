@@ -1003,8 +1003,7 @@ function speak(str) {
 function setup(){
   let cnv = createCanvas(100, 100);
   cnv.mousePressed(userStartAudio);
-  cnv.style.position = "absolute";
-  cnv.style.bottom = "0px";
+
   textAlign(CENTER);
   microphone = new p5.AudioIn();
   microphone.start();
