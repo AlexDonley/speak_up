@@ -21,6 +21,7 @@ const scoreMarker = document.getElementById("scoreMarker");
 
 // elements contained in the setting section
 
+const contentBlocks = document.getElementById("contentBlocks")
 const startMenu = document.getElementById("startMenu");
 const textInput = document.getElementById("textInput");
 const presetBtn = document.getElementById("preset");
@@ -321,8 +322,7 @@ function startRound() {
     listenBool = true;
     recognition.start();
 
-    columnWrap.classList.remove('disappear');
-    startMenu.classList.add('disappear');
+    contentBlocks.style.left = "-100%"
 }
 
 function nextRound(){
@@ -351,8 +351,8 @@ function endRound() {
   
   timerBool = false;
   clearInterval(timerInterval);
-  columnWrap.classList.add('disappear');
-  startMenu.classList.remove('disappear');
+
+  contentBlocks.style.left = "0%"
 }
 
 function stopSpeechRecognition() {

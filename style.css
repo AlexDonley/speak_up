@@ -15,7 +15,8 @@ body {
 .left-sidebar {
   height: 100vh;
   width: 130px;
-  position: relative;
+  border-right: solid rgb(161, 161, 161) 2px;
+  position: fixed;
   left: 0;
   z-index: -2;
   background: linear-gradient(90deg, rgb(114, 114, 114), rgb(58, 58, 58))
@@ -24,14 +25,17 @@ body {
 .black {
   z-index: -4;
   width: 100%;
-  height: 70px;
-  background: black
+  height: 10vh;
+  /* border-radius: 10px; */
+  /* border: solid rgb(161, 161, 161) 2px; */
+  background: black;
+  border-bottom: solid rgb(161, 161, 161) 2px;
 }
 
 .finish-line {
   height: 100%;
   width: 100%;
-
+  
   background-image: linear-gradient(45deg, white 25%, transparent 25%), linear-gradient(-45deg, white 25%, transparent 25%), linear-gradient(45deg, transparent 75%, white 75%), linear-gradient(-45deg, transparent 75%, white 75%);
   background-size: 20px 20px;
   background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
@@ -114,16 +118,24 @@ svg {
   height: 80%;
 }
 
-.header{
-  margin-bottom: 2vh;
-  z-index: -3;
+.right-side {
+  margin-left: 130px;
+  display: flex;
+  flex-direction: column;
   width: 100%;
+  height: 100vh
+}
+
+.header{
+  z-index: -3;
+  width: calc(100vw - 130px);
   display: grid;
   justify-items: center;
   align-items: center;
-  grid-template-rows: 15px 55px;
+  grid-template-rows: 20px;
   grid-template-columns: 300px 150px 100px 100px;
-  background: linear-gradient(rgb(114, 114, 114), rgb(57, 57, 57))
+  border-bottom: solid rgb(161, 161, 161) 2px;
+  background: linear-gradient(rgb(114, 114, 114), rgb(58, 58, 58))
 }
 
 h1 {
@@ -148,7 +160,7 @@ h1 {
 }
 
 .stop-watch {
-  color: rgba(255, 255, 255, 0.9);
+  color: white;
   border-radius: 15px 0 0 15px;
   text-align: center;
   font-size: 6vh;
@@ -183,13 +195,41 @@ h1 {
   justify-content: center;
 }
 
-.start-menu {
+.main-content {
+  height: 100%;
+  width: calc(100%);
+  overflow-x: hidden;
+  position: relative
+}
+
+.content-blocks {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: -0%;
+  display: grid;
+  justify-content: center;
+
+  height: 100%;
+  width: 200%;
+  grid-template-columns: 1fr 1fr;
+  transition: left 0.3s
+}
+
+.start-menu {
+  position: relative;
+  margin: auto;
   height: 70vh;
   width: 70vw;
+}
+
+.column-wrap {
+  position: absolute;
+  margin-top: 7%;
+  margin-left: 7%;
+  width: 93%;
+  grid-column-start: 2;
+  grid-column-end: 3;
+  display: flex;
+  justify-content: center;
 }
 
 .text-input {
@@ -287,18 +327,6 @@ button {
   height: 3.5vh;
   width: 3.5vh;
   border-radius: 5px;
-}
-
-.column-wrap {
-  width: 80%;
-  display: flex;
-  position: absolute;
-  top: 130px;
-  left: 50%;
-  transform: translateX(-50%);
-  justify-content: center;
-  transition: opacity 0.5s;
-  margin-top: 1vh;
 }
 
 .column {
