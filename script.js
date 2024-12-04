@@ -17,6 +17,7 @@ const stopwatch = document.getElementById("stopwatch");
 const currentAwards = document.getElementById("currentAwards");
 const previousAwards = document.getElementById("previousAwards");
 const scoreMarker = document.getElementById("scoreMarker");
+const langDisplay = document.getElementById("langDisplay")
 
 
 // elements contained in the setting section
@@ -203,6 +204,7 @@ recognition.interimResults = true;
 function setLanguage(str) {
   targetLang = str
   recognition.lang = targetLang
+  langDisplay.innerText = str
 }
 
 setLanguage('en');
@@ -353,6 +355,10 @@ function endRound() {
   clearInterval(timerInterval);
 
   contentBlocks.style.left = "0%"
+  setTimeout(() => {
+    targetColumn.innerHTML = ''
+    texts.innerHTML = ''
+  }, 275)
 }
 
 function stopSpeechRecognition() {

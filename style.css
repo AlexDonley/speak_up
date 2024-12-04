@@ -15,7 +15,7 @@ body {
 .left-sidebar {
   height: 100vh;
   width: 130px;
-  border-right: solid rgb(161, 161, 161) 2px;
+  /* border-right: solid rgb(161, 161, 161) 2px; */
   position: fixed;
   left: 0;
   z-index: -2;
@@ -25,11 +25,8 @@ body {
 .black {
   z-index: -4;
   width: 100%;
-  height: 10vh;
-  /* border-radius: 10px; */
-  /* border: solid rgb(161, 161, 161) 2px; */
+  height: calc(8vh + 20px);
   background: black;
-  border-bottom: solid rgb(161, 161, 161) 2px;
 }
 
 .finish-line {
@@ -46,6 +43,7 @@ canvas{
   position: fixed;
   bottom: 60px;
   left: 10px;
+  filter: drop-shadow(0 0.5mm 1.5mm rgb(0, 0, 0));
 }
 
 .qual-panel{
@@ -132,38 +130,51 @@ svg {
   display: grid;
   justify-items: center;
   align-items: center;
-  grid-template-rows: 20px;
-  grid-template-columns: 300px 150px 100px 100px;
-  border-bottom: solid rgb(161, 161, 161) 2px;
+  grid-template-rows: 20px 8vh;
+  grid-template-columns: 300px 150px 100px 100px 100px;
+  /* border-bottom: solid rgb(161, 161, 161) 2px; */
   background: linear-gradient(rgb(114, 114, 114), rgb(58, 58, 58))
 }
 
-h1 {
+.title {
   color: lightgreen;
   font-size: 6vh;
   white-space: nowrap;
-  display: flex;
-  align-items: center;
   grid-row-start: 1;
   grid-row-end: 3;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-weight: bold;
+  line-height: calc(8vh + 20px);
+  border-right: solid rgba(206, 206, 206, 0.4) 2px;
 }
 
 .upper {
   grid-row-start: 1;
   grid-row-end: 2;
-  color: white
+  color: white;
+  width: 100%;
+  text-align: center;
+  border-right: solid rgba(206, 206, 206, 0.4) 2px;
+  border-left: solid rgba(19, 19, 19, 0.4) 2px
 }
+
 
 .lower {
   grid-row-start: 2;
   grid-row-end: 3;
+  color: white;
+  text-align: center;
+  font-size: 6vh;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  border-right: solid rgba(206, 206, 206, 0.4) 2px;
+  border-left: solid rgba(19, 19, 19, 0.4) 2px
 }
 
 .stop-watch {
-  color: white;
-  border-radius: 15px 0 0 15px;
-  text-align: center;
-  font-size: 6vh;
   font-weight: bold;
 }
 .stop-watch.flip {
@@ -172,7 +183,6 @@ h1 {
 
 .awards {
   display: flex;
-  max-height: 8vh;
   text-align: center;
   user-select: none;
 }
@@ -188,11 +198,13 @@ h1 {
 }
 
 .score{
-  font-size: 6vh;
-  color: white;
-  line-height: 8vh;
   display: flex;
   justify-content: center;
+}
+
+.lang {
+  line-height: 8vh;
+  font-size: 3vh
 }
 
 .main-content {
@@ -223,7 +235,7 @@ h1 {
 
 .column-wrap {
   position: absolute;
-  margin-top: 7%;
+  margin-top: 30px;
   margin-left: 7%;
   width: 93%;
   grid-column-start: 2;
@@ -550,4 +562,8 @@ input[type="checkbox"]:hover {
               rgba(0, 0, 0, 0.09) 0px 8px 4px 0px, 
               rgba(0, 0, 0, 0.09) 0px 16px 8px 0px, 
               rgba(0, 0, 0, 0.09) 0px 32px 16px 0px;
+}
+
+.shadow {
+  filter: drop-shadow(0 1mm 0.75mm rgb(0, 0, 0));
 }

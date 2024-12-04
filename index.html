@@ -28,17 +28,17 @@
     <title>Speak Up!</title>
 </head>
 <body>
-    <div class="left-sidebar">
-        <div class="black">
+    <div class="left-sidebar shadow">
+        <div class="black shadow">
             <div class="finish-line"></div>
         </div>
-        <div class="progress-bar">
+        <div class="progress-bar shadow">
             <div class="bar-part incomplete"></div>
             <div class="bar-part leftover"></div>
             <div class="bar-part complete" id="arrow"><div class="rainbow" id="rainbowEffect"></div></div>
         </div>
         <div class = "qual-panel">
-            <div class="qual" id="chromeIcon">
+            <div class="qual shadow" id="chromeIcon">
                 <svg version="1.1" id="Layer_1" style="fill:rgba(255, 255, 255, .8);" viewBox="0 0 512 512"; xml:space="preserve";>
                     <path d="M256,386.648c-25.6,0-49.434-7.062-70.621-21.186c-21.186-14.124-37.076-31.779-47.669-53.848
                     L31.779,128C9.71,167.724,0,210.979,0,256c0,64.441,21.186,120.055,62.676,167.724s93.572,75.917,155.366,85.628l74.152-128.883
@@ -53,24 +53,26 @@
                     S158.897,308.966,158.897,256S203.034,158.897,256,158.897"/>
                 </svg>
             </div>
-            <div class="qual" id="mic">
+            <div class="qual shadow" id="mic">
                 <ion-icon name="mic-circle-sharp"></ion-icon>
             </div>
     
         </div>
     </div>
     <div class="right-side">
-        <div class="header">      
-            <h1>Speak Up!</h1>
+        <div class="header shadow">      
+            <div class="title">Speak Up!</div>
             <div class="upper">Timer</div>
             <div class="upper">Score</div>
             <div class="upper">Awards</div>
+            <div class="upper">Lang</div>
             <div class="stop-watch lower" id="stopwatch">00:00</div>
             <div class="score lower" id="scoreMarker">0</div>
             <div class="awards lower" id="emoticons">
                 <div class="current-awards" id="currentAwards"></div>
                 <div class="previous-awards" id="previousAwards"></div>
             </div>
+            <div class="lang lower" id="langDisplay">en</div>
         </div>
         <div class="main-content">
             <div class="content-blocks" id="contentBlocks">
