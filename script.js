@@ -182,15 +182,14 @@ function micSuccess() {
 
 function micFail(error) {
   console.log(error);
-
-  if (error === 'NO_DEVICES_FOUND') {
-     // NO_DEVICES_FOUND (no microphone or microphone disabled)
-  }
-
+  mic.classList.remove('flip');
 }
 
-navigator.getUserMedia({ audio: true }, micSuccess, micFail);
+function checkForMic() {
+  navigator.getUserMedia({ audio: true }, micSuccess, micFail);
+}
 
+checkForMic()
 
 
 // - - - SPEECH RECOGNITION SNIPPET - - - //

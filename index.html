@@ -25,11 +25,12 @@
     <script src="libraries/p5.speech.js"></script>
     <script src="script.js" defer></script>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,1,0&icon_names=person"/>
     <title>Speak Up!</title>
 </head>
 <body>
     <div class="left-sidebar shadow">
-        <div class="black shadow">
+        <div class="black center-shadow">
             <div class="finish-line"></div>
         </div>
         <div class="progress-bar shadow">
@@ -37,26 +38,25 @@
             <div class="bar-part leftover"></div>
             <div class="bar-part complete" id="arrow"><div class="rainbow" id="rainbowEffect"></div></div>
         </div>
-        <div class = "qual-panel">
-            <div class="qual shadow" id="chromeIcon">
-                <svg version="1.1" id="Layer_1" style="fill:rgba(255, 255, 255, .8);" viewBox="0 0 512 512"; xml:space="preserve";>
-                    <path d="M256,386.648c-25.6,0-49.434-7.062-70.621-21.186c-21.186-14.124-37.076-31.779-47.669-53.848
-                    L31.779,128C9.71,167.724,0,210.979,0,256c0,64.441,21.186,120.055,62.676,167.724s93.572,75.917,155.366,85.628l74.152-128.883
-                    C285.131,383.117,271.89,386.648,256,386.648"/>
-                    <path d="M175.669,150.069c23.834-18.538,50.317-26.483,80.331-26.483h219.807
-                    c-22.952-38.841-53.848-67.09-92.69-89.159C344.276,11.476,301.903,0,256,0c-39.724,0-77.683,8.828-112.11,25.6
-                    S76.8,67.09,53.848,98.869L128,220.69C135.062,192.441,151.834,168.607,175.669,150.069"/>
-                    <path d="M492.579,159.779H344.276c25.6,25.6,43.255,59.145,43.255,96.221
-                    c0,27.366-7.945,52.083-22.952,75.034L258.648,512c69.738-0.883,129.766-25.6,179.2-75.917S512,325.738,512,256
-                    C512,223.338,506.703,188.91,492.579,159.779"/>
-                    <path d="M256,158.897c52.966,0,97.103,44.138,97.103,97.103S308.966,353.103,256,353.103
-                    S158.897,308.966,158.897,256S203.034,158.897,256,158.897"/>
-                </svg>
-            </div>
-            <div class="qual shadow" id="mic">
-                <ion-icon name="mic-circle-sharp"></ion-icon>
-            </div>
-    
+    </div>
+    <div class = "qual-panel">
+        <div class="qual shadow" id="chromeIcon">
+            <svg version="1.1" id="Layer_1" style="fill:rgba(255, 255, 255, .8);" viewBox="0 0 512 512"; xml:space="preserve";>
+                <path d="M256,386.648c-25.6,0-49.434-7.062-70.621-21.186c-21.186-14.124-37.076-31.779-47.669-53.848
+                L31.779,128C9.71,167.724,0,210.979,0,256c0,64.441,21.186,120.055,62.676,167.724s93.572,75.917,155.366,85.628l74.152-128.883
+                C285.131,383.117,271.89,386.648,256,386.648"/>
+                <path d="M175.669,150.069c23.834-18.538,50.317-26.483,80.331-26.483h219.807
+                c-22.952-38.841-53.848-67.09-92.69-89.159C344.276,11.476,301.903,0,256,0c-39.724,0-77.683,8.828-112.11,25.6
+                S76.8,67.09,53.848,98.869L128,220.69C135.062,192.441,151.834,168.607,175.669,150.069"/>
+                <path d="M492.579,159.779H344.276c25.6,25.6,43.255,59.145,43.255,96.221
+                c0,27.366-7.945,52.083-22.952,75.034L258.648,512c69.738-0.883,129.766-25.6,179.2-75.917S512,325.738,512,256
+                C512,223.338,506.703,188.91,492.579,159.779"/>
+                <path d="M256,158.897c52.966,0,97.103,44.138,97.103,97.103S308.966,353.103,256,353.103
+                S158.897,308.966,158.897,256S203.034,158.897,256,158.897"/>
+            </svg>
+        </div>
+        <div class="qual shadow" id="mic" onclick="checkForMic()">
+            <ion-icon name="mic-circle-sharp"></ion-icon>
         </div>
     </div>
     <div class="right-side">
@@ -66,13 +66,27 @@
             <div class="upper">Score</div>
             <div class="upper">Awards</div>
             <div class="upper">Lang</div>
-            <div class="stop-watch lower" id="stopwatch">00:00</div>
+            <div class="upper">Buttons</div>
+            <div class="stop-watch lower" id="stopwatch">0:00</div>
             <div class="score lower" id="scoreMarker">0</div>
             <div class="awards lower" id="emoticons">
                 <div class="current-awards" id="currentAwards"></div>
                 <div class="previous-awards" id="previousAwards"></div>
             </div>
-            <div class="lang lower" id="langDisplay">en</div>
+            <div class="lower">
+                <div class="lang" id="langDisplay">en</div>
+            </div>
+            <div class="header-btns lower">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M280-80q62 0 101.5-31t60.5-91q17-50 32.5-70t71.5-64q62-50 98-113t36-151q0-119-80.5-199.5T400-880q-119 0-199.5 80.5T120-600h80q0-85 57.5-142.5T400-800q85 0 142.5 57.5T600-600q0 68-27 116t-77 86q-52 38-81 74t-43 78q-14 44-33.5 65T280-160q-33 0-56.5-23.5T200-240h-80q0 66 47 113t113 47Zm432-210q59-60 93.5-139.5T840-600q0-92-34.5-172T712-912l-58 56q50 50 78 115.5T760-600q0 74-28 139t-78 115l58 56ZM400-500q42 0 71-29.5t29-70.5q0-42-29-71t-71-29q-42 0-71 29t-29 71q0 41 29 70.5t71 29.5Z"/></svg>
+                </button>
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M120-520v-320h320v320H120Zm80-80h160v-160H200v160Zm-80 480v-320h320v320H120Zm80-80h160v-160H200v160Zm320-320v-320h320v320H520Zm80-80h160v-160H600v160Zm160 480v-80h80v80h-80ZM520-360v-80h80v80h-80Zm80 80v-80h80v80h-80Zm-80 80v-80h80v80h-80Zm80 80v-80h80v80h-80Zm80-80v-80h80v80h-80Zm0-160v-80h80v80h-80Zm80 80v-80h80v80h-80Z"/></svg>
+                </button>
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Z"/></svg>
+                </button>
+            </div>
         </div>
         <div class="main-content">
             <div class="content-blocks" id="contentBlocks">

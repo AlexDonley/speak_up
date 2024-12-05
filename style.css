@@ -23,7 +23,6 @@ body {
 }
 
 .black {
-  z-index: -4;
   width: 100%;
   height: calc(8vh + 20px);
   background: black;
@@ -38,7 +37,7 @@ body {
   background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
 }
 
-canvas{
+canvas {
   z-index: 1;
   position: fixed;
   bottom: 60px;
@@ -46,38 +45,33 @@ canvas{
   filter: drop-shadow(0 0.5mm 1.5mm rgb(0, 0, 0));
 }
 
-.qual-panel{
-  width: calc(100% - 20px);
-  margin-left: 10px;
-  margin-right: 10px;
+.qual-panel {
+  width: 120px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  position: fixed;
   bottom: 10px;
-  overflow: none;
 }
 
-.qual{
+.qual {
+  margin: auto;
   display: flex;
   height: 50px;
-  min-width: 50px;
-  max-width: 50px;
+  width: 50px;
   background-color: red;
   border-radius: 50%;
   justify-content: center;
   align-items: center;
   color: rgba(255, 255, 255, .8);
   font-size: 800%;
-  margin: 2px;
 }
 .qual.flip{
   background-color: green;
 }
 
 .progress-bar{
-  z-index: 0;
   height: calc(100% - 130px);
   width: 70px;
   position: fixed;
@@ -121,17 +115,18 @@ svg {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 100vh
+  height: 100vh;
+  overflow-x: hidden
 }
 
 .header{
-  z-index: -3;
+
   width: calc(100vw - 130px);
   display: grid;
   justify-items: center;
   align-items: center;
   grid-template-rows: 20px 8vh;
-  grid-template-columns: 300px 150px 100px 100px 100px;
+  grid-template-columns: 300px 150px 100px 100px 100px 100px;
   /* border-bottom: solid rgb(161, 161, 161) 2px; */
   background: linear-gradient(rgb(114, 114, 114), rgb(58, 58, 58))
 }
@@ -166,19 +161,24 @@ svg {
   grid-row-end: 3;
   color: white;
   text-align: center;
-  font-size: 6vh;
   width: 100%;
   height: 100%;
-  text-align: center;
   border-right: solid rgba(206, 206, 206, 0.4) 2px;
   border-left: solid rgba(19, 19, 19, 0.4) 2px
 }
 
 .stop-watch {
   font-weight: bold;
+  font-size: 6vh;
 }
 .stop-watch.flip {
   background: radial-gradient(circle at center, maroon, 70%, red);;
+}
+
+.score {
+  display: flex;
+  justify-content: center;
+  font-size: 6vh;
 }
 
 .awards {
@@ -186,25 +186,25 @@ svg {
   text-align: center;
   user-select: none;
 }
-.current-awards{
+.current-awards {
   font-size: 5vh;
   white-space: nowrap;
 }
-.previous-awards{
+.previous-awards {
   writing-mode: vertical-lr;
   text-orientation: upright;
   font-size: 1.8vh;
   
 }
 
-.score{
-  display: flex;
-  justify-content: center;
-}
-
 .lang {
   line-height: 8vh;
   font-size: 3vh
+}
+
+.header-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr
 }
 
 .main-content {
@@ -566,4 +566,8 @@ input[type="checkbox"]:hover {
 
 .shadow {
   filter: drop-shadow(0 1mm 0.75mm rgb(0, 0, 0));
+}
+
+.center-shadow {
+  filter: drop-shadow(0 0mm 1.5mm rgb(0, 0, 0));
 }
