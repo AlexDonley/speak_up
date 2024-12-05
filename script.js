@@ -55,7 +55,7 @@ const columnWrap = document.getElementById("columnWrap");
 const targetColumn = document.querySelector(".targetColumn");
 const texts = document.querySelector(".texts");
 
-
+const viewQR = document.getElementById('viewQR')
 
 // - - - VARIABLES - - - //
 
@@ -86,7 +86,6 @@ tensDigits = ['zero', 'teen', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'se
 // array of words to omit from target language and user input
 
 cutOut = ["ah", "ahh", "aha", "mm", "mmm", "hm", "hmm", "mhm", "uh", "ah", "huh", "eh", "sh", "shh"]
-
 
 // boolean variables that control whether features are on or off
 //    presetBool   - false means freeform, true means preset
@@ -689,13 +688,31 @@ function toggleLoop() {
 function cycleTimers() {
   if (timerSetting < 2) {
     timerBtn.classList.add('flip')
+
+    
     timerSetting ++
+    if (timerSetting == 1) {
+      timerBtn.children[0].style.clipPath = 
+      "polygon(0% 33%, 50% 0%, 100% 33%, 80% 33%, 80% 100%, 20% 100%, 20% 33%)"
+    } else {
+      timerBtn.children[0].style.clipPath = 
+      "polygon(20% 0%, 20% 66%, 0% 66%, 50% 100%, 100% 66%, 80% 66%, 80% 0%)"
+    }
   } else {
     timerBtn.classList.remove('flip')
     timerSetting = 0;
+    timerBtn.children[0].style.clipPath = 
+    "polygon(0% 0%, 33% 0%, 50% 20%, 66% 0%, 100% 0%, 100% 33%, 80% 50%, 100% 66%, 100% 100%, 66% 100%, 50% 80%, 33% 100%, 0% 100%, 0% 66%, 20% 50%, 0% 33%)"
   }
-  timerBtn.innerHTML = timerInnerTexts[timerSetting]
   console.log(timerSetting)
+}
+
+function toggleQR() {
+  if (viewQR.classList.contains('hide')) {
+    viewQR.classList.remove('hide')
+  } else {
+    viewQR.classList.add('hide')
+  }
 }
 
 function shuffle(arr){
