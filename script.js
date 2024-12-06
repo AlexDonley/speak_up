@@ -13,7 +13,7 @@ const mic = document.getElementById("mic");
 
 const progressParts = Array.from(document.getElementsByClassName('bar-part'));
 const arrow = document.getElementById('rainbowEffect');
-const stopwatch = document.getElementById("stopwatch");
+const stopWatch = document.getElementById("stopWatch");
 const currentAwards = document.getElementById("currentAwards");
 const previousAwards = document.getElementById("previousAwards");
 const scoreMarker = document.getElementById("scoreMarker");
@@ -112,11 +112,10 @@ defaultFreq = 400
 
 defaultCountdown = 10;
 timerSetting = 1;
-timerInnerTexts = [
-  '<div class="behind">&#10006;</div><ion-icon name="timer-outline"></ion-icon>',
-  '&#9650;<br><ion-icon name="timer-outline"></ion-icon>',
-  '<ion-icon name="timer-outline"></ion-icon><br>&#9660;'
-]
+timerObj = {
+  "start": null,
+  "target": null,
+}
 
 
 // settings for the arrow and rainbow
@@ -151,8 +150,9 @@ let zhuyin;
 
 // sound effects
 
-let next = new Audio("sound/chaching.webm");
+let next    = new Audio("sound/chaching.webm");
 let perfect = new Audio("sound/wow.mp3");
+let ding    = new Audio("sound/ding.wav");
 let spokenSentence; 
 
 let targetLang = 'en'
@@ -248,18 +248,12 @@ function startRound() {
     leftoversList = []
     fullTextArray = []
 
-    totalWordsToRead = 0;
-    progress = [0, 0, 0];
-    
+    totalWordsToRead = 0
+    progress = [0, 0, 0]
 
     if(!timerBool & timerSetting > 0){
-      timerBool = true;
-      
-      if (timerSetting == 1) {
-        startTimer(0)
-      } else if (timerSetting == 2) {
-        startTimer(defaultCountdown);
-      }
+      timerBool = true
+      startTimer()
     }
   
     // check if the sentence queue will be preset or freeform
@@ -689,7 +683,6 @@ function cycleTimers() {
   if (timerSetting < 2) {
     timerBtn.classList.add('flip')
 
-    
     timerSetting ++
     if (timerSetting == 1) {
       timerBtn.children[0].style.clipPath = 
@@ -798,66 +791,6 @@ function loadZhuyin() {
 loadBooks();
 loadHomophones();
 loadZhuyin();
-
-function startTimer(sec) {
-  ding = new Audio("sound/ding.wav");
-  ding.play();
-
-  timerInterval = setInterval(function(){
-    
-    writeToStopwatch(sec);
-
-    if (timerBool == true){
-      if(timerSetting == 1) {
-        sec++;
-
-      } else if (timerSetting == 2){
-        if (sec > 0) {
-          sec--;
-
-        } else {
-          clearInterval(timerInterval);
-          startTimer(defaultCountdown);
-
-          flip(stopwatch);
-        }
-      }
-    } else {
-      clearInterval(timerInterval);
-    }
-  }, 999)
-}
-
-function writeToStopwatch(sec) {
-  var minString;
-  var secString;
-    
-  if(sec < 600) {
-    minString = "0" + Math.floor(sec/60)
-  } else {
-    minString = Math.floor(sec/60)
-  }
-
-  if((sec % 60) < 10) {
-    secString = "0" + (sec%60)
-  } else {
-    secString = (sec%60)
-  }
-  
-  
-  timeString =  minString + ":" + secString;
-  
-  stopwatch.innerHTML = timeString;
-}
-
-function flip(element) {
-  elStyle = element.classList;
-  if (elStyle.contains('flip')) {
-    elStyle.remove('flip');
-  } else {
-    elStyle.add('flip');
-  }
-}
 
 function moveToleftoversList (n) {
   leftoversList.push(divided[n]);
@@ -1094,4 +1027,127 @@ function startRainbow(){
     arrow.style.background = generateRainbow(movingRainbow);
   
   }, 20);
+}
+
+
+// TIMER CODE
+
+function startTimer() {
+  // TIMER SETUP
+  ding.play();
+
+  timerObj.start = determineTime()
+  displayTime()
+
+  // TIMER INTERVAL LOOP
+  timerInterval = setInterval(displayTime, 999)
+}
+
+function determineTime() {
+  const date = new Date;
+  // date.setTime(result_from_Date_getTime);
+
+  const seconds = date.getSeconds();
+  const minutes = date.getMinutes();
+  const hour    = date.getHours();
+
+  timeStr =   hour % 12 + ":" + 
+              appendZero(minutes.toString()) + ":" + 
+              appendZero(seconds.toString())
+  
+  nowRaw =  timeStampToSec(hour + ":" + 
+            appendZero(minutes.toString()) + ":" + 
+            appendZero(seconds.toString()))
+
+  console.log(nowRaw)
+
+  return nowRaw
+}
+
+function displayTime() {
+  let rawSecDifference = determineTime() - timerObj.start
+  let stampLength = 4
+  let displayStamp
+
+  if (timerSetting == 1) {
+    if (rawSecDifference >= 36000) {
+      stampLength = 8
+    } else if (rawSecDifference >= 3600) {
+      stampLength = 7
+    } else if (rawSecDifference >= 600) {
+      stampLength = 5
+    }
+
+    displayStamp = trimTimeStamp(secToTimeStamp(rawSecDifference)[1], stampLength)
+  } else if (timerSetting == 2) {
+    miniTimer = defaultCountdown - (rawSecDifference % defaultCountdown)
+
+    if (miniTimer == defaultCountdown) {
+      ding.play()
+    }
+    
+    displayStamp = trimTimeStamp(secToTimeStamp(
+      miniTimer
+    )[1], String(miniTimer).length)
+  }
+
+  stopWatch.innerText = displayStamp
+
+  if (timerBool == false) {
+    clearInterval(timerInterval);
+  }
+}
+
+function timeStampToSec(str) {
+  timeStampArr = str.split(':')
+
+  rawSecInt =     Number(timeStampArr[2])
+  rawSecInt +=    Number(timeStampArr[1] * 60)
+  rawSecInt +=    Number(timeStampArr[0] * 3600)
+
+  return rawSecInt
+}
+
+function secToTimeStamp(int) {
+  timeStampArr = [null, null, null]
+
+  rawSec = int % 60
+  rawMin = (int - rawSec) % 3600
+  rawHour = (int - rawMin - rawSec)
+
+  timeStampArr[2] = rawSec
+  timeStampArr[1] = rawMin / 60
+  timeStampArr[0] = rawHour / 3600
+
+  stampsAndString = [
+      timeStampArr, 
+      timeStampArr[0] % 12 + ":" + 
+      appendZero(timeStampArr[1]) + ":" + 
+      appendZero(timeStampArr[2])
+  ]
+
+  return stampsAndString
+}
+
+function trimTimeStamp(str, val) {
+  return str.substring((str.length - val), str.length)
+}
+
+function appendZero(n) {
+  n = String(n)
+  
+  if (n.length < 2) {
+      return "0" + n
+  } else {
+      return n
+  }
+}
+
+function flip(element) {
+  elStyle = element.classList;
+  if (elStyle.contains('flip')) {
+    elStyle.remove('flip');
+  } else {
+    elStyle.add('flip');
+  }
 }
