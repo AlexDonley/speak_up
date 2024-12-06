@@ -73,8 +73,17 @@
                 <div class="current-awards" id="currentAwards"></div>
                 <div class="previous-awards" id="previousAwards"></div>
             </div>
-            <div class="lower">
-                <div class="lang" id="langDisplay">en</div>
+            <div class="lower hide-menu">
+                <div class="lang" id="langDisplay" onclick="toggleLangTab()">en</div>
+                <div class="lang-tab">
+                    <div>Speed</div>
+                    <div>Vol</div>
+                    <div id="speedReader">0.5</div>
+                    <div id="volReader">0.5</div>
+                    <input class="vert-slider" type="range" id="synthSpeed" min="0.2" max="2.0" value="0.5" step="0.1" onchange="updateSpeed()">
+                    <input class="vert-slider" type="range" id="synthVol" min="0.0" max="1.0" value="0.5" step="0.1" onchange="updateVol()">
+                    <select class="voice-select" id="voiceSelect"></select>
+                </div>
             </div>
             <div class="header-btns lower">
                 <button>

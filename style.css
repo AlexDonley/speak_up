@@ -200,7 +200,38 @@ svg {
 
 .lang {
   line-height: 8vh;
-  font-size: 3vh
+  font-size: 3vh;
+}
+
+.hide-tab {
+  position: relative;
+}
+
+.lang-tab {
+  background: white;
+  color: black;
+  font-size: 8pt;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 5px;
+  gap: 5px;
+  height: 210px;
+  transform: translateY(-300px)
+}
+.lang-tab.show {
+  transform: translateY(0px)
+}
+
+.vert-slider {
+  writing-mode: vertical-lr;
+  direction: ltr
+}
+
+.voice-select {
+  grid-column-start: 1;
+  grid-column-end: 3;
 }
 
 .header-btns {

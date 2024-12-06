@@ -11,14 +11,17 @@ const mic = document.getElementById("mic");
 
 // ux elements that show user progress through arrow movement, score, timer, and awards
 
-const progressParts = Array.from(document.getElementsByClassName('bar-part'));
-const arrow = document.getElementById('rainbowEffect');
-const stopWatch = document.getElementById("stopWatch");
-const currentAwards = document.getElementById("currentAwards");
-const previousAwards = document.getElementById("previousAwards");
-const scoreMarker = document.getElementById("scoreMarker");
-const langDisplay = document.getElementById("langDisplay")
-
+const progressParts   = Array.from(document.getElementsByClassName('bar-part'));
+const arrow           = document.getElementById('rainbowEffect');
+const stopWatch       = document.getElementById("stopWatch");
+const currentAwards   = document.getElementById("currentAwards");
+const previousAwards  = document.getElementById("previousAwards");
+const scoreMarker     = document.getElementById("scoreMarker");
+const langDisplay     = document.getElementById("langDisplay")
+const synthSpeed      = document.getElementById("synthSpeed")
+const synthVol        = document.getElementById("synthVol")
+const speedReader     = document.getElementById("speedReader")
+const volReader       = document.getElementById("volReader")
 
 // elements contained in the setting section
 
@@ -101,6 +104,7 @@ timerBool = false;
 listenBool = false;
 
 let microphone;
+let synthVoices
 
 
 // setting for P5 sawtooth frequency
@@ -700,6 +704,16 @@ function cycleTimers() {
   console.log(timerSetting)
 }
 
+function toggleLangTab() {
+  tab = document.querySelector('.lang-tab')
+
+  if (tab.classList.contains('show')) {
+    tab.classList.remove('show')
+  } else {
+    tab.classList.add('show')
+  }
+}
+
 function toggleQR() {
   if (viewQR.classList.contains('hide')) {
     viewQR.classList.remove('hide')
@@ -925,17 +939,26 @@ function updateProgressBar(arr) {
   progressParts[2].style.height = "calc(" + complete + "% + 70px)";
 }
 
+function updateSpeed() {
+  speedReader.innerText = synthSpeed.value
+}
+
+function updateVol() {
+  volReader.innerText = synthVol.value
+}
+
 function speak(str) {
   stopSpeechRecognition();
   
   if(str) {
     utterance = new SpeechSynthesisUtterance(str);
-    utterance.rate = 0.4;
   } else {
-    utterance = new SpeechSynthesisUtterance(spokenSentence);
-    utterance.rate = 0.4;
+    utterance = new SpeechSynthesisUtterance(spokenSentence); 
   }
   
+  utterance.rate = synthSpeed.value;
+  utterance.volume = synthVol.value;
+  utterance.voice = synthVoices[voiceSelect.value]
   utterance.lang = targetLang;
 
   if (speechSynthesis.speaking) {
@@ -954,6 +977,35 @@ function speak(str) {
   });
 }
 
+const allVoicesObtained = new Promise(function(resolve, reject) {
+  let voices = window.speechSynthesis.getVoices();
+  if (voices.length !== 0) {
+    resolve(voices);
+  } else {
+    window.speechSynthesis.addEventListener("voiceschanged", function() {
+      voices = window.speechSynthesis.getVoices();
+      resolve(voices);
+      synthVoices = voices
+      populateVoices(synthVoices)
+    });
+  }
+});
+
+allVoicesObtained.then(voices => 
+  console.log(voices)
+)
+
+function populateVoices(arr) {
+  for (let n = 0; n < arr.length; n++) {
+    newOpt = document.createElement('option')
+    newOpt.value = n
+    newOpt.innerText = arr[n].name
+
+    voiceSelect.append(newOpt)
+  }
+}
+
+// Code for P5 canvas and other P5 functions
 
 function setup(){
   let cnv = createCanvas(100, 100);
