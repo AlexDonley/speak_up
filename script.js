@@ -54,11 +54,15 @@ searchTitles.addEventListener("input", e => {
 // elements contained in the action section
 // action section contains two columns, one for target words and the other for user input
 
-const columnWrap = document.getElementById("columnWrap");
-const targetColumn = document.querySelector(".targetColumn");
-const texts = document.querySelector(".texts");
+const columnWrap      = document.getElementById("columnWrap");
+const targetColumn    = document.querySelector(".targetColumn");
+const texts           = document.querySelector(".texts");
 
-const viewQR = document.getElementById('viewQR')
+const viewQR          = document.getElementById('viewQR')
+
+const userEntry       = document.getElementById('userEntry')
+const availableUsers  = document.getElementById('availableUsers')
+const userName        = document.getElementById('userName')
 
 // - - - VARIABLES - - - //
 
@@ -157,6 +161,7 @@ let zhuyin;
 let next    = new Audio("sound/chaching.webm");
 let perfect = new Audio("sound/wow.mp3");
 let ding    = new Audio("sound/ding.wav");
+ding.volume = 0.3
 let spokenSentence; 
 
 let targetLang = 'en'
@@ -345,12 +350,12 @@ function nextRound(){
 }
 
 function endRound() {
+  contentBlocks.style.left = "0%"
   stopSpeechRecognition();
   
   timerBool = false;
   clearInterval(timerInterval);
 
-  contentBlocks.style.left = "0%"
   setTimeout(() => {
     targetColumn.innerHTML = ''
     texts.innerHTML = ''
@@ -1202,4 +1207,61 @@ function flip(element) {
   } else {
     elStyle.add('flip');
   }
+}
+
+function showUserPage() {
+  contentBlocks.style.left = "-200%"
+}
+
+let currentUser = null
+let userInfo = []
+if (localStorage.getItem("user_info")) {
+  userInfo = JSON.parse(localStorage.getItem("user_info"))
+}
+populateUserButtons()
+
+function createUser() {
+  inputName = userEntry.value
+
+  // check variable to see if entered name already exists
+
+  overwriteCheck = true
+  userInfo.forEach(entry => {
+    if (entry.user_name == inputName) {
+      overwriteCheck = confirm("This name already exists. Would you like to overwrite? Doing so will erase all existing information on the user")
+    }
+  })
+
+  // append new user info
+  // this code is bad, come back and fix it
+  if (overwriteCheck) {
+    userInfo.push({"user_name": inputName, "user_data": null})
+    
+    saveUserDataLocally()
+    populateUserButtons()
+  }
+}
+
+function saveUserDataLocally() {
+  userDataString = JSON.stringify(userInfo)
+  localStorage.setItem("user_info", userDataString)
+}
+
+function populateUserButtons() {
+  availableUsers.innerHTML = ''
+  
+  userInfo.forEach(entry => {
+    newButton = document.createElement('button')
+    newButton.innerText = entry.user_name
+    newButton.classList.add('user-btn')
+    newButton.setAttribute('onclick', 'setUser("' + entry.user_name + '")')
+
+    availableUsers.append(newButton)
+  })
+}
+
+function setUser(str) {
+  currentUser = str
+  userName.innerText = str
+  userName.classList.add('show')
 }

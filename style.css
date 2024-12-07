@@ -119,15 +119,15 @@ svg {
   overflow-x: hidden
 }
 
-.header{
+.header {
   z-index: 1;
   width: calc(100vw - 130px);
   display: grid;
   justify-items: center;
   align-items: center;
   grid-template-rows: 20px 8vh;
-  grid-template-columns: 1fr 150px 100px 100px 100px 100px;
-  /* border-bottom: solid rgb(161, 161, 161) 2px; */
+  /* grid-template-columns: 3fr 150px 100px 100px 100px 100px; */
+  grid-template-columns: 3fr 2fr 1fr 1fr 1fr 1fr;
   background: linear-gradient(rgb(114, 114, 114), rgb(58, 58, 58))
 }
 
@@ -238,6 +238,7 @@ svg {
   display: grid;
   position: relative;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
   gap: 2px;
   padding: 2px;
 }
@@ -253,6 +254,21 @@ svg {
 }
 .view-QR.hide {
   transform: translateY(min(25vw, 25vh))
+}
+
+.user-name {
+  position: fixed;
+  right: 0;
+  top: 0;
+  font-size: 4vh;
+  padding: 3px 10px;
+  border-bottom-left-radius: 10px;
+  background: white;
+  color: darkslategray;
+  transition: top 0.3s;
+}
+.user-name.show{
+  top: calc(20px + 8vh);
 }
 
 img {
@@ -275,20 +291,20 @@ img {
   justify-content: center;
 
   height: 100%;
-  width: 200%;
-  grid-template-columns: 1fr 1fr;
+  width: 300%;
+  grid-template-columns: 1fr 1fr 1fr;
   transition: left 0.3s
 }
 
-.start-menu {
+.menu-block {
   position: relative;
   margin: auto;
   height: 70vh;
   width: 70vw;
 }
 
-.column-wrap {
-  position: absolute;
+.column-block {
+  position: relative;
   margin-top: 30px;
   margin-left: 3%;
   width: 93%;
@@ -296,6 +312,32 @@ img {
   grid-column-end: 3;
   display: flex;
   justify-content: center;
+}
+
+.user-block {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-info-wrap {
+  height: 50%;
+  width: 50%;
+  background: lightgray;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.available-users {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px
+}
+
+.user-btn {
+  font-size: 3vw;
+  border-radius: 500px;
 }
 
 .text-input {
@@ -440,11 +482,7 @@ button {
 }
 
 .read {
-  bottom: 8vh;
-}
-
-.home {
-  bottom: 0;
+  bottom: 1vh;
 }
 
 span {
