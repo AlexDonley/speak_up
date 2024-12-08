@@ -11,12 +11,13 @@ const mic = document.getElementById("mic");
 
 // ux elements that show user progress through arrow movement, score, timer, and awards
 
-const progressParts   = Array.from(document.getElementsByClassName('bar-part'));
-const arrow           = document.getElementById('rainbowEffect');
-const stopWatch       = document.getElementById("stopWatch");
-const currentAwards   = document.getElementById("currentAwards");
-const previousAwards  = document.getElementById("previousAwards");
-const scoreMarker     = document.getElementById("scoreMarker");
+const progressParts   = Array.from(document.getElementsByClassName('bar-part'))
+const arrow           = document.getElementById('rainbowEffect')
+const stopWatch       = document.getElementById("stopWatch")
+const currentAwards   = document.getElementById("currentAwards")
+const previousAwards  = document.getElementById("previousAwards")
+const awardsTab       = document.getElementById("awardsTab")
+const scoreMarker     = document.getElementById("scoreMarker")
 const langDisplay     = document.getElementById("langDisplay")
 const synthSpeed      = document.getElementById("synthSpeed")
 const synthVol        = document.getElementById("synthVol")
@@ -101,11 +102,12 @@ cutOut = ["ah", "ahh", "aha", "mm", "mmm", "hm", "hmm", "mhm", "uh", "ah", "huh"
 //    timerBool    - false means timer does not count, true means timer counts
 //    listenBool   - false means the browser does not intake mic input, true means the browser does intake mic input
 
-presetBool = false;
-shuffleBool = false;
-loopBool = false;
-timerBool = false;
-listenBool = false;
+presetBool      = false
+shuffleBool     = false
+loopBool        = false
+timerBool       = false
+listenBool      = false
+fullscreenBool  = false
 
 let microphone;
 let synthVoices
@@ -471,8 +473,8 @@ function checkSentence(arr) {
         } 
 
         if (correct) {
-          score++;
-          scoreMarker.innerText = score;
+          
+          updateScore(1)
 
           // update progress bar
           progress[2]++;
@@ -534,6 +536,16 @@ function leftoversRound() {
   
   loadTarget(leftoversString, true);
   leftoversList = [];
+}
+
+function updateScore(n) {
+  score += n
+  scoreMarker.innerText = score
+
+  if(!(currentUserIndex == null)) {
+    userInfo[currentUserIndex].user_score = score
+    saveUserDataLocally()
+  }
 }
 
 function convertNumsToText(arr) {
@@ -641,14 +653,33 @@ function updateAwards() {
   previousAwards.innerText += currentAwards.innerText;
   currentAwards.innerText = ""
   
-  if (presetBool){
+  if (presetBool) {
                 
     indexArray.forEach((num) => {
-      currentAwards.innerText += bookList[textIndex].parts[num].award;
+      addOneAward(textIndex, num)
     })
     
   } else {
-    currentAwards.innerText += bookList[0].parts[0].award;
+    addOneAward(0, 0)
+  }
+}
+
+function addOneAward(textN, awardN) {
+  thisAward = bookList[textN].parts[awardN].award
+  
+  currentAwards.innerText += thisAward;
+
+  if (!(currentUserIndex == null)) {
+    console.log('adding award to user data')
+    
+    const date = new Date()
+    dayStamp = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate()
+
+    awardArray = [thisAward, dayStamp]
+
+    userInfo[currentUserIndex].user_awards.push(awardArray)
+    console.log(userInfo)
+    saveUserDataLocally()
   }
 }
 
@@ -709,13 +740,23 @@ function cycleTimers() {
   console.log(timerSetting)
 }
 
-function toggleLangTab() {
-  tab = document.querySelector('.lang-tab')
+function toggleTab(classStr) {
+  tab = document.querySelector('.'+ classStr)
 
   if (tab.classList.contains('show')) {
     tab.classList.remove('show')
   } else {
     tab.classList.add('show')
+  }
+}
+
+function toggleFullscreen() {
+  if (fullscreenBool) {
+    document.exitFullscreen()
+    fullscreenBool = false
+  } else {
+    document.documentElement.requestFullscreen()
+    fullscreenBool = true
   }
 }
 
@@ -1047,6 +1088,8 @@ function draw(){
 
 }
 
+// Code for rainbow effect on arrow
+
 function generateRainbow(arr){
     direction += 1;
     opacity -= 0.01;
@@ -1214,6 +1257,7 @@ function showUserPage() {
 }
 
 let currentUser = null
+let currentUserIndex = null
 let userInfo = []
 if (localStorage.getItem("user_info")) {
   userInfo = JSON.parse(localStorage.getItem("user_info"))
@@ -1235,7 +1279,12 @@ function createUser() {
   // append new user info
   // this code is bad, come back and fix it
   if (overwriteCheck) {
-    userInfo.push({"user_name": inputName, "user_data": null})
+    userInfo.push({
+      "user_name": inputName, 
+      "user_score": 0, 
+      "user_awards": [], 
+      "user_completions": []
+    })
     
     saveUserDataLocally()
     populateUserButtons()
@@ -1264,4 +1313,42 @@ function setUser(str) {
   currentUser = str
   userName.innerText = str
   userName.classList.add('show')
+
+  currentUserIndex = userInfo.findIndex(entry => entry.user_name == str)
+  console.log(currentUserIndex)
+
+  score = 0
+  updateScore(userInfo[currentUserIndex].user_score)
+
+  reloadAwards(currentUserIndex)
+}
+
+function reloadAwards(index) {
+  clearAwards()
+  
+  checkLength = userInfo[index].user_awards.length
+
+  if (checkLength > 0) {
+    currentAwards.innerText += userInfo[index].user_awards[
+      checkLength - 1
+    ][0];
+
+    if (checkLength > 1) {
+      for (let i = checkLength - 2; i > -1 && i > checkLength - 5; i--) {
+        previousAwards.append(userInfo[index].user_awards[i][0])
+      }
+    }
+
+    if (checkLength > 3) {
+      for (let i=0; i<checkLength - 4; i++) {
+        awardsTab.prepend(userInfo[index].user_awards[i][0])
+      }
+    }
+  }
+}
+
+function clearAwards() {
+  currentAwards.innerText = ''
+  previousAwards.innerText = ''
+  awardsTab.innerText = ''
 }

@@ -19,7 +19,7 @@ body {
   position: fixed;
   left: 0;
   z-index: -2;
-  background: linear-gradient(90deg, rgb(114, 114, 114), rgb(58, 58, 58))
+  /* background: linear-gradient(90deg, rgb(114, 114, 114), rgb(58, 58, 58)) */
 }
 
 .black {
@@ -184,8 +184,10 @@ svg {
 
 .awards {
   display: flex;
-  text-align: center;
+  align-items: center;
+  justify-content: center;
   user-select: none;
+  position: relative;
 }
 .current-awards {
   font-size: 5vh;
@@ -195,7 +197,6 @@ svg {
   writing-mode: vertical-lr;
   text-orientation: upright;
   font-size: 1.8vh;
-  
 }
 
 .lang {
@@ -203,8 +204,23 @@ svg {
   font-size: 3vh;
 }
 
-.hide-tab {
-  position: relative;
+.awards-tab {
+  background: white;
+  color: black;
+  font-size: 12pt;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  width: 200%;
+  height: 100px;
+  text-align: left;
+  padding: 10px;
+  position: absolute;
+  bottom: calc(20px + 8vh);
+  right: 0;
+  overflow: auto
+}
+.awards-tab.show {
+  bottom: -100px;
 }
 
 .lang-tab {
