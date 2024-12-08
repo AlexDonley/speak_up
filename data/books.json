@@ -61,6 +61,42 @@
         ]
     },
     {
+        "title": "Christmas Broadcast",
+        "author": "Alex Donley",
+        "parts": [
+            {
+                "award": "🎄",
+                "text": [  
+                    "Hey, Casey! Do you like Christmas?",
+                    "I don't know much about Christmas.",
+                    "What do you do?",
+                    "Christmas is great!",
+                    "We spend time with family, give presents, and decorate a Christmas tree.",
+                    "A tree? Inside the house?",
+                    "Yeah! We put lights on it. ",
+                    "It's so pretty.",
+                    "Sounds fun! Who gets presents?",
+                    "Mostly family and friends. ",
+                    "We also get presents from Santa Claus!"
+                ]
+            },
+            {
+                "award": "🎅",
+                "text": [  
+                    "Santa Claus… Is he the big man in a red suit?",
+                    "Yep. He gives presents to kids if they've been good.",
+                    "Nice! Do you have special food, too?",
+                    "Yes! We have a big dinner with ham, cookies, and sometimes eggnog.",
+                    "Yum! Christmas sounds fun. ",
+                    "It's super fun! ",
+                    "Do you say anything special for Christmas?",
+                    "We always say, Merry Christmas!",
+                    "Merry Christmas, Tom!"
+                ]
+            }
+        ]
+    },
+    {
         "title": "ABCs",
         "author": "none",
         "parts": [
