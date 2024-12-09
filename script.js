@@ -70,11 +70,12 @@ const userName        = document.getElementById('userName')
 
 // arrays for sentences and subdivisions
 
-sentenceQueue = [];
-divided = [];
-indexArray = [];
-targetList = [];
-leftoversList = [];
+sentenceQueue = []
+divided       = []
+indexArray    = []
+targetList    = []
+leftoversList = []
+completionMap = []
 
 // index markers for working through the above arrays
 
@@ -258,6 +259,7 @@ function startRound() {
     sentenceQueue = []
     leftoversList = []
     fullTextArray = []
+    completionMap   = []
 
     totalWordsToRead = 0
     progress = [0, 0, 0]
@@ -303,16 +305,22 @@ function startRound() {
       sentenceQueue = freeformText.split('\n');
     }
     
-    sentenceQueue.forEach((str) => {
-  
-      fullTextArray = fullTextArray.concat(processStrToArr(str));
 
-    })
+    for (i=0; i<sentenceQueue.length; i++) {
+      nextWordsArr = processStrToArr(sentenceQueue[i])
+      nextCompletionArr = []
 
-    console.log(fullTextArray)
+      nextWordsArr.forEach(word => {
+        nextCompletionArr.push(0)
+      })
 
+      completionMap.push(nextCompletionArr)
+
+      fullTextArray = fullTextArray.concat(nextWordsArr)
+    }
+
+    console.log(completionMap)
     totalWordsToRead = fullTextArray.length
-    console.log(totalWordsToRead)
 
     progress[0] = totalWordsToRead
     updateProgressBar(progress);
@@ -362,6 +370,13 @@ function endRound() {
     targetColumn.innerHTML = ''
     texts.innerHTML = ''
   }, 275)
+
+  // uncheck all boxes
+  checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+  checkboxes.forEach(box => {
+    box.checked = false
+  })
 }
 
 function stopSpeechRecognition() {
@@ -408,13 +423,13 @@ return noPunct;
 }
 
 function omitWords(arr){
-for (let n=0; n < arr.length; n++){
-  if(cutOut.includes(arr[n])){
-    arr.splice(n, 1);
+  for (let n=0; n < arr.length; n++){
+    if(cutOut.includes(arr[n])){
+      arr.splice(n, 1);
+    }
   }
-}
 
-return arr;
+  return arr;
 }
 
 function updateSentenceVisual(num) {
@@ -488,6 +503,9 @@ function checkSentence(arr) {
           updateSentenceVisual(targetCount);
           targetCount++;
 
+          // update completion map
+          completionMap[sentenceCount][targetCount - 1] = 1          
+
           // let success = new Audio("sound/boop.wav");
           // success.play();
 
@@ -549,7 +567,7 @@ function updateScore(n) {
 }
 
 function convertNumsToText(arr) {
-  // this can be simplified with recursion
+  // this can be simplified
 
   n = 0;
   arr.forEach((element) => {

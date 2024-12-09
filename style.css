@@ -321,8 +321,7 @@ img {
 
 .column-block {
   position: relative;
-  margin-top: 30px;
-  margin-left: 3%;
+  margin: 3% 30px;
   width: 93%;
   grid-column-start: 2;
   grid-column-end: 3;
@@ -352,7 +351,7 @@ img {
 }
 
 .user-btn {
-  font-size: 3vw;
+  font-size: min(3vw, 20pt);
   border-radius: 500px;
 }
 
