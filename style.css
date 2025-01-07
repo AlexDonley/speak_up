@@ -8,37 +8,19 @@
 body {
   background-color: rgb(37, 37, 37);
   display: flex;
-  align-items: flex-start;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .left-sidebar {
   height: 100vh;
   width: 130px;
-  /* border-right: solid rgb(161, 161, 161) 2px; */
   position: fixed;
   left: 0;
-  z-index: -2;
-  /* background: linear-gradient(90deg, rgb(114, 114, 114), rgb(58, 58, 58)) */
-}
-
-.black {
-  width: 100%;
-  height: calc(8vh + 20px);
-  background: black;
-}
-
-.finish-line {
-  height: 100%;
-  width: 100%;
-  
-  background-image: linear-gradient(45deg, white 25%, transparent 25%), linear-gradient(-45deg, white 25%, transparent 25%), linear-gradient(45deg, transparent 75%, white 75%), linear-gradient(-45deg, transparent 75%, white 75%);
-  background-size: 20px 20px;
-  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  z-index: 2
 }
 
 canvas {
-  z-index: 1;
+  z-index: 3;
   position: fixed;
   bottom: 60px;
   left: 10px;
@@ -110,25 +92,32 @@ svg {
   height: 80%;
 }
 
-.right-side {
-  margin-left: 130px;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100vh;
-  overflow-x: hidden
-}
-
 .header {
   z-index: 1;
-  width: calc(100vw - 130px);
+  position: relative;
+  width: 100vw;
+}
+
+.arrow-cutout {
   display: grid;
   justify-items: center;
   align-items: center;
   grid-template-rows: 20px 8vh;
   /* grid-template-columns: 3fr 150px 100px 100px 100px 100px; */
-  grid-template-columns: 3fr 2fr 1fr 1fr 1fr 1fr;
-  background: linear-gradient(rgb(114, 114, 114), rgb(58, 58, 58))
+  grid-template-columns: 130px 3fr 2fr 1fr 1fr 1fr 1fr;
+  background: linear-gradient(rgb(114, 114, 114), rgb(58, 58, 58));
+  clip-path: polygon(
+    0% 0%, 0% 100%, 
+    25px 100%, 25px 70px,
+    -5px 70px, 60px 0px, 130px 70px,
+    95px 70px, 95px 100%, 
+    100% 100%, 100% 0%
+  )
+}
+
+.percent {
+  grid-row-start: 1;
+  grid-row-end: 3;
 }
 
 .title {
@@ -259,6 +248,12 @@ svg {
   padding: 2px;
 }
 
+.lower-sect {
+  height: 86vh;
+  width: 100vw;
+  overflow: hidden
+}
+
 .view-QR {
   width: min(25vw, 25vh);
   height: min(25vw, 25vh);
@@ -296,7 +291,7 @@ img {
 .main-content {
   height: 100%;
   width: calc(100%);
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   position: relative
 }
 
@@ -321,8 +316,8 @@ img {
 
 .column-block {
   position: relative;
-  margin: 3% 30px;
-  width: 93%;
+  margin: 3% 10%;
+  width: 80%;
   grid-column-start: 2;
   grid-column-end: 3;
   display: flex;
@@ -443,7 +438,7 @@ button {
   justify-content: center;
   align-items: center;
   color: limegreen;
-  clip-path: polygon(0% 33%, 50% 0%, 100% 33%, 80% 33%, 80% 100%, 20% 100%, 20% 33%)
+  clip-path: polygon(0 33%, 50% 0, 100% 33%, 80% 33%, 80% 100%, 20% 100%, 20% 33%)
 }
 
 .go {
@@ -548,7 +543,6 @@ span {
 }
 
 .behind{
-  z-index: 10;
   position: absolute;
   top: 44%;
   left: 50%;

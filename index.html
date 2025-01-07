@@ -28,9 +28,6 @@
 </head>
 <body>
     <div class="left-sidebar shadow">
-        <div class="black center-shadow">
-            <div class="finish-line"></div>
-        </div>
         <div class="progress-bar shadow">
             <div class="bar-part incomplete"></div>
             <div class="bar-part leftover"></div>
@@ -56,9 +53,10 @@
         <div class="qual shadow" id="mic" onclick="checkForMic()">
             <ion-icon name="mic-circle-sharp"></ion-icon>
         </div>
-    </div>
-    <div class="right-side">
-        <div class="header shadow">      
+    </div>    
+    <div class="header shadow">
+        <div class="arrow-cutout">
+            <div class="percent"></div>
             <div class="title">Speak Up!</div>
             <div class="upper">Timer</div>
             <div class="upper">Score</div>
@@ -101,7 +99,9 @@
                     <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#5f6368"><path d="M120-520v-320h320v320H120Zm80-80h160v-160H200v160Zm-80 480v-320h320v320H120Zm80-80h160v-160H200v160Zm320-320v-320h320v320H520Zm80-80h160v-160H600v160Zm160 480v-80h80v80h-80ZM520-360v-80h80v80h-80Zm80 80v-80h80v80h-80Zm-80 80v-80h80v80h-80Zm80 80v-80h80v80h-80Zm80-80v-80h80v80h-80Zm0-160v-80h80v80h-80Zm80 80v-80h80v80h-80Z"/></svg>
                 </button>
             </div>
-        </div>
+        </div>      
+    </div>
+    <div class="lower-sect">
         <div class="main-content">
             <div class="content-blocks" id="contentBlocks">
                 <div class="menu-block" id="startMenu">
@@ -133,7 +133,7 @@
                     </button>
                     <button class="go" id="go" onclick="startRound()">GO</button>
                 </div>
-
+    
                 <div class="column-block" id="columnWrap">
                     <div class="column targetColumn"></div>
                     <div class="column texts"></div>
@@ -141,7 +141,7 @@
                         <ion-icon name="play"></ion-icon>
                     </button>
                 </div>
-
+    
                 <div class="user-block">
                     <div class="user-info-wrap shadow">
                         <h1>Log in:</h1>
@@ -154,10 +154,10 @@
                 </div>
             </div>
         </div>
-        <div class="user-name shadow" id="userName">Alex</div>
-        <div class="view-QR shadow hide" id="viewQR">
-            <img src="./qr/speak_up.png">
-        </div>
+    </div>
+    <div class="user-name shadow" id="userName">Alex</div>
+    <div class="view-QR shadow hide" id="viewQR">
+        <img src="./qr/speak_up.png">
     </div>
 </body>
 </html>
