@@ -253,9 +253,9 @@ svg {
 }
 
 .lower-sect {
-  height: 86vh;
+  height: 89vh;
   width: 100vw;
-  overflow: hidden
+  overflow-x: hidden
 }
 
 .view-QR {
