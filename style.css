@@ -96,15 +96,19 @@ svg {
   z-index: 1;
   position: relative;
   width: 100vw;
-}
-
-.arrow-cutout {
   display: grid;
   justify-items: center;
   align-items: center;
   grid-template-rows: 20px 8vh;
   /* grid-template-columns: 3fr 150px 100px 100px 100px 100px; */
   grid-template-columns: 130px 3fr 2fr 1fr 1fr 1fr 1fr;
+}
+
+.arrow-cutout {
+  position: fixed;
+  z-index: -1;
+  height: calc(8vh + 20px);
+  width: 100vw;
   background: linear-gradient(rgb(114, 114, 114), rgb(58, 58, 58));
   clip-path: polygon(
     0% 0%, 0% 100%, 
@@ -223,7 +227,7 @@ svg {
   padding: 5px;
   gap: 5px;
   height: 210px;
-  transform: translateY(-300px)
+  transform: translateY(-320px)
 }
 .lang-tab.show {
   transform: translateY(0px)
