@@ -1,3 +1,26 @@
+import { shuffle as myShuffle } from './js/shuffle.js'
+import {
+    targetLang, speechRec, 
+    setLanguage, startRecLoop, stopRecLoop
+} from './js/speech-rec.js'
+import { 
+    omitPunctuation, omitWords, 
+    parseColon, numToTexts, genWPStrToArr, 
+    compareSents, compareWords, queueToArr 
+} from './js/word-process.js'
+import { synthSpeak } from './js/speech-synth.js'
+import { startRainbow, generateStripeGrad, generateCompGrad } from './js/gradients.js'
+import { timerMode, nextTimerMode, startTimer, stopTimer } from './js/timer.js'
+import { 
+    genBlankCompMap, findInt, 
+    checkMapForZero, checkMapForInt,
+    indexIntsFromMap, trackCompletion 
+} from './js/completion-map.js'
+import { 
+    splitPinyin, addPinTone, charToPin,
+    constructPinRT, constructZhuRT 
+} from './js/ruby-text.js'
+
 // - - - ELEMENTS - - - //
 
 const userAgent = navigator.userAgent;
@@ -11,28 +34,62 @@ const mic = document.getElementById("mic");
 
 // ux elements that show user progress through arrow movement, score, timer, and awards
 
-const progressParts   = Array.from(document.getElementsByClassName('bar-part'))
-const arrow           = document.getElementById('rainbowEffect')
-const stopWatch       = document.getElementById("stopWatch")
-const currentAwards   = document.getElementById("currentAwards")
-const previousAwards  = document.getElementById("previousAwards")
-const awardsTab       = document.getElementById("awardsTab")
-const scoreMarker     = document.getElementById("scoreMarker")
-const langDisplay     = document.getElementById("langDisplay")
-const synthSpeed      = document.getElementById("synthSpeed")
-const synthVol        = document.getElementById("synthVol")
-const speedReader     = document.getElementById("speedReader")
-const volReader       = document.getElementById("volReader")
+const progBtns        = document.querySelector('#progBtns')
+const arrowOverlay    = document.getElementById('rainbowOverlay')
+const stopWatch       = document.getElementById('stopWatch')
+const awardDiv        = document.getElementById('awardDiv')
+const scoreMarker     = document.getElementById('scoreMarker')
+const settingsMenu    = document.querySelector('.settings')
+const langDisplay     = document.getElementById('langDisplay')
+const synthSpeed      = document.getElementById('synthSpeed')
+const synthVol        = document.getElementById('synthVol')
+const speedReader     = document.getElementById('speedReader')
+const volReader       = document.getElementById('volReader')
+
+function synthWrap() {
+    stopRecLoop()
+    synthSpeak(sentenceArrays[progressMarkers[0]], 1, 1)
+    startRecLoop(1, 1, 0)
+}
+
+// Assign functions to btns
+
+
 
 // elements contained in the setting section
 
 const contentBlocks = document.getElementById("contentBlocks")
-const startMenu = document.getElementById("startMenu");
-const textInput = document.getElementById("textInput");
-const presetBtn = document.getElementById("preset");
-const shuffleBtn = document.getElementById("shuffle");
-const timerBtn = document.getElementById("timer")
-const loopBtn = document.getElementById("loop");
+const startMenu = document.getElementById("startMenu")
+const textInput = document.getElementById("textInput")
+
+// buttons and their fuunctions
+
+const presetBtn     = document.querySelector('#preset')
+const shuffleBtn    = document.querySelector('#shuffle')
+const timerBtn      = document.querySelector('#timer')
+const loopBtn       = document.querySelector('#loop')
+const goBtn         = document.querySelector('#goBtn')
+const leftBtn       = document.querySelector('#leftBtn')
+const playBtn       = document.querySelector('#playBtn')
+const homeBtn       = document.querySelector('#homeBtn')
+const userBtn       = document.querySelector('#userBtn')
+const fullscreenBtn = document.querySelector('#fullscreenBtn')
+const qrBtn         = document.querySelector('#qrBtn')
+const settingBtn    = document.querySelector('#settingBtn')
+
+presetBtn.addEventListener("click", togglePresets)
+shuffleBtn.addEventListener("click", toggleShuffle)
+loopBtn.addEventListener("click", toggleLoop)
+timerBtn.addEventListener("click", changeTimerMode)
+goBtn.addEventListener("click", startQueue)
+leftBtn.addEventListener("click", tryLeftRound)
+playBtn.addEventListener("click", synthWrap)
+homeBtn.addEventListener("click", endQueue)
+userBtn.addEventListener("click", showUserPage)
+fullscreenBtn.addEventListener("click", toggleFullscreen)
+//qrBtn.addEventListener("click", toggleQR)
+settingBtn.addEventListener("click", toggleSettings)
+
 
 const presetOpts = document.getElementById("presetOptions");
 const searchTitles = document.getElementById("searchTitles");
@@ -40,16 +97,16 @@ const titleCards = document.getElementById("titleCards");
 const partsCards = document.getElementById("partsCards");
 
 searchTitles.addEventListener("input", e => {
-  const value = e.target.value.toLowerCase()
+    const value = e.target.value.toLowerCase()
 
-  searchList = []
-  titleList.forEach(title => {
-    if (title.toLowerCase().includes(value)){
-      searchList.push(title);
-    }
-  })
+    searchList = []
+    titleList.forEach(title => {
+        if (title.toLowerCase().includes(value)){
+            searchList.push(title);
+        }
+    })
 
-  updateTitles(searchList);
+    populateBookTitles(searchList);
 })
 
 // elements contained in the action section
@@ -57,7 +114,7 @@ searchTitles.addEventListener("input", e => {
 
 const columnWrap      = document.getElementById("columnWrap");
 const targetColumn    = document.querySelector(".targetColumn");
-const texts           = document.querySelector(".texts");
+const utterTexts      = document.querySelector(".texts");
 
 const viewQR          = document.getElementById('viewQR')
 
@@ -67,206 +124,242 @@ const userName        = document.getElementById('userName')
 
 // - - - VARIABLES - - - //
 
-
 // arrays for sentences and subdivisions
 
-sentenceQueue = []
-divided       = []
-indexArray    = []
-targetList    = []
-leftoversList = []
-completionMap = []
+
+let bookIndexArray= []
+let targetList    = []
+
+let sentenceArrays = []
+let progressMarkers = [0, 0]
+let completionMap = []
 
 // index markers for working through the above arrays
 
-targetCount = 0;
-inputCount = 0;
-sentenceCount = 0;
-textIndex = 0;
+let targetCount = 0
+let sentenceCount = 0
+let bookIndex = 0
 
-
-// arrays for processing numbers (numerals to strings)
-
-onesDigits = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']
-tweenDigits = ['ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen']
-tensDigits = ['zero', 'teen', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety']
-
-
-// array of words to omit from target language and user input
-
-cutOut = ["ah", "ahh", "aha", "mm", "mmm", "hm", "hmm", "mhm", "uh", "ah", "huh", "eh", "sh", "shh"]
 
 // boolean variables that control whether features are on or off
 //    presetBool   - false means freeform, true means preset
 //    shuffleBool  - false means chronological targets, true means shuffled targets
 //    loopBool     - false means finishes after 1 iteration, true means continues iterating until the user stops
-//    timerBool    - false means timer does not count, true means timer counts
-//    listenBool   - false means the browser does not intake mic input, true means the browser does intake mic input
 
-presetBool      = false
-shuffleBool     = false
-loopBool        = false
-timerBool       = false
-listenBool      = false
-fullscreenBool  = false
+let presetBool      = false
+let shuffleBool     = false
+let loopBool        = false
+let fullscreenBool  = false
+let isLeftRound     = false
 
-let microphone;
-let synthVoices
-
+let microphone
 
 // setting for P5 sawtooth frequency
 
-defaultFreq = 400
+// let defaultFreq = 400
 
 
-// settings for timer
-
-defaultCountdown = 10;
-timerSetting = 1;
-timerObj = {
-  "start": null,
-  "target": null,
-}
-
-
-// settings for the arrow and rainbow
-
-const rainbowValues = [
-  "hsla(0, 100%, 50%, ",
-  "hsla(30, 100%, 50%, ",
-  "hsla(60, 100%, 50%, ",
-  "hsla(90, 100%, 50%, ",
-  "hsla(120, 100%, 50%, ",
-  "hsla(150, 100%, 50%, ",
-  "hsla(180, 100%, 50%, ",
-  "hsla(210, 100%, 50%, ",
-  "hsla(240, 100%, 50%, ",
-  "hsla(270, 100%, 50%, ",
-  "hsla(300, 100%, 50%, ",
-  "hsla(330, 100%, 50%, "
-]
-var movingRainbow = rainbowValues
-
-direction = 90;
-opacity = 1;
 
 
 // variables to fill with JSON data using fetch
 
 let bookList;
 let titleList = [];
-let homophones;
-let zhuyin;
 
+function loadBooks(){
+    fetch('./data/books.json')
+    .then(res => {
+        if (res.ok) {
+            console.log('Fetched books');
+        } else {
+            console.log('Couldnt fetch books')
+        }
+        return res.json()
+    })
+    .then(data => {
+        bookList = data;
+
+        for (var key in data) {
+            titleList.push(data[key].title);
+        }
+        populateBookTitles(titleList);
+    })
+    .catch(error => console.log(error))
+}
+
+loadBooks();
 
 // sound effects
 
 let next    = new Audio("sound/chaching.webm");
 let perfect = new Audio("sound/wow.mp3");
-let ding    = new Audio("sound/ding.wav");
-ding.volume = 0.3
-let spokenSentence; 
-
-let targetLang = 'en'
 
 // variables for scoring and progress
 
-let score = 0;
-
-// order for progress bar data will be incomplete, leftover, complete
-
-progress = [0, 0, 0];
-totalWordsToRead = 0;
-updateProgressBar(progress);
-
-scoreMarker.innerText = score;
-
+let score = 0
+scoreMarker.innerText = score
 
 if(userAgent.match(/chrome|chromium|crios/i)){
-  chromeIcon.classList.add('flip')
+    chromeIcon.classList.add('flip')
 }
 
 function micSuccess() {
-  console.log("mic connected");
-  mic.classList.add('flip');
+    console.log("mic connected");
+    mic.classList.add('flip');
 }
 
 function micFail(error) {
-  console.log(error);
-  mic.classList.remove('flip');
+    console.log(error);
+    mic.classList.remove('flip');
 }
 
 function checkForMic() {
-  navigator.getUserMedia({ audio: true }, micSuccess, micFail);
+    navigator.getUserMedia({ audio: true }, micSuccess, micFail);
 }
 
 checkForMic()
 
+speechRec.addEventListener("result", (e) => {
+  
+    const text = Array.from(e.results)
+        .map((result) => result[0])
+        .map((result) => result.transcript)
+        .join("");
 
-// - - - SPEECH RECOGNITION SNIPPET - - - //
+    const utteredWords = genWPStrToArr(text, targetLang)
 
-window.SpeechRecognition =
-  window.SpeechRecognition || window.webkitSpeechRecognition;
+    populateUtterances(utteredWords, utterTexts)
 
-const recognition = new SpeechRecognition();
-recognition.interimResults = true;
+    if (e.results[0].isFinal) {
+        console.log('Comparing sentences...')
 
-function setLanguage(str) {
-  targetLang = str
-  recognition.lang = targetLang
-  langDisplay.innerText = str
+        if (!isLeftRound) {
+            const compareArr = trackCompletion(
+                sentenceArrays[progressMarkers[0]], 
+                utteredWords, 
+                'linear', 
+                targetLang, 
+                progressMarkers[1],
+                completionMap[progressMarkers[0]]
+            )
+
+            completionMap[progressMarkers[0]] = compareArr[0]
+            progressMarkers[1] = compareArr[1]
+          
+            logProgress(completionMap[progressMarkers[0]], progressMarkers[0])
+            evalArr(completionMap[progressMarkers[0]])
+
+        } else {
+            const leftArr = grabLeftovers(sentenceArrays, completionMap)
+
+            console.log(leftArr)
+
+            if (leftArr.length > 0) {
+                loadTarget(leftArr, true)
+
+                const leftsCompare = trackCompletion(
+                    leftArr,
+                    utteredWords,
+                    'linear',
+                    targetLang
+                )
+    
+                leftsCompare[0].forEach(val => {
+                    if (val == 1) {
+                        const coords = checkMapForInt(completionMap, -1)
+    
+                        completionMap[coords[0]][coords[1]] = 1
+
+                        const grabProg = document.querySelector('#prog' + coords[0])
+                        grabProg.style.background = generateCompGrad(completionMap[coords[0]])
+                    }
+                })
+    
+                updateTargVisual(leftsCompare[0], 50)
+                console.log(completionMap)
+
+                setTimeout(() => {
+
+                    const newArr = grabLeftovers(sentenceArrays, completionMap)
+                    
+                    if (newArr.length > 0) {
+                        loadTarget(newArr, true)
+                    } else {
+                       nextSentence()
+                    }
+                    
+
+                }, leftsCompare[0].length * 50 + 500)
+            }
+        }
+    }
+})
+
+function tryLeftRound() {
+    const coord = checkMapForInt(completionMap, -1)
+
+    if (coord) {
+
+        isLeftRound = true
+
+        const leftArr = grabLeftovers(sentenceArrays, completionMap)
+        loadTarget(leftArr, true)
+        console.log(leftArr)
+
+    } else {
+
+        isLeftRound = false
+        return false
+
+    }
 }
 
-setLanguage('en');
+function logProgress(arr, sentInd) {
 
-recognition.addEventListener("result", (e) => {
-  
-  const text = Array.from(e.results)
-    .map((result) => result[0])
-    .map((result) => result.transcript)
-    .join("");
+    completionMap[sentInd] = arr
+    console.log(completionMap)
 
-  wordlist = processStrToArr(text)
+    const grabProg = document.querySelector('#prog' + sentInd)
+    grabProg.style.background = generateCompGrad(completionMap[sentInd])
 
-  texts.innerHTML = ""
-  n = 0
+    updateTargVisual(arr, 50)
+}
 
-  wordlist.forEach((element) => {
-    let inputWord = document.createElement('span');
-    inputWord.setAttribute('id', ('input' + n));
-    inputWord.innerText = element;
-    texts.appendChild(inputWord);
-    n++;
-  })
+function populateUtterances(arr, elem) {
+    elem.innerHTML = ""
 
-  if (e.results[0].isFinal) {
-    console.log('checking sentence');
-    checkSentence(wordlist);
-  }
-});
+    let n = 0
+    arr.forEach((word) => {
+        let inputWord = document.createElement('span')
+        inputWord.classList.add('one-word')
+        inputWord.id = 'input' + n
+        inputWord.innerText = word
 
-recognition.addEventListener("end", () => {
-  if(listenBool){
-    recognition.start();
-  }
-});
+        elem.appendChild(inputWord)
+        n++;
+    })
+}
 
-// - - - END OF SPEECH RECOGNITION SNIPPET - - - //
+function evalArr(arr) {
+    if (!arr.includes(0)) {
+        const delayNext = setTimeout(() => {
+            nextSentence()
+        }, 50 * arr.length + 500)
 
+        return true
+    } else {
+        return false
+    }
+}
 
-function startRound() {
+function startQueue() {
     // clear sentence queue
-    sentenceQueue = []
-    leftoversList = []
-    fullTextArray = []
-    completionMap   = []
+    let sentenceQueue = []
+    sentenceArrays = []
+    progressMarkers = [0, 0]
 
-    totalWordsToRead = 0
-    progress = [0, 0, 0]
-
-    if(!timerBool & timerSetting > 0){
-      timerBool = true
-      startTimer()
+    if (!timerMode == 0) {
+        startTimer(stopWatch)
     }
   
     // check if the sentence queue will be preset or freeform
@@ -275,285 +368,202 @@ function startRound() {
       // PRESET INPUT
       // set the target language
 
-      if (bookList[textIndex].lang != undefined) {
-        setLanguage(bookList[textIndex].lang)
+      if (bookList[bookIndex].lang != undefined) {
+        setLanguage(bookList[bookIndex].lang)
       } else {
         setLanguage('en')
       }
+
+      console.log(targetLang)
       
       // clear the index array
-      indexArray = [];
+      bookIndexArray = [];
       
       // see which boxes are checked
-      checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]')
 
       for (let n = 0; n < checkboxes.length; n++){
         if (checkboxes[n].checked) {
-            indexArray.push(n);
+            bookIndexArray.push(n);
         }
       }
 
-      indexArray.forEach((num) => {
-        sentenceQueue = sentenceQueue.concat(bookList[textIndex].parts[num].text)
+      console.log(bookIndexArray)
+
+      bookIndexArray.forEach((num) => {
+          sentenceQueue = sentenceQueue.concat(bookList[bookIndex].parts[num].text)
       })
 
     } else {
       // FREEFORM INPUT
       // The following grabs the text entered by the user and eliminates blank lines
       
-      freeformText = textInput.value.replace(/^\s*\n/gm, "");
+      const freeformText = textInput.value.replace(/^\s*\n/gm, "");
       sentenceQueue = freeformText.split('\n');
     }
     
-
-    for (i=0; i<sentenceQueue.length; i++) {
-      nextWordsArr = processStrToArr(sentenceQueue[i])
-      nextCompletionArr = []
-
-      nextWordsArr.forEach(word => {
-        nextCompletionArr.push(0)
-      })
-
-      completionMap.push(nextCompletionArr)
-
-      fullTextArray = fullTextArray.concat(nextWordsArr)
-    }
-
-    console.log(completionMap)
-    totalWordsToRead = fullTextArray.length
-
-    progress[0] = totalWordsToRead
-    updateProgressBar(progress);
-
     if (shuffleBool) {
-      sentenceQueue = shuffle(sentenceQueue)
+        sentenceQueue = myShuffle(sentenceQueue)
     }
 
-    sentenceCount = 0;
-    loadTarget(sentenceQueue[sentenceCount])
+    sentenceArrays = queueToArr(sentenceQueue, targetLang)
 
-    listenBool = true;
-    recognition.start();
+    const blankCompData = genBlankCompMap(sentenceArrays)
 
-    contentBlocks.style.left = "-100%"
+    completionMap = blankCompData[0]
+    //let totalWords = blankCompData[1]
+
+    populateProgressParts(blankCompData)
+    //document.querySelector('#progBtns').style.background = generateStripeGrad(totalWords, 'yellow', 'blue')
+
+    loadTarget(sentenceArrays[progressMarkers[0]])
+    startRecLoop(1, 1, 0, targetLang)
+    shiftContentBlocks('game')
 }
 
-function nextRound(){
+function nextSentence() {
   
-  defaultFreq = Math.floor(Math.random() * 400) + 100
+    // defaultFreq = Math.floor(Math.random() * 400) + 100
 
-  if (sentenceCount < sentenceQueue.length - 1) {
-    sentenceCount++
-    loadTarget(sentenceQueue[sentenceCount])
-  } else if (leftoversList.length > 0){
-    leftoversRound();
-  } else {
-    
-    updateAwards();              
-    
-    if(loopBool) {
-      startRound();
+    const indexIncomp = checkMapForZero(completionMap)
+
+    if (indexIncomp) {
+      
+        progressMarkers = indexIncomp
+        loadTarget(sentenceArrays[indexIncomp[0]])
+
     } else {
-      endRound();
-    }
-  }
-}
 
-function endRound() {
-  contentBlocks.style.left = "0%"
-  stopSpeechRecognition();
-  
-  timerBool = false;
-  clearInterval(timerInterval);
+        const leftoversCheck = checkMapForInt(completionMap, -1) 
+        
+        if (leftoversCheck) {
 
-  setTimeout(() => {
-    targetColumn.innerHTML = ''
-    texts.innerHTML = ''
-  }, 275)
+            loadTarget(grabLeftovers(sentenceArrays, completionMap), true)
+            isLeftRound = true
 
-  // uncheck all boxes
-  checkboxes = document.querySelectorAll('input[type="checkbox"]');
-
-  checkboxes.forEach(box => {
-    box.checked = false
-  })
-}
-
-function stopSpeechRecognition() {
-  listenBool = false;
-  recognition.abort();
-}
-
-function loadTarget(sentence, leftovers){
-  targetColumn.innerHTML = '';
-  texts.innerHTML = '';
-
-  targetCount = 0;
-
-  spokenSentence = sentence
-  divided = processStrToArr(sentence);
-
-  for (let n = 0; n < divided.length; n++){
-    newSpan = document.createElement('span');
-    newSpan.setAttribute('id', ('target' + n));
-    newSpan.classList.add('target');
-
-    if (!leftovers) {
-      leftButton = document.createElement('div');
-      leftButton.classList.add('leftButton');
-      leftButton.innerText = '◀';
-      newSpan.appendChild(leftButton);
-    }
-  
-    text = (divided[n]).toLowerCase()
-    newContent = document.createTextNode(text);
-
-    newSpan.appendChild(newContent);
-
-    targetColumn.appendChild(newSpan);
-  }
-
-  updateTargetOrder();
-}
-
-function omitPunctuation(str) {
-noPunct = str.replace(/[.。…—,，\/#!$%\^&\*;；{}=_`~()[\]?]/g,"")
-            .replace(/\s+/g, " ");
-return noPunct;
-}
-
-function omitWords(arr){
-  for (let n=0; n < arr.length; n++){
-    if(cutOut.includes(arr[n])){
-      arr.splice(n, 1);
-    }
-  }
-
-  return arr;
-}
-
-function updateSentenceVisual(num) {
-  correctWord = targetList[num];
-  correctWord.classList.add('correct')
-
-  skipBtn = correctWord.children[0]
-
-  if (skipBtn) {
-    skipBtn.classList.add('remove-skip');
-  }
-
-  if (num < divided.length - 1) {
-    nextWord = targetList[num + 1];
-    nextWord.classList.add('next');
-  } 
-}
-
-function checkSentence(arr) {
-  inputCount = 0
-
-  arr.forEach((element) => {
-    element = omitPunctuation(element);
-      inputCount++;
-      setTimeout(function(){
-        let correct = false;
-
-        if(element == divided[targetCount] || element.replace(/['-]/g,"") == divided[targetCount].replace(/['-]/g,"")){
-          // are the two words exactly the same?
-          // are the two words the same if you subtract apostrophes and hyphens?
-          
-          correct = true;
         } else {
-          // are the two words homophones?
+
+            bookIndexArray.forEach(num => {
+                addOneAward(bookIndex, num)
+            })       
           
-          if (targetLang == 'zh') {
-            var elemIndex = zhuyin.findIndex(p => p.char == element);
-            var divIndex = zhuyin.findIndex(p => p.char == divided[targetCount]);
-
-            zhu1 = zhuyin[elemIndex].bpmf[0];
-            zhu2 = zhuyin[divIndex].bpmf[0];
-
-            console.log(zhu1, zhu2)
-            
-            if (zhu1 == zhu2) {
-              correct = true;
+            if(loopBool) {
+              startQueue();
+            } else {
+              endQueue();
             }
-          } else {
-            homophones.forEach((set) =>{
-              if (set.includes(element) && set.includes(divided[targetCount])){
-                correct = true;
-              }
-            })
-          }
+        }
+    }
+}
 
-        } 
+function endQueue() {
+    
+    isLeftRound = false
 
-        if (correct) {
-          
-          updateScore(1)
+    shiftContentBlocks('menu')
 
-          // update progress bar
-          progress[2]++;
-          if (progress[0] > 0) {
-            progress[0]--;
-          } else {
-            progress[1]--;
-          }
-          updateProgressBar(progress);
-        
-          updateSentenceVisual(targetCount);
-          targetCount++;
+    stopRecLoop()
+    stopTimer()
 
-          // update completion map
-          completionMap[sentenceCount][targetCount - 1] = 1          
+    // uncheck all boxes
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
-          // let success = new Audio("sound/boop.wav");
-          // success.play();
+    checkboxes.forEach(box => {
+      box.checked = false
+    })
 
-          defaultFreq += 30
+    setTimeout(() => {
+        targetColumn.innerHTML = ''
+        utterTexts.innerHTML = ''
+        progBtns.innerHTML = ''
+    }, 275)
+}
 
-          beep.start();
-          beep.freq(defaultFreq);
-          beep.amp(.1);
-          setTimeout(function() {
-            beep.stop();
-          }, 45)
-        
-        if (targetCount > divided.length - 1) {
+function loadTarget(arr, leftoversBool){
+    targetColumn.innerHTML = '';
+    // utterTexts.innerHTML = '';
 
-          if (JSON.stringify(arr) == JSON.stringify(divided)) {
-            // perfect.currentTime = 0;
-            // perfect.play();
-            next.currentTime = 0;
-            next.play();
-            startRainbow();
-          } else {
-            next.currentTime = 0;
-            next.play();
-          }
-          
-          setTimeout(function() {nextRound()}, 700)
+    for (let n = 0; n < arr.length; n++){
+        const newSpan = document.createElement('span')
+        newSpan.setAttribute('id', ('target' + n))
+        newSpan.classList = 'one-word target'
+
+        if (!leftoversBool) {
+
+            if (completionMap[progressMarkers[0]][n] == -1) {
+                newSpan.classList.add('grayed-out')
+            } else if (completionMap[progressMarkers[0]][n] == 1) {
+                newSpan.classList.add('correct')
+            } else {
+                const leftButton = document.createElement('div')
+                leftButton.classList.add('leftButton')
+                leftButton.innerText = '◀'
+                leftButton.addEventListener('click', assignLeftover(n))
+                newSpan.appendChild(leftButton)
+            }
         }
 
-      } else {
-        //console.log('incorrect word');
-      }
+        const text = arr[n]
+        let newContent
 
-  }, (50 * inputCount));
-})
+        if (targetLang == 'zh') {
+            console.log(text)
+
+            // TODO: fix functions so if the dict doesn't have the char,
+            // they will just return the char rather than nothing
+
+            newContent = constructPinRT(
+                text, charToPin(text), 'under'
+            )
+        } else {
+            newContent = document.createTextNode(text)
+        }
+        
+
+        newSpan.append(newContent)
+
+        targetColumn.appendChild(newSpan)
+    }
 }
 
-function leftoversRound() {
-  let leftoversString = ""
+function updateTargVisual(arr, delay) {
+    const allTargs = Array.from(document.getElementsByClassName('target'))
+
+    for (let i = 0; i < arr.length; i++) {
+        setTimeout(() => {
+
+            if (arr[i] == 0) {
+                allTargs[i].classList = 'one-word target'
+                allTargs[i].classList.add('correct')
+            } else {
+              
+                if (allTargs[i].children[0]) {
+                    allTargs[i].children[0].remove()
+                }
+
+                if (arr[i] == -1) {
+                    allTargs[i].classList.add('grayed-out')
+                } else if (arr[i] == 1) {
+                    allTargs[i].classList.add('correct')
+                }
+            }
+        }, delay * i)
+    }
+}
+
+function grabLeftovers(sentArr, compArr) {
+
+  let leftoversList = []
   
-  for (let n = 0; n < leftoversList.length; n++){
-    leftoversString = leftoversString.concat(leftoversList[n])
-    if (n<leftoversList.length - 1){
-      leftoversString = leftoversString.concat(' ')
+  for (let n = 0; n < compArr.length; n++) {
+    for (let m = 0; m < compArr[n].length; m++) {
+      if (compArr[n][m] == -1) {
+        leftoversList.push(sentArr[n][m])
+      }
     }
   }
   
-  loadTarget(leftoversString, true);
-  leftoversList = [];
+  return leftoversList
 }
 
 function updateScore(n) {
@@ -566,134 +576,16 @@ function updateScore(n) {
   }
 }
 
-function convertNumsToText(arr) {
-  // this can be simplified
-
-  n = 0;
-  arr.forEach((element) => {
-    // first, the function parses the use of : to determine if it should be kept or omitted
-    // if the : is used in a timestamp such as 6:00, it should be kept
-    // the if statement below checks for a word that contains a semicolon, but the characters on either side of that colon are not numbers
-    // that word is replaced by an word without the semicolon
-    
-    colonIndex = element.indexOf(":")
-
-    if (
-      colonIndex >= 0 &&
-      (isNaN(element.substring(colonIndex - 1, colonIndex)) ||
-      isNaN(element.substring(colonIndex + 1, colonIndex + 2)) ||
-      colonIndex - 1 < 0 ||
-      colonIndex + 1 >= element.length)
-    ) {
-      element = element.replace(/[:]/g,"")
-      arr.splice(n, 1, element)
-    }
-    
-    if (!isNaN(element)) {
-      
-      onesNum = element % 10;
-
-      if (onesNum > 0) {
-        arr.splice(n, 1, onesDigits[onesNum])
-      } else {
-        arr.splice(n, 1)
-      }
-
-      if (element.length > 1){
-        tensNum = (element % 100 - element % 10) / 10;
-        if (tensNum > 0) {
-          if(tensNum < 2){
-            arr.splice(n, 1, tweenDigits[onesNum]);
-          } else {
-            arr.splice(n, 0, tensDigits[tensNum]);
-          }
-        }
-      }
-      if (element.length > 2){
-        hundredsNum = (element % 1000 - (element % 100))/100
-
-        if (hundredsNum > 0) {
-          arr.splice(n, 0, "hundred")
-          arr.splice(n, 0, onesDigits[hundredsNum])
-        }
-      }
-      if (element.length > 3){
-        thousandsNum = (element % 10000 - element % 1000)/1000
-        
-        if (thousandsNum > 0){
-          arr.splice(n, 0, "thousand")
-          arr.splice(n, 0, onesDigits[thousandsNum]);
-        }
-      }
-      if (element.length > 4){
-        tenThousandsNum = (element % 100000 - element % 10000)/10000
-
-        
-        if (tenThousandsNum > 0) {
-          if (!arr.includes("thousand")) {
-            arr.splice(n, 0, "thousand")
-          }
-
-          if (tenThousandsNum < 2) {
-            arr.splice(n, 1, tweenDigits[thousandsNum]);
-          } else {
-            arr.splice(n, 0, tensDigits[tenThousandsNum]);
-          }
-        }
-      }
-      if (element.length > 5){
-        hundredThousandsNum = (element % 1000000 - element % 100000)/100000
-
-        if (hundredThousandsNum > 0) {
-          if (!arr.includes("thousand")) {
-            arr.splice(n, 0, "thousand")
-          }
-          arr.splice(n, 0, "hundred")
-          arr.splice(n, 0, onesDigits[hundredThousandsNum])
-        }
-      }
-      if (element.length > 6){
-        millionsNum = (element % 10000000 - element % 1000000)/1000000
-        
-        if (millionsNum > 0) {
-          arr.splice(n, 0, "million")
-          arr.splice(n, 0, onesDigits[millionsNum])
-        }
-      }
-    }
-    n++;
-  })
-
-  return arr;
-}
-
-function updateAwards() {
-  previousAwards.innerText += currentAwards.innerText;
-  currentAwards.innerText = ""
-  
-  if (presetBool) {
-                
-    indexArray.forEach((num) => {
-      addOneAward(textIndex, num)
-    })
-    
-  } else {
-    addOneAward(0, 0)
-  }
-}
-
 function addOneAward(textN, awardN) {
-  thisAward = bookList[textN].parts[awardN].award
+  const thisAward = bookList[textN].parts[awardN].award
   
-  currentAwards.innerText += thisAward;
+  awardDiv.prepend(thisAward)
 
   if (!(currentUserIndex == null)) {
-    console.log('adding award to user data')
     
-    const date = new Date()
-    dayStamp = date.getFullYear() + "." + (date.getMonth() + 1) + "." + date.getDate()
+    const timeStamp = new Date.now()
 
-    awardArray = [thisAward, dayStamp]
+    const awardArray = [thisAward, timeStamp]
 
     userInfo[currentUserIndex].user_awards.push(awardArray)
     console.log(userInfo)
@@ -737,25 +629,28 @@ function toggleLoop() {
   }
 }
 
-function cycleTimers() {
-  if (timerSetting < 2) {
-    timerBtn.classList.add('flip')
+function changeTimerMode() {
+  
+    nextTimerMode()
 
-    timerSetting ++
-    if (timerSetting == 1) {
-      timerBtn.children[0].style.clipPath = 
-      "polygon(0% 33%, 50% 0%, 100% 33%, 80% 33%, 80% 100%, 20% 100%, 20% 33%)"
+    if (timerMode == 0) {
+
+        timerBtn.classList.remove('flip')
+      
+        timerBtn.children[0].style.clipPath = 
+        "polygon(0% 0%, 33% 0%, 50% 20%, 66% 0%, 100% 0%, 100% 33%, 80% 50%, 100% 66%, 100% 100%, 66% 100%, 50% 80%, 33% 100%, 0% 100%, 0% 66%, 20% 50%, 0% 33%)"
+
     } else {
-      timerBtn.children[0].style.clipPath = 
-      "polygon(20% 0%, 20% 66%, 0% 66%, 50% 100%, 100% 66%, 80% 66%, 80% 0%)"
+        timerBtn.classList.add('flip')
+
+        if (timerMode == 1) {
+            timerBtn.children[0].style.clipPath = 
+            "polygon(0% 33%, 50% 0%, 100% 33%, 80% 33%, 80% 100%, 20% 100%, 20% 33%)"
+        } else {
+            timerBtn.children[0].style.clipPath = 
+            "polygon(20% 0%, 20% 66%, 0% 66%, 50% 100%, 100% 66%, 80% 66%, 80% 0%)"
+        }
     }
-  } else {
-    timerBtn.classList.remove('flip')
-    timerSetting = 0;
-    timerBtn.children[0].style.clipPath = 
-    "polygon(0% 0%, 33% 0%, 50% 20%, 66% 0%, 100% 0%, 100% 33%, 80% 50%, 100% 66%, 100% 100%, 66% 100%, 50% 80%, 33% 100%, 0% 100%, 0% 66%, 20% 50%, 0% 33%)"
-  }
-  console.log(timerSetting)
 }
 
 function toggleTab(classStr) {
@@ -778,230 +673,146 @@ function toggleFullscreen() {
   }
 }
 
-function toggleQR() {
-  if (viewQR.classList.contains('hide')) {
-    viewQR.classList.remove('hide')
-  } else {
-    viewQR.classList.add('hide')
-  }
+function populateBookTitles(arr) {
+    titleCards.innerHTML = ""
+
+    let n = 0
+    arr.forEach((element) => {
+        const newTitle = document.createElement('div')
+        newTitle.innerText = element
+
+        newTitle.classList.add('preset-line')
+        newTitle.classList.add('one-title')
+
+        newTitle.addEventListener('click', selectTitleWrap(n))
+        titleCards.appendChild(newTitle)
+
+        n++
+    });
 }
 
-function shuffle(arr){
-  let unshuffled = arr;
-  let shuffled = [];
-
-  unshuffled.forEach(word =>{
-      randomPos = Math.round(Math.random() * shuffled.length);
-
-      shuffled.splice(randomPos, 0, word);
-  })
-  
-  // console.log(shuffled);
-  return shuffled;
-}
-
-function updateTitles(arr) {
-  titleCards.innerHTML = ""
-  
-  arr.forEach((element) => {
-    newTitle = document.createElement('div');
-    newTitle.innerText = element;
-    newTitle.classList.add('preset-line');
-    newTitle.classList.add('one-title');
-    titleCards.appendChild(newTitle)
-  });
-}
-
-function loadBooks(){
-  fetch('./data/books.json')
-  .then(res => {
-      if (res.ok) {
-          console.log('BOOKS FETCHED');
-      } else {
-          console.log('BOOKS FAILURE')
-      }
-      return res.json()
-  })
-  .then(data => {
-      bookList = data;
-
-      for (var key in data) {
-          titleList.push(data[key].title);
-      }
-      updateTitles(titleList);
-  })
-  .catch(error => console.log(error))
-
-}
-
-function loadHomophones(){
-  fetch('./data/homophones.json')
-  .then(res => {
-      if (res.ok) {
-          console.log('HOMOPHONES FETCHED');
-      } else {
-          console.log('HOMOPHONES FAILURE')
-      }
-      return res.json()
-  })
-  .then(data => {
-      homophones = data;
-  })
-  .catch(error => console.log(error))
-}
-
-function loadZhuyin() {
-  fetch('./data/hz-bpmf.json')
-  .then(res => {
-    if (res.ok) {
-      console.log('ZHUYIN FETCHED');
-    } else {
-        console.log('ZHUYIN FAILURE')
+function selectTitleWrap(n) {
+    return function executeOnEvent (event) {
+        // console.log(n)
+        bookIndex = n
+        populateChunks(n)    
     }
-    return res.json()
-  })
-  .then(data => {
-    zhuyin = data;
-  })
-  .catch(error => console.log(error))
 }
 
-loadBooks();
-loadHomophones();
-loadZhuyin();
+function jumpToSentence(n) {
+    return function executeOnEvent (event) {
+        isLeftRound = false
+      
+        progressMarkers[0] = n
+        progressMarkers[1] = 0
+        loadTarget(sentenceArrays[progressMarkers[0]])
+    }
+}
 
-function moveToleftoversList (n) {
-  leftoversList.push(divided[n]);
-  // console.log('pushed item to leftovers')
-  divided.splice(n, 1);
+function assignLeftover(n) {
+    return function executeOnEvent (event) {
+      
+        completionMap[progressMarkers[0]][n] = -1
+        console.log(completionMap)
 
-  deleteSpan = targetList[n];
-  deleteSpan.remove();
+        const targElem = targetColumn.children[n]
+        targElem.classList.add('grayed-out')
 
-  updateTargetOrder();
-  
-  // update progress bar
-  progress[1]++;
-  progress[0]--;
+        const sentPart = document.querySelector('#prog' + progressMarkers[0])
+        sentPart.style.background = generateCompGrad(completionMap[progressMarkers[0]])
+        // sentPart.disabled = true
 
-  updateProgressBar(progress)
+        leftBtn.classList.add('active')
 
-  if (n > targetList.length - 1 && targetCount == n){
-    nextRound();
+        event.target.remove()
+
+        if (findInt(completionMap[progressMarkers[0]], 0) < 0) {
+            nextSentence()
+        }
+    }
+}
+
+function populateChunks(n) {
+      
+  const clearHighlight = document.querySelector('.title-highlight')
+      
+  if(clearHighlight) {
+    clearHighlight.classList.remove('title-highlight')
   }
+
+  titleCards.children[n].classList.add('title-highlight')
+  
+  partsCards.innerHTML = "";
+
+  let x = 0;
+
+  bookList[n].parts.forEach(chunk =>{
+    constructPresetCheckbox(chunk, x)
+    x++
+  })
 }
 
-function updateTargetOrder() {
-  targetList = Array.from(document.getElementsByClassName('target'));
+function populateProgressParts([arr, total]) {
+
+    let rowTempStr = ''
+    progBtns.innerHTML = ''
+
+    for (let i = 0; i < arr.length; i++) {
+        const progPart = document.createElement('div')
+        progPart.classList.add('prog')
+        progPart.id = 'prog' + i
+        
+        progPart.style.background = "gray"
+        if (i == 0) {
+            progPart.style.borderBottomLeftRadius = '25px'
+        }
+        progPart.addEventListener('click', jumpToSentence(i))
+        progBtns.append(progPart)
+
+        rowTempStr += 100 * arr[i].length / total + "fr "
+    }
+
+    console.log(rowTempStr)
+    progBtns.style.gridTemplateColumns = rowTempStr
 }
+
+function constructPresetCheckbox(arr, n) {
+
+    const currentID = 'part' + n;
+    const preview = (n + 1) + " - " + arr.text[0]
+
+    let preset = document.createElement('input')
+    preset.type = 'checkbox'
+    preset.id = currentID
+
+    let preLabel = document.createElement('label')
+    preLabel.htmlFor = currentID
+    preLabel.innerText = arr.award + preview
+
+    let divWrap = document.createElement('div')
+    divWrap.appendChild(preset)
+    divWrap.appendChild(preLabel)
+
+    divWrap.classList.add('one-part')
+    divWrap.classList.add('preset-line')
+
+    partsCards.appendChild(divWrap)
+}
+
+
 
 document.addEventListener('click', function(e) {
   e = e || window.event;
   var target = e.target || e.srcElement,
       text = target.textContent || target.innerText;  
   
-  if(target.classList.contains('leftButton')){
-    
-    currentID = target.parentNode.id
-
-    for (let n = 0; n < targetList.length; n++){
-      if (targetList[n].id == currentID) {
-        setTimeout(function() {moveToleftoversList(n)}, 5);
-      }
-    }
-
-  } else if (target.classList.contains('target')){
+  if(target.classList.contains('target')){
     
     word = target.innerText.replace(/◀/g,"")
-    speak(word);
+    synthSpeak(word, 1, 1);
 
-  } else if (target.classList.contains('one-title')) {
-    
-    clearHighlight = document.getElementsByClassName('title-highlight')
-    if(clearHighlight[0]) {
-      clearHighlight[0].classList.remove('title-highlight')
-    }
-
-    target.classList.add('title-highlight');
-    textIndex = titleList.indexOf(target.innerText);
-    updateParts(textIndex);
-
-  }
-       
-}, false);
-
-function updateParts(n) {
-  partsCards.innerHTML = "";
-
-  x = 0;
-
-  bookList[n].parts.forEach(element =>{
-    currentID = 'part' + x;
-    preview = (x + 1) + " - " + element.text[0];
-    
-    let preset = document.createElement('input');
-    preset.type = 'checkbox';
-    preset.id = currentID;
-
-    let preLabel = document.createElement('label');
-    preLabel.htmlFor = currentID;
-    preLabel.innerText = element.award;
-    
-    let partPreview = document.createElement('div');
-    partPreview.id = "label" + x;
-    partPreview.innerText = preview;
-
-    let divWrap = document.createElement('div');
-    divWrap.appendChild(preset);
-    divWrap.appendChild(preLabel);
-    divWrap.appendChild(partPreview);
-    divWrap.classList.add('one-part');
-    divWrap.classList.add('preset-line');
-
-    partsCards.appendChild(divWrap);
-    x++
-  })
-}
-
-
-function processStrToArr(str) {
-  // first, cut out general punctuation from the entire string
-  // this function does not cut out -, ', and : since they have semantic use
-  
-  zeroPunct = omitPunctuation(str)
-
-  // second, split the string into an array of words
-  // this will depend on language: most languages split based on spaces, but others split on every word
-  
-  if (targetLang == 'zh') {
-    splitArr = zeroPunct.toLowerCase().split('')
-  } else {
-    splitArr = zeroPunct.toLowerCase().split(' ')
-  }
-
-  // third, convert digits to text strings
-  // this function will parse the use of : to see if it's necessary to communicate a time, or if it's grammatical and should be omitted
-  
-  numsArr = convertNumsToText(splitArr)
-
-  // fourth, omit words from the array that aren't possible to produce through speech recognition
-  // or are inappropriate for general use.
-
-  finalArr = omitWords(numsArr)
-
-  return finalArr
-}
-
-
-function updateProgressBar(arr) {
-  let incomplete = 100 * arr[0] / totalWordsToRead;
-  let leftover = 100 * arr[1] / totalWordsToRead;
-  let complete = 100 * arr[2] / totalWordsToRead;
-
-  progressParts[0].style.height = incomplete + "%";
-  progressParts[1].style.height = leftover + "%";
-  progressParts[2].style.height = "calc(" + complete + "% + 70px)";
-}
+  } 
+}, false)
 
 function updateSpeed() {
   speedReader.innerText = synthSpeed.value
@@ -1011,362 +822,143 @@ function updateVol() {
   volReader.innerText = synthVol.value
 }
 
-function speak(str) {
-  stopSpeechRecognition();
-  
-  if(str) {
-    utterance = new SpeechSynthesisUtterance(str);
-  } else {
-    utterance = new SpeechSynthesisUtterance(spokenSentence); 
-  }
-  
-  utterance.rate = synthSpeed.value;
-  utterance.volume = synthVol.value;
-  utterance.voice = synthVoices[voiceSelect.value]
-  utterance.lang = targetLang;
+// function populateVoices(arr) {
+//   for (let n = 0; n < arr.length; n++) {
+//     const newOpt = document.createElement('option')
+//     newOpt.value = n
+//     newOpt.innerText = arr[n].name
 
-  if (speechSynthesis.speaking) {
-    // SpeechSyn is currently speaking, cancel the current utterance(s)
-    speechSynthesis.cancel();
-  }
-
-  speechSynthesis.speak(utterance);
-
-  utterance.addEventListener("end", (event) => {
-    console.log(
-      `Utterance has finished being spoken after ${event.elapsedTime} seconds.`,
-    );
-    listenBool = true;
-    recognition.start();
-  });
-}
-
-const allVoicesObtained = new Promise(function(resolve, reject) {
-  let voices = window.speechSynthesis.getVoices();
-  if (voices.length !== 0) {
-    resolve(voices);
-  } else {
-    window.speechSynthesis.addEventListener("voiceschanged", function() {
-      voices = window.speechSynthesis.getVoices();
-      resolve(voices);
-      synthVoices = voices
-      populateVoices(synthVoices)
-    });
-  }
-});
-
-allVoicesObtained.then(voices => 
-  console.log(voices)
-)
-
-function populateVoices(arr) {
-  for (let n = 0; n < arr.length; n++) {
-    newOpt = document.createElement('option')
-    newOpt.value = n
-    newOpt.innerText = arr[n].name
-
-    voiceSelect.append(newOpt)
-  }
-}
+//     voiceSelect.append(newOpt)
+//   }
+// }
 
 // Code for P5 canvas and other P5 functions
 
-function setup(){
-  let cnv = createCanvas(100, 100);
-  cnv.mousePressed(userStartAudio);
+function setup() {
+    let cnv = createCanvas(100, 100);
+    cnv.mousePressed(userStartAudio);
 
-  textAlign(CENTER);
-  microphone = new p5.AudioIn();
-  microphone.start();
+    textAlign(CENTER);
+    microphone = new p5.AudioIn();
+    microphone.start();
 
-  beep = new p5.Oscillator();
-  beep.setType('sawtooth')
+    beep = new p5.Oscillator();
+    beep.setType('sawtooth')
 }
 
-function draw(){
-  micLevel = microphone.getLevel();
-  let y = micLevel * height;
-  if(y < 1){
-    y = 0;
-  }
+function draw() {
 
-  fill(0, 128, 0)
-  noStroke();
-  ellipse(width/2, height/2, width, height)
-
-  fill(205, 255, 205);
-  stroke(205, 255, 205);
-  strokeWeight(height/25);
-  
-  arc(width/2, height*3/5, width*.66, min(max(y*5, 0.00001), height*.66), 0, PI);
-
-  noFill();
-  arc(width/3, height*2/5, width/10, max(ceil(y/100) * height/10, 0.00001), PI, 0) 
-  arc(width*2/3, height*2/5, width/10, max(ceil(y/100) * height/10, 0.00001), PI, 0) 
-
-}
-
-// Code for rainbow effect on arrow
-
-function generateRainbow(arr){
-    direction += 1;
-    opacity -= 0.01;
-
-    rainbowStr = "linear-gradient(" + direction + "deg, "
-
-    arr.forEach((element) =>{
-        rainbowStr += (element + opacity + "), ")
-    })
-    rainbowStr = rainbowStr.substring(0, rainbowStr.length - 2);
-    rainbowStr += ")";
-
-    return rainbowStr;
-}
-
-function moveArray(arr) {
-    arr.push(arr[0]);
-    arr.shift();
-
-    return arr;
-}
-
-function startRainbow(){
-  opacity = 1;
-  direction = Math.floor(Math.random() * 180)
-  var timesRun = 0;
-  var rainbowCycle = setInterval(function() {
-    timesRun += 1;
-
-    if(timesRun > 100){
-      clearInterval(rainbowCycle);
-    }
-  
-    moveArray(movingRainbow);
-    arrow.style.background = generateRainbow(movingRainbow);
-  
-  }, 20);
-}
-
-
-// TIMER CODE
-
-function startTimer() {
-  // TIMER SETUP
-  ding.play();
-
-  timerObj.start = determineTime()
-  displayTime()
-
-  // TIMER INTERVAL LOOP
-  timerInterval = setInterval(displayTime, 999)
-}
-
-function determineTime() {
-  const date = new Date;
-  // date.setTime(result_from_Date_getTime);
-
-  const seconds = date.getSeconds();
-  const minutes = date.getMinutes();
-  const hour    = date.getHours();
-
-  timeStr =   hour % 12 + ":" + 
-              appendZero(minutes.toString()) + ":" + 
-              appendZero(seconds.toString())
-  
-  nowRaw =  timeStampToSec(hour + ":" + 
-            appendZero(minutes.toString()) + ":" + 
-            appendZero(seconds.toString()))
-
-  console.log(nowRaw)
-
-  return nowRaw
-}
-
-function displayTime() {
-  let rawSecDifference = determineTime() - timerObj.start
-  let stampLength = 4
-  let displayStamp
-
-  if (timerSetting == 1) {
-    if (rawSecDifference >= 36000) {
-      stampLength = 8
-    } else if (rawSecDifference >= 3600) {
-      stampLength = 7
-    } else if (rawSecDifference >= 600) {
-      stampLength = 5
+    micLevel = microphone.getLevel();
+    let y = micLevel * height;
+    if(y < 1){
+        y = 0;
     }
 
-    displayStamp = trimTimeStamp(secToTimeStamp(rawSecDifference)[1], stampLength)
-  } else if (timerSetting == 2) {
-    miniTimer = defaultCountdown - (rawSecDifference % defaultCountdown)
+    fill(0, 128, 0)
+    noStroke();
+    ellipse(width/2, height/2, width, height)
 
-    if (miniTimer == defaultCountdown) {
-      ding.play()
-    }
-    
-    displayStamp = trimTimeStamp(secToTimeStamp(
-      miniTimer
-    )[1], String(miniTimer).length)
-  }
+    fill(205, 255, 205);
+    stroke(205, 255, 205);
+    strokeWeight(height/25);
 
-  stopWatch.innerText = displayStamp
+    arc(width/2, height*3/5, width*.66, min(max(y*5, 0.00001), height*.66), 0, PI);
 
-  if (timerBool == false) {
-    clearInterval(timerInterval);
-  }
-}
-
-function timeStampToSec(str) {
-  timeStampArr = str.split(':')
-
-  rawSecInt =     Number(timeStampArr[2])
-  rawSecInt +=    Number(timeStampArr[1] * 60)
-  rawSecInt +=    Number(timeStampArr[0] * 3600)
-
-  return rawSecInt
-}
-
-function secToTimeStamp(int) {
-  timeStampArr = [null, null, null]
-
-  rawSec = int % 60
-  rawMin = (int - rawSec) % 3600
-  rawHour = (int - rawMin - rawSec)
-
-  timeStampArr[2] = rawSec
-  timeStampArr[1] = rawMin / 60
-  timeStampArr[0] = rawHour / 3600
-
-  stampsAndString = [
-      timeStampArr, 
-      timeStampArr[0] % 12 + ":" + 
-      appendZero(timeStampArr[1]) + ":" + 
-      appendZero(timeStampArr[2])
-  ]
-
-  return stampsAndString
-}
-
-function trimTimeStamp(str, val) {
-  return str.substring((str.length - val), str.length)
-}
-
-function appendZero(n) {
-  n = String(n)
-  
-  if (n.length < 2) {
-      return "0" + n
-  } else {
-      return n
-  }
-}
-
-function flip(element) {
-  elStyle = element.classList;
-  if (elStyle.contains('flip')) {
-    elStyle.remove('flip');
-  } else {
-    elStyle.add('flip');
-  }
+    noFill();
+    arc(width/3, height*2/5, width/10, max(ceil(y/100) * height/10, 0.00001), PI, 0) 
+    arc(width*2/3, height*2/5, width/10, max(ceil(y/100) * height/10, 0.00001), PI, 0) 
 }
 
 function showUserPage() {
-  contentBlocks.style.left = "-200%"
+    shiftContentBlocks('user')
+}
+
+function shiftContentBlocks(str) {
+    if (str == 'user') {
+        contentBlocks.style.left = "-200%"
+    } else if (str == 'game') {
+        contentBlocks.style.left = "-100%"
+    } else if (str == 'menu') {
+        contentBlocks.style.left = "0%"
+    }
 }
 
 let currentUser = null
 let currentUserIndex = null
 let userInfo = []
 if (localStorage.getItem("user_info")) {
-  userInfo = JSON.parse(localStorage.getItem("user_info"))
+    userInfo = JSON.parse(localStorage.getItem("user_info"))
 }
 populateUserButtons()
 
 function createUser() {
-  inputName = userEntry.value
+    inputName = userEntry.value
 
-  // check variable to see if entered name already exists
+    // check variable to see if entered name already exists
 
-  overwriteCheck = true
-  userInfo.forEach(entry => {
-    if (entry.user_name == inputName) {
-      overwriteCheck = confirm("This name already exists. Would you like to overwrite? Doing so will erase all existing information on the user")
-    }
-  })
-
-  // append new user info
-  // this code is bad, come back and fix it
-  if (overwriteCheck) {
-    userInfo.push({
-      "user_name": inputName, 
-      "user_score": 0, 
-      "user_awards": [], 
-      "user_completions": []
+    overwriteCheck = true
+    userInfo.forEach(entry => {
+        if (entry.user_name == inputName) {
+            overwriteCheck = confirm("This name already exists. Would you like to overwrite? Doing so will erase all existing information on the user")
+        }
     })
-    
-    saveUserDataLocally()
-    populateUserButtons()
-  }
+
+    // append new user info
+    // this code is bad, come back and fix it
+    if (overwriteCheck) {
+        userInfo.push({
+            "user_name": inputName, 
+            "user_score": 0, 
+            "user_awards": [], 
+            "user_completions": []
+        })
+
+        saveUserDataLocally()
+        populateUserButtons()
+    }
 }
 
 function saveUserDataLocally() {
-  userDataString = JSON.stringify(userInfo)
-  localStorage.setItem("user_info", userDataString)
+    userDataString = JSON.stringify(userInfo)
+    localStorage.setItem("user_info", userDataString)
 }
 
 function populateUserButtons() {
-  availableUsers.innerHTML = ''
-  
-  userInfo.forEach(entry => {
-    newButton = document.createElement('button')
-    newButton.innerText = entry.user_name
-    newButton.classList.add('user-btn')
-    newButton.setAttribute('onclick', 'setUser("' + entry.user_name + '")')
+    availableUsers.innerHTML = ''
 
-    availableUsers.append(newButton)
-  })
+    userInfo.forEach(entry => {
+        const newButton = document.createElement('button')
+        newButton.innerText = entry.user_name
+        newButton.classList.add('name-btn')
+        newButton.setAttribute('onclick', 'setUser("' + entry.user_name + '")')
+      
+        availableUsers.append(newButton)
+    })
 }
 
 function setUser(str) {
-  currentUser = str
-  userName.innerText = str
-  userName.classList.add('show')
+    currentUser = str
+    userName.innerText = str
+    userName.classList.add('show')
 
-  currentUserIndex = userInfo.findIndex(entry => entry.user_name == str)
-  console.log(currentUserIndex)
+    currentUserIndex = userInfo.findIndex(entry => entry.user_name == str)
+    console.log(currentUserIndex)
 
-  score = 0
-  updateScore(userInfo[currentUserIndex].user_score)
+    score = 0
 
-  reloadAwards(currentUserIndex)
+    reloadAwards(currentUserIndex)
 }
 
 function reloadAwards(index) {
-  clearAwards()
-  
-  checkLength = userInfo[index].user_awards.length
+    console.log('reconstruct Awards functions')
 
-  if (checkLength > 0) {
-    currentAwards.innerText += userInfo[index].user_awards[
-      checkLength - 1
-    ][0];
-
-    if (checkLength > 1) {
-      for (let i = checkLength - 2; i > -1 && i > checkLength - 5; i--) {
-        previousAwards.append(userInfo[index].user_awards[i][0])
-      }
-    }
-
-    if (checkLength > 3) {
-      for (let i=0; i<checkLength - 4; i++) {
-        awardsTab.prepend(userInfo[index].user_awards[i][0])
-      }
-    }
-  }
+    //checkLength = userInfo[index].user_awards.length
 }
 
-function clearAwards() {
-  currentAwards.innerText = ''
-  previousAwards.innerText = ''
-  awardsTab.innerText = ''
+function toggleSettings() {
+    if (settingsMenu.classList.contains('show')) {
+        settingsMenu.classList.remove('show')
+    } else {
+        settingsMenu.classList.add('show')
+    }
 }
