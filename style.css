@@ -12,11 +12,38 @@ body {
 }
 
 .left-sidebar {
-  height: 100vh;
-  width: 130px;
   position: fixed;
-  left: 0;
-  z-index: 2
+  height: calc(100vh - 30px);
+  width: 115px;
+  left: 5px;
+  top: 5px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+}
+
+.green-arrow {
+  height: calc(100%);
+  width: 100%;
+  margin-top: auto;
+  display: flex;
+  padding-top: 30px;
+  justify-content: center;
+  background: linear-gradient(0deg, green, limegreen);
+  clip-path: polygon(
+    0 60px, 57.5px 0, 
+    115px 60px, 85px 60px, 
+    85px 100%, 30px 100%, 
+    30px 60px
+  );
+  transition: height 0.5s;
+}
+
+.arrow-perc {
+  font-size: 15pt;
+  color: white;
+  font-weight: bold;
+  filter: drop-shadow(0 0.5mm 0.5mm rgb(0, 0, 0));
 }
 
 .right-sidebar {
@@ -30,8 +57,13 @@ body {
   grid-template-rows: 1fr 100px;
 }
 
+.corner-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
 .setting-btn {
-  margin: auto;
   display: flex;
   height: 50px;
   width: 50px;
@@ -73,14 +105,6 @@ canvas {
 }
 .qual.flip{
   background-color: green;
-}
-
-.complete{
-  background: limegreen;
-  height: calc(0% + 70px);
-  width: 140px;
-  transform: translateX(-35px);
-  clip-path: polygon(0 70px, 70px 0, 140px 70px, 105px 70px, 105px 100%, 35px 100%, 35px 70px);
 }
 
 svg {
@@ -195,7 +219,7 @@ svg {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   padding: 5px;
   gap: 5px;
 }
@@ -207,14 +231,13 @@ svg {
 
 .voice-select {
   grid-column-start: 1;
-  grid-column-end: 3;
+  grid-column-end: 2;
 }
 
 .header-btns {
   display: grid;
   position: relative;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 2px;
 }
 
@@ -533,39 +556,33 @@ button {
   background-color: yellow;
 }
 
-.correct {
-  color: white;
-  background-color: green;
-}
-
-.leftButton{
+.skip-btn{
   position: absolute;
-  left: calc(max(-6vw, -6vh) - .5vh);
+  left: 0;
   width: min(6vw, 6vh);
   height: 100%;
   margin: auto;
   font-size: min(5vw, 5vh);
   color: gray;
   border-radius: 1vh;
-  background: linear-gradient(90deg, rgb(169, 169, 169), white);
+  background: linear-gradient(90deg, rgb(164, 164, 164), rgb(240, 240, 240));
   opacity: 1;
   transition: left 0.2s ease-in,
               opacity 0.2s ease-in,
               display 0s 0.2s;
 }
-.leftButton.remove-skip{
-  left: 0px;
-  opacity: 0;
-  display: none;
-}
 
 .target {
-  display: block;
+  padding: 0px 10px;
   /* cursor: move; */
 }
 .target.grayed-out {
   color: gray;
   background-color: lightgray
+}
+.target.correct {
+  color: white;
+  background-color: green;
 }
 
 .behind{
@@ -717,6 +734,7 @@ input[type="checkbox"]:checked + label {
   border-radius: 20px;
   padding: 20px;
   transition: top 0.7s;
+  z-index: 3
 }
 .settings.show {
   top: 11vh

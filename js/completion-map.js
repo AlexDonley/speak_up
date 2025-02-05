@@ -126,3 +126,30 @@ function skipOneWord(compArrNow, n) {
         return false
     }
 }
+
+export function mapToFreqs(map) {
+    
+    let total = 0
+    let freqs = {}
+
+    for (const arr of map) {
+        total += arr.length
+        
+        for (const val of arr) {
+            freqs[val] = freqs[val] ? freqs[val] + 1 : 1;
+        }
+    }
+    
+    return [freqs, total]
+}
+
+export function findPercent(frac, total) {
+    
+    let percentNum = 0
+    
+    if (!isNaN(frac)) {
+        percentNum = 100 * frac / total
+    }
+
+    return percentNum
+}

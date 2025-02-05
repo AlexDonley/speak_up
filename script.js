@@ -4,9 +4,8 @@ import {
     setLanguage, startRecLoop, stopRecLoop
 } from './js/speech-rec.js'
 import { 
-    omitPunctuation, omitWords, 
-    parseColon, numToTexts, genWPStrToArr, 
-    compareSents, compareWords, queueToArr 
+    genWPStrToArr, compareSents, 
+    compareWords, queueToArr 
 } from './js/word-process.js'
 import { synthSpeak } from './js/speech-synth.js'
 import { startRainbow, generateStripeGrad, generateCompGrad } from './js/gradients.js'
@@ -14,7 +13,8 @@ import { timerMode, nextTimerMode, startTimer, stopTimer } from './js/timer.js'
 import { 
     genBlankCompMap, findInt, 
     checkMapForZero, checkMapForInt,
-    indexIntsFromMap, trackCompletion 
+    indexIntsFromMap, trackCompletion,
+    mapToFreqs, findPercent 
 } from './js/completion-map.js'
 import { 
     splitPinyin, addPinTone, charToPin,
@@ -35,21 +35,24 @@ const mic = document.getElementById("mic");
 // ux elements that show user progress through arrow movement, score, timer, and awards
 
 const progBtns        = document.querySelector('#progBtns')
-const arrowOverlay    = document.getElementById('rainbowOverlay')
-const stopWatch       = document.getElementById('stopWatch')
-const awardDiv        = document.getElementById('awardDiv')
-const scoreMarker     = document.getElementById('scoreMarker')
+const arrowOverlay    = document.querySelector('#rainbowOverlay')
+const stopWatch       = document.querySelector('#stopWatch')
+const awardDiv        = document.querySelector('#awardDiv')
+const scoreMarker     = document.querySelector('#scoreMarker')
 const settingsMenu    = document.querySelector('.settings')
-const langDisplay     = document.getElementById('langDisplay')
-const synthSpeed      = document.getElementById('synthSpeed')
-const synthVol        = document.getElementById('synthVol')
-const speedReader     = document.getElementById('speedReader')
-const volReader       = document.getElementById('volReader')
+const ffLang          = document.querySelector('#ffLang')
+const langDisplay     = document.querySelector('#langDisplay')
+const synthSpeed      = document.querySelector('#synthSpeed')
+const synthVol        = document.querySelector('#synthVol')
+const speedReader     = document.querySelector('#speedReader')
+const volReader       = document.querySelector('#volReader')
+const greenArrow      = document.querySelector('#greenArrow')
+const arrowPerc       = document.querySelector('#arrowPerc')
 
 function synthWrap() {
     stopRecLoop()
-    synthSpeak(sentenceArrays[progressMarkers[0]], 1, 1)
-    startRecLoop(1, 1, 0)
+    synthSpeak(sentenceArrays[progressMarkers[0]].join(' '), 1, 1, targetLang)
+    //startRecLoop(1, 1, 0)
 }
 
 // Assign functions to btns
@@ -110,25 +113,20 @@ searchTitles.addEventListener("input", e => {
 })
 
 // elements contained in the action section
-// action section contains two columns, one for target words and the other for user input
+// reading section contains two columns, one for target words and the other for user input
 
-const columnWrap      = document.getElementById("columnWrap");
 const targetColumn    = document.querySelector(".targetColumn");
 const utterTexts      = document.querySelector(".texts");
-
-const viewQR          = document.getElementById('viewQR')
-
-const userEntry       = document.getElementById('userEntry')
-const availableUsers  = document.getElementById('availableUsers')
-const userName        = document.getElementById('userName')
+const userEntry       = document.querySelector('#userEntry')
+const availableUsers  = document.querySelector('#availableUsers')
+const userName        = document.querySelector('#userName')
 
 // - - - VARIABLES - - - //
 
 // arrays for sentences and subdivisions
 
-
 let bookIndexArray= []
-let targetList    = []
+let bookIndex = 0 
 
 let sentenceArrays = []
 let progressMarkers = [0, 0]
@@ -136,21 +134,11 @@ let completionMap = []
 
 // index markers for working through the above arrays
 
-let targetCount = 0
-let sentenceCount = 0
-let bookIndex = 0
-
-
-// boolean variables that control whether features are on or off
-//    presetBool   - false means freeform, true means preset
-//    shuffleBool  - false means chronological targets, true means shuffled targets
-//    loopBool     - false means finishes after 1 iteration, true means continues iterating until the user stops
-
-let presetBool      = false
-let shuffleBool     = false
-let loopBool        = false
-let fullscreenBool  = false
-let isLeftRound     = false
+let presetBool      = false // false means freeform, true means preset
+let shuffleBool     = false // false means chronological targets, true means shuffled targets
+let loopBool        = false // false means finishes after 1 iteration, true means continues iterating until the user stops
+let fullscreenBool  = false //
+let isLeftRound     = false //
 
 let microphone
 
@@ -231,7 +219,7 @@ speechRec.addEventListener("result", (e) => {
     populateUtterances(utteredWords, utterTexts)
 
     if (e.results[0].isFinal) {
-        console.log('Comparing sentences...')
+        //console.log('Comparing sentences...')
 
         if (!isLeftRound) {
             const compareArr = trackCompletion(
@@ -251,8 +239,7 @@ speechRec.addEventListener("result", (e) => {
 
         } else {
             const leftArr = grabLeftovers(sentenceArrays, completionMap)
-
-            console.log(leftArr)
+            // console.log(leftArr)
 
             if (leftArr.length > 0) {
                 loadTarget(leftArr, true)
@@ -395,11 +382,12 @@ function startQueue() {
       })
 
     } else {
-      // FREEFORM INPUT
-      // The following grabs the text entered by the user and eliminates blank lines
-      
-      const freeformText = textInput.value.replace(/^\s*\n/gm, "");
-      sentenceQueue = freeformText.split('\n');
+        // FREEFORM INPUT
+        // The following grabs the text entered by the user and eliminates blank lines
+        setLanguage(ffLang.value)
+
+        const freeformText = textInput.value.replace(/^\s*\n/gm, "");
+        sentenceQueue = freeformText.split('\n');
     }
     
     if (shuffleBool) {
@@ -411,7 +399,7 @@ function startQueue() {
     const blankCompData = genBlankCompMap(sentenceArrays)
 
     completionMap = blankCompData[0]
-    //let totalWords = blankCompData[1]
+    updateArrow(completionMap)
 
     populateProgressParts(blankCompData)
     //document.querySelector('#progBtns').style.background = generateStripeGrad(totalWords, 'yellow', 'blue')
@@ -485,7 +473,7 @@ function loadTarget(arr, leftoversBool){
 
     for (let n = 0; n < arr.length; n++){
         const newSpan = document.createElement('span')
-        newSpan.setAttribute('id', ('target' + n))
+        newSpan.id = 'target' + n
         newSpan.classList = 'one-word target'
 
         if (!leftoversBool) {
@@ -496,7 +484,8 @@ function loadTarget(arr, leftoversBool){
                 newSpan.classList.add('correct')
             } else {
                 const leftButton = document.createElement('div')
-                leftButton.classList.add('leftButton')
+                leftButton.classList.add('skip-btn')
+                leftButton.id = "skip" + n
                 leftButton.innerText = '◀'
                 leftButton.addEventListener('click', assignLeftover(n))
                 newSpan.appendChild(leftButton)
@@ -507,8 +496,6 @@ function loadTarget(arr, leftoversBool){
         let newContent
 
         if (targetLang == 'zh') {
-            console.log(text)
-
             // TODO: fix functions so if the dict doesn't have the char,
             // they will just return the char rather than nothing
 
@@ -519,26 +506,41 @@ function loadTarget(arr, leftoversBool){
             newContent = document.createTextNode(text)
         }
         
-
         newSpan.append(newContent)
+        newSpan.addEventListener('click', synthSpeakClosure(
+            text, 1, 1, targetLang
+        ))
 
         targetColumn.appendChild(newSpan)
     }
 }
 
 function updateTargVisual(arr, delay) {
+    
+    // update arrow size
+
+    updateArrow(completionMap)
+    
+    // highlight correct words
+
     const allTargs = Array.from(document.getElementsByClassName('target'))
 
     for (let i = 0; i < arr.length; i++) {
         setTimeout(() => {
 
             if (arr[i] == 0) {
+
                 allTargs[i].classList = 'one-word target'
-                allTargs[i].classList.add('correct')
+
             } else {
               
-                if (allTargs[i].children[0]) {
-                    allTargs[i].children[0].remove()
+                // TODO: only remove skip button,
+                // not any other kinds of elements 
+
+                const skipBtn = document.querySelector('#skip' + i)
+                
+                if (skipBtn) {
+                    skipBtn.remove()
                 }
 
                 if (arr[i] == -1) {
@@ -549,6 +551,22 @@ function updateTargVisual(arr, delay) {
             }
         }, delay * i)
     }
+}
+
+function updateArrow(map) {
+
+    const freqsNow = mapToFreqs(map)
+    const percentNow = findPercent(freqsNow[0][1], freqsNow[1])
+    const heightStr = 
+        "calc(" + 
+        (percentNow) +
+        "% + " + 
+        (.6 * (100 - percentNow)) +
+        "px)"
+
+    greenArrow.style.height = heightStr
+
+    arrowPerc.innerText = Math.round(percentNow, 1) + "%"
 }
 
 function grabLeftovers(sentArr, compArr) {
@@ -715,7 +733,7 @@ function assignLeftover(n) {
         completionMap[progressMarkers[0]][n] = -1
         console.log(completionMap)
 
-        const targElem = targetColumn.children[n]
+        const targElem = document.querySelector('#target' + n)
         targElem.classList.add('grayed-out')
 
         const sentPart = document.querySelector('#prog' + progressMarkers[0])
@@ -732,24 +750,30 @@ function assignLeftover(n) {
     }
 }
 
+function synthSpeakClosure(str, speed, vol, lang) {
+    return function executeOnEvent(event) {
+        synthSpeak(str, speed, vol, lang)
+    }
+}
+
 function populateChunks(n) {
       
-  const clearHighlight = document.querySelector('.title-highlight')
-      
-  if(clearHighlight) {
-    clearHighlight.classList.remove('title-highlight')
-  }
+    const clearHighlight = document.querySelector('.title-highlight')
 
-  titleCards.children[n].classList.add('title-highlight')
-  
-  partsCards.innerHTML = "";
+    if(clearHighlight) {
+        clearHighlight.classList.remove('title-highlight')
+    }
 
-  let x = 0;
+    titleCards.children[n].classList.add('title-highlight')
 
-  bookList[n].parts.forEach(chunk =>{
-    constructPresetCheckbox(chunk, x)
-    x++
-  })
+    partsCards.innerHTML = "";
+
+    let m = 0;
+
+    bookList[m].parts.forEach(chunk =>{
+        constructPresetCheckbox(chunk, m)
+        m++
+    })
 }
 
 function populateProgressParts([arr, total]) {
@@ -798,21 +822,6 @@ function constructPresetCheckbox(arr, n) {
 
     partsCards.appendChild(divWrap)
 }
-
-
-
-document.addEventListener('click', function(e) {
-  e = e || window.event;
-  var target = e.target || e.srcElement,
-      text = target.textContent || target.innerText;  
-  
-  if(target.classList.contains('target')){
-    
-    word = target.innerText.replace(/◀/g,"")
-    synthSpeak(word, 1, 1);
-
-  } 
-}, false)
 
 function updateSpeed() {
   speedReader.innerText = synthSpeed.value
