@@ -231,6 +231,7 @@ speechRec.addEventListener("result", (e) => {
                 completionMap[progressMarkers[0]]
             )
 
+            updateScore(compareArr[1] - progressMarkers[1])
             completionMap[progressMarkers[0]] = compareArr[0]
             progressMarkers[1] = compareArr[1]
           
@@ -259,6 +260,8 @@ speechRec.addEventListener("result", (e) => {
 
                         const grabProg = document.querySelector('#prog' + coords[0])
                         grabProg.style.background = generateCompGrad(completionMap[coords[0]])
+
+                        updateScore(1)
                     }
                 })
     
@@ -499,8 +502,10 @@ function loadTarget(arr, leftoversBool){
             // TODO: fix functions so if the dict doesn't have the char,
             // they will just return the char rather than nothing
 
+            const thisPin = charToPin(text)
+
             newContent = constructPinRT(
-                text, charToPin(text), 'under'
+                text, addPinTone([thisPin.substring(0, thisPin.length - 1), thisPin.substring(thisPin.length - 1)]), 'under'
             )
         } else {
             newContent = document.createTextNode(text)
@@ -571,27 +576,27 @@ function updateArrow(map) {
 
 function grabLeftovers(sentArr, compArr) {
 
-  let leftoversList = []
-  
-  for (let n = 0; n < compArr.length; n++) {
-    for (let m = 0; m < compArr[n].length; m++) {
-      if (compArr[n][m] == -1) {
-        leftoversList.push(sentArr[n][m])
-      }
+    let leftoversList = []
+    
+    for (let n = 0; n < compArr.length; n++) {
+        for (let m = 0; m < compArr[n].length; m++) {
+          if (compArr[n][m] == -1) {
+            leftoversList.push(sentArr[n][m])
+            }
+        }
     }
-  }
-  
-  return leftoversList
+
+    return leftoversList
 }
 
 function updateScore(n) {
-  score += n
-  scoreMarker.innerText = score
+    score += n
+    scoreMarker.innerText = score
 
-  if(!(currentUserIndex == null)) {
-    userInfo[currentUserIndex].user_score = score
-    saveUserDataLocally()
-  }
+    if(!(currentUserIndex == null)) {
+        userInfo[currentUserIndex].user_score = score
+        saveUserDataLocally()
+    }
 }
 
 function addOneAward(textN, awardN) {
@@ -770,7 +775,7 @@ function populateChunks(n) {
 
     let m = 0;
 
-    bookList[m].parts.forEach(chunk =>{
+    bookList[n].parts.forEach(chunk =>{
         constructPresetCheckbox(chunk, m)
         m++
     })

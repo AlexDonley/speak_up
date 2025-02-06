@@ -2,7 +2,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: "Century Gothic";
+  font-family: "Century Gothic", Arial, sans-serif !important;
 }
 
 body {
@@ -23,7 +23,7 @@ body {
 }
 
 .green-arrow {
-  height: calc(100%);
+  height: calc(60px);
   width: 100%;
   margin-top: auto;
   display: flex;
@@ -254,7 +254,7 @@ svg {
 .view-QR {
   width: min(25vw, 25vh);
   height: min(25vw, 25vh);
-  position: fixed;
+  position: absolute;
   right: 0;
   bottom: 0;
   resize: true;
