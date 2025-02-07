@@ -63,16 +63,6 @@ body {
   align-items: center
 }
 
-.setting-btn {
-  display: flex;
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  justify-content: center;
-  align-items: center;
-  background: rgba(255, 255, 255, .8);
-}
-
 canvas {
   z-index: 3;
   position: fixed;
@@ -118,14 +108,14 @@ svg {
   display: grid;
   justify-items: center;
   align-items: center;
-  grid-template-rows: 20px 8vh;
+  grid-template-rows: 20px min(8vh, 8vw);
   grid-template-columns: 130px 3fr 2fr 1fr 1fr;
 }
 
 .arrow-cutout {
   position: fixed;
   z-index: -1;
-  height: calc(8vh + 20px);
+  height: calc(min(8vh, 8vw) + 20px);
   width: 100vw;
   background: linear-gradient(rgb(114, 114, 114), rgb(58, 58, 58));
   clip-path: polygon(
@@ -142,10 +132,13 @@ svg {
   grid-row-end: 3;
 }
 
+.header-big-font {
+  font-size: min(6vh, 6vw)
+}
+
 .title {
   color: lightgreen;
   padding: 0px 20px;
-  font-size: 6vh;
   white-space: nowrap;
   grid-row-start: 1;
   grid-row-end: 3;
@@ -153,7 +146,7 @@ svg {
   height: 100%;
   text-align: left;
   font-weight: bold;
-  line-height: calc(8vh + 20px);
+  line-height: calc(min(8vh, 8vw) + 20px);
   border-right: solid rgba(206, 206, 206, 0.4) 2px;
 }
 
@@ -184,10 +177,6 @@ svg {
   grid-row-end: 3;
 }
 
-.stop-watch {
-  font-weight: bold;
-  font-size: 6vh;
-}
 .stop-watch.flip {
   background: radial-gradient(circle at center, maroon, 70%, red);;
 }
@@ -195,7 +184,6 @@ svg {
 .score {
   display: flex;
   justify-content: center;
-  font-size: 6vh;
 }
 
 .award-div {
@@ -373,36 +361,61 @@ img {
 }
 
 
-.column {
+.display-words {
   background-color: #999999;
   border-radius: 8px;
   padding: 20px;
   font-size: 2rem;
   margin: 1vh;
   width: 45%;
+  /* display: grid;
+  grid-template-columns: 1fr; */
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.column-btn {
-  position: absolute;
+.circ-btn {
   width: 7vh;
   height: 7vh;
   border-radius: 50%;
-  font-size: 4vh;
-  line-height: 7vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: rotate 0.3s ease-in-out,
-              color 0.3s,
+  font-size: 4vh;
+}
+
+.read-btn-wrap {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.read-btn {
+  transition: color 0.3s,
               background-color 0.3s;
 }
-.column-btn:hover{
-  /* rotate: 360deg; */
+.read-btn.active {
   color: white;
   background-color: maroon;
+}
+.read-btn:hover{
+  color: white;
+  background-color: maroon;
+}
+
+.read-btn > * {
+  transition: width 0.3s, fill 0.3s;
+}
+.read-btn.active > * {
+  width: 45px;
+  fill: white
+}
+.read-btn:hover > * {
+  width: 45px;
+  fill: white
 }
 
 .user-block {
@@ -534,47 +547,52 @@ button {
   font-size: 3rem;
 }
 
-.opt {
-  height: 3.5vh;
-  width: 3.5vh;
-  border-radius: 5px;
+.word-wrap {
+  display: flex;
+  border-radius: 1vh;
+  overflow: hidden;
 }
 
 .one-word {
   user-select: none;
   position: relative;
+  width: 100%;
   font-size: min(6vw, 6vh);
   font-weight: bold;
   text-align: center;
   background-color: #fff;
-  border-radius: 1vh;
   transition: color 0.2s, 
               background-color 0.2s;
 }
 
-.next {
-  background-color: yellow;
+.skip-btn{
+  left: 0;
+  width: min(4vw, 4vh);
+  color: gray;
+  text-align: center;
+  user-select: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(90deg, rgb(182, 182, 182), rgba(255, 255, 255, 1));
+  transition: width 0.2s
 }
 
-.skip-btn{
-  position: absolute;
-  left: 0;
-  width: min(6vw, 6vh);
-  height: 100%;
-  margin: auto;
-  font-size: min(5vw, 5vh);
-  color: gray;
-  border-radius: 1vh;
-  background: linear-gradient(90deg, rgb(164, 164, 164), rgb(240, 240, 240));
-  opacity: 1;
-  transition: left 0.2s ease-in,
-              opacity 0.2s ease-in,
-              display 0s 0.2s;
+.mini-tri {
+  height: 60%;
+  width: 60%;
+  background-color: rgb(121, 121, 121);
+  clip-path: polygon(0 50%, 100% 0, 100% 100%);
+  user-select: none
+}
+
+.no-width {
+  width: 0px
 }
 
 .target {
   padding: 0px 10px;
-  /* cursor: move; */
+  flex: 1;
 }
 .target.grayed-out {
   color: gray;
@@ -664,6 +682,7 @@ button {
   border: none;
   border-radius: 25px;
   overflow: hidden;
+  transition: background-color 0.2s
 }
 
 .one-title{
@@ -673,7 +692,7 @@ button {
 
 .title-highlight {
   color: black;
-  background: yellow;
+  background-color: yellow;
 }
 
 .one-part{
@@ -695,11 +714,11 @@ input[type="checkbox"] + label {
   font-size: 30px;
   padding: 0px 5px;
   user-select: none;
-  transition: background .2s ease-in-out;
+  transition: background-color .2s;
 }
 
 input[type="checkbox"]:checked + label {
-  background: yellow;
+  background-color: yellow;
   color: black;
 }
 
