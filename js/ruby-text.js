@@ -66,9 +66,12 @@ export function splitPinyin(str) {
 
 export function charToPin(char) {
     const pinIndex = pinyinKeys.findIndex(({ trad }) => trad === char)
-    const pinyin = pinyinKeys[pinIndex].pin1[0]
-
-    return pinyin
+    
+    if (pinIndex >= 0) {
+        return pinyinKeys[pinIndex].pin1[0]
+    } else {
+        return false
+    }
 }
 
 export function charToZhu(char) {
