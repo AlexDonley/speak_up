@@ -928,6 +928,131 @@
         ]
     },
     {
+        "title": "Fly",
+        "author": "Bad Time Stories",
+        "parts": [
+            {
+                "award": "🦋",
+                "text": [  
+                    "I'm a Butterfly!",
+                    "I'm a Dragonfly!",
+                    "I'm a Firefly!",
+                    "I'm a Bee! No!",
+                    "What? I'm a bee.",
+                    "No! You have to be a fly!",
+                    "Okay. I'm a fly!",
+                    "No! You have to be a kind of fly",
+                    "But what kind of fly should I be?"
+                ]
+            },
+            {
+                "award": "🐝",
+                "text": [  
+                    "Seems you have black and yellow stripes. So...",
+                    "I'm a Tiger fly!",
+                    "Can I join? I'm a fly too",
+                    "What kind of fly?",
+                    "Just a fly",
+                    "No! You can't just be fly! You have to be something with fly!",
+                    "But I'm a fly. No!",
+                    "Okay! I'm a Housefly!"
+                ]
+            }
+        ]
+    },
+    {
+        "title": "I Never Go To Work",
+        "author": "They Might Be Giants",
+        "parts": [
+            {
+                "award": "🙅",
+                "text": [  
+                    "No, no, I never go to work",
+                    "No, no, I never go to work",
+                    "On Monday, I never go to work",
+                    "On Tuesday, I stay at home",
+                    "On Wednesday, I'm never feeling fine",
+                    "Work is the last thing on my mind",
+                    "On Thursday it's a holiday",
+                    "And Fridays I detest",
+                    "Oh, it's much too late on a Saturday",
+                    "And Sunday is the day of rest"
+                    
+                ]
+            },
+            {
+                "award": "🎺",
+                "text": [  
+                    "Yes, yes, practice trumpet every day",
+                    "Yes, yes, practice trumpet every day",
+                    "Practice Monday",
+                    "Practice Tuesday",
+                    "Practice Wednesday",
+                    "Practice Thursday...",
+                    "And Friday...",
+                    "And I practice all night on Saturday",
+                    "So on Sundays I play best"
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Joseph Had a Little Overcoat",
+        "author": "Simms Taback",
+        "parts": [
+            {
+                "award": "👰",
+                "text": [  
+                    "Joseph had a little overcoat. ",
+                    "It was old and worn. ",
+                    "So he made a jacket out of it ",
+                    "and went to the fair.",
+                    "Joseph had a little jacket. ",
+                    "It got old and worn.",
+                    "So he made a vest out of it ",
+                    "and danced at his nephew's wedding."
+                ]
+            },
+            {
+                "award": "🏙️",
+                "text": [  
+                    "Joseph had a little vest.",
+                    "It got old and worn.",
+                    "So he made a scarf out of it",
+                    "and sang in the men's chorus.",
+                    "Joseph had a little scarf.",
+                    "It got old and worn.",
+                    "So he made a necktie out of it",
+                    "and went to visit his married sister in the city."
+                ]
+            },
+            {
+                "award": "👔",
+                "text": [  
+                    "Joseph had a little necktie.",
+                    "It got old and worn.",
+                    "So he made a handkerchief out of it",
+                    "and drank a glass of hot tea with lemon.",
+                    "Joseph had a little handkerchief.",
+                    "It got old and worn.",
+                    "So he made a button out of it",
+                    "and used it to fasten his suspenders."
+                ]
+            },
+            {
+                "award": "📖",
+                "text": [  
+                    "Joseph had a little button.",
+                    "One day he lost it.",
+                    "Now he had nothing.",
+                    "So Joseph made a book about it.",
+                    "Which shows…",
+                    "you can always make something out of nothing."
+                ]
+            }
+        ]
+    },
+    {
         "title": "Black Lagoon",
         "author": "Mike Thaler",
         "parts": [
@@ -2054,6 +2179,85 @@
                     "不久就到了那條離家不遠的小河",
                     "小嘟在河邊選了一個最好的位置",
                     "然後開始釣起魚來"
+                ]
+            }
+        ]
+    },
+    {
+        "title": "我只在乎你",
+        "lang": "zh",
+        "parts":
+        [       
+            {
+                "award": "🍯",
+                "text": [
+                    "如果沒有遇見你 我將會是在那裡",
+                    "日子過的怎麼樣 人生是否要珍惜",
+                    "也許認識某一人 過著平凡的日子",
+                    "不知道會不會 也有愛情甜如蜜"
+                ]
+            },
+            {
+                "award": "💨",
+                "text": [
+                    "任時光匆匆流去 我只在乎你",
+                    "心甘情願感染你的氣息",
+                    "人生幾何能夠得到知己",
+                    "失去生命的力量也不可惜",
+                    "所以我求求你別讓我離開你",
+                    "除了你 我不能感到一絲絲情意"
+                ]
+            },
+            {
+                "award": "🌊",
+                "text": [
+                    "如果有那麼一天 你說即將要離去",
+                    "我會迷失我自已 走入無邊人海裡",
+                    "不要什麼諾言 只要天天在一起",
+                    "我不能只依靠 片片回憶活下去"
+                ]
+            }
+        ]
+    },
+    {
+        "title": "愛你",
+        "author": "Cindy Wang",
+        "lang": "zh",
+        "parts":
+        [       
+            {
+                "award": "🎹",
+                "text": [
+                    "我彈的鋼琴都是為了你彈",
+                    "彈了那麼久還是覺得浪漫",
+                    "我彈的時候能聽到你在唱",
+                    "感覺上你在這跟我一起說話"
+                ]
+            },
+            {
+                "award": "😍",
+                "text": [
+                    "一天到晚 我不停地想",
+                    "跟你一起總是讓我特別開心",
+                    "不論發生什麼事我永遠愛你"
+                ]
+            },
+            {
+                "award": "🤧",
+                "text": [
+                    "如果你突然打了個噴嚏",
+                    "那一定就是我在想你",
+                    "如果半夜被手機吵醒",
+                    "啊 那是因為我關心"
+                ]
+            },
+            {
+                "award": "❤️",
+                "text": [
+                    "常常想你說的話是不是別有用心",
+                    "明明很想相信 卻又忍不住懷疑",
+                    "在你的心裡 我是否就是唯一",
+                    "愛就是有我常煩著你"
                 ]
             }
         ]
