@@ -41,7 +41,7 @@ const awardDiv        = document.querySelector('#awardDiv')
 const scoreMarker     = document.querySelector('#scoreMarker')
 const settingsMenu    = document.querySelector('.settings')
 const ffLang          = document.querySelector('#ffLang')
-const langDisplay     = document.querySelector('#langDisplay')
+const micBtn          = document.querySelector('#micBtn')
 const synthSpeed      = document.querySelector('#synthSpeed')
 const synthVol        = document.querySelector('#synthVol')
 const speedReader     = document.querySelector('#speedReader')
@@ -50,7 +50,7 @@ const greenArrow      = document.querySelector('#greenArrow')
 const arrowPerc       = document.querySelector('#arrowPerc')
 
 function synthWrap() {
-    stopRecLoop()
+    toggRecogAndElem(false)
     synthSpeak(sentenceArrays[progressMarkers[0]].join(' '), 1, 1, targetLang)
     //startRecLoop(1, 1, 0)
 }
@@ -139,6 +139,7 @@ let shuffleBool     = false // false means chronological targets, true means shu
 let loopBool        = false // false means finishes after 1 iteration, true means continues iterating until the user stops
 let fullscreenBool  = false //
 let isLeftRound     = false //
+let isRecog         = false //
 
 let microphone
 
@@ -321,11 +322,30 @@ function populateUtterances(arr, elem) {
     let n = 0
     arr.forEach((word) => {
         let inputWord = document.createElement('span')
-        inputWord.classList.add('one-word')
+        inputWord.classList = 'one-word'
         inputWord.id = 'input' + n
-        inputWord.innerText = word
 
-        elem.appendChild(inputWord)
+        if (targetLang == 'zh') {
+            const thisPin = charToPin(word)
+            let pinWithTone = ''
+
+            if (thisPin) {
+                pinWithTone = addPinTone(splitPinyin(thisPin))
+            }
+
+            const newContent = constructPinRT(
+                word, pinWithTone, 'under'
+            )
+
+            inputWord.append(newContent)
+        } else {
+            inputWord.innerText = word
+        }
+
+        const wrapElem = document.createElement('div')
+        wrapElem.classList = 'word-wrap'
+        wrapElem.append(inputWord)
+        elem.appendChild(wrapElem)
         n++;
     })
 }
@@ -408,9 +428,32 @@ function startQueue() {
     //document.querySelector('#progBtns').style.background = generateStripeGrad(totalWords, 'yellow', 'blue')
 
     loadTarget(sentenceArrays[progressMarkers[0]])
-    startRecLoop(1, 1, 0, targetLang)
+
+    toggRecogAndElem(true)
+
     shiftContentBlocks('game')
 }
+
+function toggRecogAndElem(bool) {
+    
+    let recogSet = isRecog
+
+    if(bool === true || bool === false) {
+        recogSet = !bool
+    }
+
+    if (!recogSet) {
+        isRecog = true
+        startRecLoop(1, 1, 0, targetLang)
+        micBtn.classList.add('active')
+    } else {
+        isRecog = false
+        stopRecLoop()
+        micBtn.classList.remove('active')
+    }
+}
+
+micBtn.addEventListener('click', toggRecogAndElem)
 
 function nextSentence() {
   
@@ -475,6 +518,10 @@ function loadTarget(arr, leftoversBool){
     // utterTexts.innerHTML = '';
 
     for (let n = 0; n < arr.length; n++){
+
+        const targWrap = document.createElement('div')
+        targWrap.classList.add('word-wrap')
+
         const newSpan = document.createElement('span')
         newSpan.id = 'target' + n
         newSpan.classList = 'one-word target'
@@ -489,9 +536,13 @@ function loadTarget(arr, leftoversBool){
                 const leftButton = document.createElement('div')
                 leftButton.classList.add('skip-btn')
                 leftButton.id = "skip" + n
-                leftButton.innerText = '◀'
+
+                const miniTri = document.createElement('div')
+                miniTri.classList.add('mini-tri')
+
+                leftButton.append(miniTri)
                 leftButton.addEventListener('click', assignLeftover(n))
-                newSpan.appendChild(leftButton)
+                targWrap.appendChild(leftButton)
             }
         }
 
@@ -503,9 +554,14 @@ function loadTarget(arr, leftoversBool){
             // they will just return the char rather than nothing
 
             const thisPin = charToPin(text)
+            let pinWithTone = ''
+
+            if (thisPin) {
+                pinWithTone = addPinTone(splitPinyin(thisPin))
+            }
 
             newContent = constructPinRT(
-                text, addPinTone([thisPin.substring(0, thisPin.length - 1), thisPin.substring(thisPin.length - 1)]), 'under'
+                text, pinWithTone, 'under'
             )
         } else {
             newContent = document.createTextNode(text)
@@ -516,7 +572,8 @@ function loadTarget(arr, leftoversBool){
             text, 1, 1, targetLang
         ))
 
-        targetColumn.appendChild(newSpan)
+        targWrap.append(newSpan)
+        targetColumn.appendChild(targWrap)
     }
 }
 
@@ -538,14 +595,13 @@ function updateTargVisual(arr, delay) {
                 allTargs[i].classList = 'one-word target'
 
             } else {
-              
-                // TODO: only remove skip button,
-                // not any other kinds of elements 
 
                 const skipBtn = document.querySelector('#skip' + i)
                 
                 if (skipBtn) {
-                    skipBtn.remove()
+                    skipBtn.classList.add('no-width')
+                    
+                    //skipBtn.remove()
                 }
 
                 if (arr[i] == -1) {
@@ -747,7 +803,9 @@ function assignLeftover(n) {
 
         leftBtn.classList.add('active')
 
-        event.target.remove()
+        const thisSkip = document.querySelector('#skip' + n)
+        thisSkip.classList.add('no-width')
+        //event.target.remove()
 
         if (findInt(completionMap[progressMarkers[0]], 0) < 0) {
             nextSentence()
