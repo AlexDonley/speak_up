@@ -1,5 +1,5 @@
 // import { omitPunctuation, omitWords, parseColon, numToTexts, genWPStrToArr } from './word-process.js'
-import { charToPin } from './ruby-text.js'
+import { monocharLangs, charToPin } from './ruby-text.js'
 
 
 // arrays for processing numbers (numerals to strings)
@@ -122,7 +122,7 @@ export function compareWords(targStr, utterStr, lang) {
     ) {
         return true
     } else {
-        if (lang == 'zh') {
+        if (monocharLangs.includes(lang)) {
 
             if (charToPin(targStr) == charToPin(utterStr)) {
                 return true
@@ -248,7 +248,7 @@ export function genWPStrToArr(str, lang) {
 
     let newArr
     
-    if (lang == 'zh') {
+    if (monocharLangs.includes(lang)) {
         newArr = str.split('')
     } else {
         newArr = str.split(' ')

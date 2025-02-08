@@ -2,8 +2,14 @@
 
 // FETCH DATA SECTION 
 
-export let pinyinKeys
-export let zhuyinDict
+export const monocharLangs = [
+    'zh', 'cmn', 'cmn-Hans', 'cmn-Hant', 
+    'zh-TW', 'yue-Hant-HK', 'zh-CN', 
+    'cmn-Hans-CN', 'cmn-Hant-TW'
+]
+
+let pinyinKeys
+let zhuyinDict
 
 export function getZhChars() {
     fetch('./data/py_trad_monochars.json')

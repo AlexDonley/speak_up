@@ -17,9 +17,11 @@ import {
     mapToFreqs, findPercent 
 } from './js/completion-map.js'
 import { 
-    splitPinyin, addPinTone, charToPin,
-    constructPinRT, constructZhuRT 
+    monocharLangs, splitPinyin, addPinTone, 
+    charToPin, constructPinRT, constructZhuRT 
 } from './js/ruby-text.js'
+
+console.log(monocharLangs.includes('en'))
 
 // - - - ELEMENTS - - - //
 
@@ -193,13 +195,11 @@ if(userAgent.match(/chrome|chromium|crios/i)){
 }
 
 function micSuccess() {
-    console.log("mic connected");
-    mic.classList.add('flip');
+    console.log("mic connected")
 }
 
 function micFail(error) {
-    console.log(error);
-    mic.classList.remove('flip');
+    console.log(error)
 }
 
 function checkForMic() {
@@ -325,7 +325,7 @@ function populateUtterances(arr, elem) {
         inputWord.classList = 'one-word'
         inputWord.id = 'input' + n
 
-        if (targetLang == 'zh') {
+        if (monocharLangs.includes(targetLang)) {
             const thisPin = charToPin(word)
             let pinWithTone = ''
 
@@ -549,9 +549,7 @@ function loadTarget(arr, leftoversBool){
         const text = arr[n]
         let newContent
 
-        if (targetLang == 'zh') {
-            // TODO: fix functions so if the dict doesn't have the char,
-            // they will just return the char rather than nothing
+        if (monocharLangs.includes(targetLang)) {
 
             const thisPin = charToPin(text)
             let pinWithTone = ''
