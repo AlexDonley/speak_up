@@ -20,6 +20,7 @@ import {
     monocharLangs, splitPinyin, addPinTone, 
     charToPin, constructPinRT, constructZhuRT 
 } from './js/ruby-text.js'
+import { oscBeep } from './js/oscillate.js'
 
 console.log(monocharLangs.includes('en'))
 
@@ -147,10 +148,7 @@ let microphone
 
 // setting for P5 sawtooth frequency
 
-// let defaultFreq = 400
-
-
-
+let defaultFreq = 100
 
 // variables to fill with JSON data using fetch
 
@@ -277,8 +275,7 @@ speechRec.addEventListener("result", (e) => {
                         loadTarget(newArr, true)
                     } else {
                        nextSentence()
-                    }
-                    
+                    }                    
 
                 }, leftsCompare[0].length * 50 + 500)
             }
@@ -363,10 +360,13 @@ function evalArr(arr) {
 }
 
 function startQueue() {
+    
     // clear sentence queue
     let sentenceQueue = []
     sentenceArrays = []
     progressMarkers = [0, 0]
+
+    defaultFreq = 100
 
     if (!timerMode == 0) {
         startTimer(stopWatch)
@@ -605,7 +605,11 @@ function updateTargVisual(arr, delay) {
                 if (arr[i] == -1) {
                     allTargs[i].classList.add('grayed-out')
                 } else if (arr[i] == 1) {
-                    allTargs[i].classList.add('correct')
+
+                    if (!allTargs[i].classList.contains('correct')) {
+                        allTargs[i].classList.add('correct')
+                        inchUpSound(30)
+                    }
                 }
             }
         }, delay * i)
@@ -902,43 +906,6 @@ function updateVol() {
 //   }
 // }
 
-// Code for P5 canvas and other P5 functions
-
-function setup() {
-    let cnv = createCanvas(100, 100);
-    cnv.mousePressed(userStartAudio);
-
-    textAlign(CENTER);
-    microphone = new p5.AudioIn();
-    microphone.start();
-
-    beep = new p5.Oscillator();
-    beep.setType('sawtooth')
-}
-
-function draw() {
-
-    micLevel = microphone.getLevel();
-    let y = micLevel * height;
-    if(y < 1){
-        y = 0;
-    }
-
-    fill(0, 128, 0)
-    noStroke();
-    ellipse(width/2, height/2, width, height)
-
-    fill(205, 255, 205);
-    stroke(205, 255, 205);
-    strokeWeight(height/25);
-
-    arc(width/2, height*3/5, width*.66, min(max(y*5, 0.00001), height*.66), 0, PI);
-
-    noFill();
-    arc(width/3, height*2/5, width/10, max(ceil(y/100) * height/10, 0.00001), PI, 0) 
-    arc(width*2/3, height*2/5, width/10, max(ceil(y/100) * height/10, 0.00001), PI, 0) 
-}
-
 function showUserPage() {
     shiftContentBlocks('user')
 }
@@ -1026,9 +993,15 @@ function reloadAwards(index) {
 }
 
 function toggleSettings() {
+
     if (settingsMenu.classList.contains('show')) {
         settingsMenu.classList.remove('show')
     } else {
         settingsMenu.classList.add('show')
     }
+}
+
+function inchUpSound(n) {
+    oscBeep(defaultFreq, 0.01, 0.3, 'square')
+    defaultFreq += n
 }
