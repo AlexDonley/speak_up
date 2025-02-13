@@ -35,7 +35,7 @@ export function createChord(arr, length, delay) {
     let n = 0;
     thisChord.forEach(val => {
         setTimeout(() => {
-            oscBeep(val, 0.04, length, 'sawtooth')
+            oscBeep(val, 0.02, length, 'sawtooth')
         }, n * delay)
 
         n++

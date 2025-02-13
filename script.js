@@ -20,7 +20,7 @@ import {
     monocharLangs, splitPinyin, addPinTone, 
     charToPin, constructPinRT, constructZhuRT 
 } from './js/ruby-text.js'
-import { oscBeep } from './js/oscillate.js'
+import { oscBeep, createChord } from './js/oscillate.js'
 
 console.log(monocharLangs.includes('en'))
 
@@ -994,6 +994,7 @@ function reloadAwards(index) {
 
 function toggleSettings() {
 
+    createChord(null, 1, 30)
     if (settingsMenu.classList.contains('show')) {
         settingsMenu.classList.remove('show')
     } else {
