@@ -1053,6 +1053,90 @@
         ]
     },
     {
+        "title": "What Do People Do All Day?",
+        "author": "Richard Scarry",
+        "parts": [
+            {
+                "award": "👷",
+                "text": [  
+                    "This is Busytown.",
+                    "My, what a nice town!",
+                    "Some workers work indoors and some work outdoors. ",
+                    "Some work up in the sky and some work underground.",
+                    "Some workers always do their work at the same place."
+                ]
+            },
+            {
+                "award": "👪",
+                "text": [  
+                    "Others travel from place to place to do their jobs. ",
+                    "What does your Daddy do? ",
+                    "What does your Mommy do?",
+                    "And what do YOU do?",
+                    "Are you a good helper?"
+                ]
+            },
+            {
+                "award": "💸",
+                "text": [  
+                    "How many workers are here?",
+                    "One, two, three, four, five, six.",
+                    "What do these workers do?",
+                    "Farmer Alfalfa grows all kinds of food.",
+                    "He keeps some of it for his family.",
+                    "He sells the rest to Grocer Cat in exchange for money.",
+                    "Grocer Cat will sell the food to other people in Busytown."
+                ]
+            },
+            {
+                "award": "🚜",
+                "text": [  
+                    "Today Alfalfa bought a new suit",
+                    "with some of the money he got from Grocer Cat.",
+                    "Stitches, the tailor, makes clothes.",
+                    "Alfalfa bought his new suit from Stitches.",
+                    "Then Alfalfa went to Blacksmith Fox's shop.",
+                    "He had saved enough money to buy a new tractor.",
+                    "The new tractor will make his farm work easier."
+                ]
+            },
+            {
+                "award": "🏦",
+                "text": [  
+                    "With it he will be able to grow more food",
+                    "than he could grow before.",
+                    "He also bought some presents for Mommy and his son, Alfred.",
+                    "Alfalfa put the rest of the money in the bank for safekeeping.",
+                    "Then he drove home to his family.",
+                    "Mommy loved her new earrings.",
+                    "Alfred loved his present, too."
+                ]
+            },
+            {
+                "award": "🍫",
+                "text": [  
+                    "What did the other workers do with the money they earned?",
+                    "First they bought food to eat and clothes to wear.",
+                    "Then, they put some of the money in the bank.",
+                    "Later they will use the money in the bank to buy other things.",
+                    "What else did they buy?",
+                    "Stitches bought an egg beater so that his family could make fudge."
+                ]
+            },
+            {
+                "award": "🎁",
+                "text": [  
+                    "Try not to get any on your new clothes!",
+                    "Blacksmith Fox bought more iron for his shop.",
+                    "He will heat and bend the metal to make more tractors and tools.",
+                    "Grocer Cat bought a new dress for Mommy.",
+                    "He also bought a present for his son, Huckle.",
+                    "Huckle was a very good helper today."
+                ]
+            }
+        ]
+    },
+    {
         "title": "Black Lagoon",
         "author": "Mike Thaler",
         "parts": [
