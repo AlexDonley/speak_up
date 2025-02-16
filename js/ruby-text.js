@@ -88,6 +88,8 @@ export function charToZhu(char) {
 }
 
 export function pinToZhu(pin) {
+    
+    console.log(pin)
     const syll = splitPinyin(pin)[0]
     const tone = splitPinyin(pin)[1]
     

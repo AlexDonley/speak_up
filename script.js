@@ -18,7 +18,8 @@ import {
 } from './js/completion-map.js'
 import { 
     monocharLangs, splitPinyin, addPinTone, 
-    charToPin, constructPinRT, constructZhuRT 
+    charToPin, pinToZhu,
+    constructPinRT, constructZhuRT 
 } from './js/ruby-text.js'
 import { oscBeep, createChord } from './js/oscillate.js'
 
