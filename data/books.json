@@ -1133,6 +1133,123 @@
                     "He also bought a present for his son, Huckle.",
                     "Huckle was a very good helper today."
                 ]
+            },
+            {
+                "award": "☀️",
+                "text": [  
+                    "Shoemaker",
+                    "Town hall",
+                    "Hotel sun",
+                    "Post Office",
+                    "Watch repairs",
+                    "Newsstand",
+                    "Detective agency",
+                    "Police"
+                ]
+            },
+            {
+                "award" : "🎨",
+                "text" : [
+                    "a poet writing poems",
+                    "an artist painting a picture",
+                    "a story writer",
+                    "a pretty model",
+                    "a businessman",
+                    "a photographer",
+                    "a secretary",
+                    "an operator"
+                ]
+            },
+            {
+                "award" : "☕",
+                "text" : [
+                    "a book printer",
+                    "a newspaper editor",
+                    "a sales lady",
+                    "a newspaper reporter",
+                    "a janitor",
+                    "cafe",
+                    "The News",
+                    "The Remarkable Bookshop"
+                ]
+            },
+            {
+                "award" : "✈️",
+                "text" : [
+                    "Finish Your Meals!",
+                    "Wrong Way Roger",
+                    "chimney sweep",
+                    "dentist ",
+                    "doctor",
+                    "eye doctor",
+                    "dressmaker",
+                    "beauty parlor",
+                    "real estate office"
+                ]
+            },
+            {
+                "award" : "🎵",
+                "text" : [
+                    "music teacher",
+                    "dancing school",
+                    "bank",
+                    "drugstore",
+                    "prescriptions",
+                    "street cleaner",
+                    "water hydrant",
+                    "sewer"
+                ]
+            },
+            {
+                "award" : "🚽",
+                "text" : [
+                    "manhole cover",
+                    "manhole",
+                    "wire cable",
+                    "lamppost",
+                    "sewage pipe",
+                    "to sewage plant",
+                    "all kinds of pipes and wires are buried underground"
+                ]
+            },
+            {
+                "award" : "🚕",
+                "text" : [
+                    "a stuck truck",
+                    "a sleeping fireman",
+                    "firehouse",
+                    "Ritz Apartments",
+                    "window washer",
+                    "hardware",
+                    "barber shop",
+                    "laundress",
+                    "delivery boy",
+                    "automobiles",
+                    "automobile salesman",
+                    "jackhammer",
+                    "ditch digger",
+                    "taxi"
+                ]
+            },
+            {
+                "award" : "🥔",
+                "text" : [
+                    "Farmer Alfalfa",
+                    "Blacksmith Fox",
+                    "Stitches the tailor",
+                    "Grocer Cat",
+                    "Mommy and Huckle",
+                    "Hi Daddy!",
+                    "Groceries",
+                    "potatoes",
+                    "anvil",
+                    "bank",
+                    "How do I look?",
+                    "iron",
+                    "sandbag",
+                    "bellows",
+                    "forge"
+                ]
             }
         ]
     },
