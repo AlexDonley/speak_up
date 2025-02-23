@@ -71,30 +71,19 @@ canvas {
   filter: drop-shadow(0 0.5mm 1.5mm rgb(0, 0, 0));
 }
 
-.qual-panel {
-  width: 120px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.chrome {
+  display: flex;
   justify-content: center;
   align-items: center;
-  position: fixed;
-  bottom: 10px;
-  z-index: 2;
-}
-
-.qual {
-  margin: auto;
-  display: flex;
   height: 50px;
   width: 50px;
-  background-color: red;
-  border-radius: 50%;
-  justify-content: center;
-  align-items: center;
+  background-color: maroon;
+  margin: 5px;
+  border-radius: 5px;
   color: rgba(255, 255, 255, .8);
 }
 .qual.flip{
-  background-color: green;
+  background-color: darkgreen;
 }
 
 svg {
@@ -401,19 +390,11 @@ img {
   color: white;
   background-color: maroon;
 }
-.read-btn:hover{
-  color: white;
-  background-color: maroon;
-}
 
 .read-btn > * {
   transition: width 0.3s, fill 0.3s;
 }
 .read-btn.active > * {
-  width: 45px;
-  fill: white
-}
-.read-btn:hover > * {
   width: 45px;
   fill: white
 }
@@ -695,17 +676,17 @@ button {
   background-color: yellow;
 }
 
-.one-part{
+.one-part {
   background: rgb(154, 154, 154);
   display: flex;
 }
 
-input[type="checkbox"]:not(:checked), 
-input[type="checkbox"]:checked {
+input[type="checkbox"].preset-check:not(:checked), 
+input[type="checkbox"].preset-check:checked {
   display: none;
 }
 
-input[type="checkbox"] + label {
+input[type="checkbox"].preset-check + label {
   cursor: pointer;
   background: none;
   width: 100%;
@@ -717,7 +698,7 @@ input[type="checkbox"] + label {
   transition: background-color .2s;
 }
 
-input[type="checkbox"]:checked + label {
+input[type="checkbox"].preset-check:checked + label {
   background-color: yellow;
   color: black;
 }
@@ -741,25 +722,45 @@ input[type="checkbox"]:checked + label {
   filter: drop-shadow(0 0mm 1.5mm rgb(0, 0, 0));
 }
 
-.settings {
+.settings-menu {
   position: fixed;
   top: 115vh;
   left: 10vw;
   width: 80vw;
   height: 80vh;
-  font-size: 20pt;
   color: white;
-  background: linear-gradient(180deg, gray, rgb(70, 70, 70));
+  background: linear-gradient(180deg, rgba(128, 128, 128, 0.8), rgba(70, 70, 70, 0.8));
   border-radius: 20px;
   padding: 20px;
   transition: top 0.7s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   z-index: 3
 }
-.settings.show {
+.settings-menu.show {
   top: 11vh
+}
+.settings-menu > h1 {
+  font-size: max(6vh, 4vw);
+  text-align: center;
+  border-bottom: white solid 2px;
 }
 
 .setting-panels {
+  width: 100%;
   display: grid;
+  font-size: min(3vh, 2vw);
   grid-template-columns: 1fr 1fr 1fr 1fr
+}
+.setting-panels > div > h2 {
+  font-size: max(4vh, 2vw);
+  text-align: center;
+}
+
+rt.pin-text {
+  transition: font-size 0.2s;
+}
+rt.pin-text.hide {
+  font-size: 0px;
 }

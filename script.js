@@ -23,8 +23,6 @@ import {
 } from './js/ruby-text.js'
 import { oscBeep, createChord } from './js/oscillate.js'
 
-console.log(monocharLangs.includes('en'))
-
 // - - - ELEMENTS - - - //
 
 const userAgent = navigator.userAgent;
@@ -35,7 +33,6 @@ const userAgent = navigator.userAgent;
 const chromeIcon = document.getElementById("chromeIcon");
 const mic = document.getElementById("mic");
 
-
 // ux elements that show user progress through arrow movement, score, timer, and awards
 
 const progBtns        = document.querySelector('#progBtns')
@@ -43,7 +40,7 @@ const arrowOverlay    = document.querySelector('#rainbowOverlay')
 const stopWatch       = document.querySelector('#stopWatch')
 const awardDiv        = document.querySelector('#awardDiv')
 const scoreMarker     = document.querySelector('#scoreMarker')
-const settingsMenu    = document.querySelector('.settings')
+const settingsMenu    = document.querySelector('.settings-menu')
 const ffLang          = document.querySelector('#ffLang')
 const micBtn          = document.querySelector('#micBtn')
 const synthSpeed      = document.querySelector('#synthSpeed')
@@ -52,16 +49,6 @@ const speedReader     = document.querySelector('#speedReader')
 const volReader       = document.querySelector('#volReader')
 const greenArrow      = document.querySelector('#greenArrow')
 const arrowPerc       = document.querySelector('#arrowPerc')
-
-function synthWrap() {
-    toggRecogAndElem(false)
-    synthSpeak(sentenceArrays[progressMarkers[0]].join(' '), 1, 1, targetLang)
-    //startRecLoop(1, 1, 0)
-}
-
-// Assign functions to btns
-
-
 
 // elements contained in the setting section
 
@@ -97,11 +84,39 @@ fullscreenBtn.addEventListener("click", toggleFullscreen)
 //qrBtn.addEventListener("click", toggleQR)
 settingBtn.addEventListener("click", toggleSettings)
 
+const pinyinDropdown    = document.querySelector('#pinyinDropdown')
 
-const presetOpts = document.getElementById("presetOptions");
-const searchTitles = document.getElementById("searchTitles");
-const titleCards = document.getElementById("titleCards");
-const partsCards = document.getElementById("partsCards");
+pinyinDropdown.addEventListener('change', togglePinyinRT)
+
+function togglePinyinRT() {
+    console.log('change')
+    const pinRT = Array.from(document.querySelectorAll('.pin-text'));
+
+    pinRT.forEach(element => {
+        if (pinyinDropdown.value == 'pinyin') {
+            element.classList.remove('hide')
+        } else {
+            element.classList.add('hide')
+        }
+    })
+}
+
+const presetOpts        = document.querySelector("#presetOptions");
+const searchTitles      = document.querySelector("#searchTitles");
+const titleCards        = document.querySelector("#titleCards");
+const partsCards        = document.querySelector("#partsCards");
+
+const targetColumn    = document.querySelector(".targetColumn");
+const utterTexts      = document.querySelector(".texts");
+const userEntry       = document.querySelector('#userEntry')
+const availableUsers  = document.querySelector('#availableUsers')
+const userName        = document.querySelector('#userName')
+
+function synthWrap() {
+    toggRecogAndElem(false)
+    synthSpeak(sentenceArrays[progressMarkers[0]].join(' '), 1, 1, targetLang)
+    //startRecLoop(1, 1, 0)
+}
 
 searchTitles.addEventListener("input", e => {
     const value = e.target.value.toLowerCase()
@@ -118,12 +133,6 @@ searchTitles.addEventListener("input", e => {
 
 // elements contained in the action section
 // reading section contains two columns, one for target words and the other for user input
-
-const targetColumn    = document.querySelector(".targetColumn");
-const utterTexts      = document.querySelector(".texts");
-const userEntry       = document.querySelector('#userEntry')
-const availableUsers  = document.querySelector('#availableUsers')
-const userName        = document.querySelector('#userName')
 
 // - - - VARIABLES - - - //
 
@@ -335,6 +344,10 @@ function populateUtterances(arr, elem) {
                 word, pinWithTone, 'under'
             )
 
+            if ( ! (pinyinDropdown.value == 'pinyin') ) {
+                newContent.children[0].children[0].classList.add('hide')
+            }
+
             inputWord.append(newContent)
         } else {
             inputWord.innerText = word
@@ -391,7 +404,7 @@ function startQueue() {
       bookIndexArray = [];
       
       // see which boxes are checked
-      const checkboxes = document.querySelectorAll('input[type="checkbox"]')
+      const checkboxes = document.querySelectorAll('.preset-check')
 
       for (let n = 0; n < checkboxes.length; n++){
         if (checkboxes[n].checked) {
@@ -562,6 +575,11 @@ function loadTarget(arr, leftoversBool){
             newContent = constructPinRT(
                 text, pinWithTone, 'under'
             )
+
+            if ( ! (pinyinDropdown.value == 'pinyin') ) {
+                newContent.children[0].children[0].classList.add('hide')
+            }
+
         } else {
             newContent = document.createTextNode(text)
         }
@@ -872,10 +890,12 @@ function constructPresetCheckbox(arr, n) {
     const preview = (n + 1) + " - " + arr.text[0]
 
     let preset = document.createElement('input')
+    preset.classList.add('preset-check')
     preset.type = 'checkbox'
     preset.id = currentID
 
     let preLabel = document.createElement('label')
+    preLabel.classList.add('preset-label')
     preLabel.htmlFor = currentID
     preLabel.innerText = arr.award + preview
 
