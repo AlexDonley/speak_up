@@ -23,6 +23,37 @@ import {
 } from './js/ruby-text.js'
 import { oscBeep, createChord } from './js/oscillate.js'
 
+// - - - VARIABLES - - - //
+
+// arrays for sentences and subdivisions
+
+let bookIndexArray= []
+let bookIndex = 0 
+
+let sentenceArrays = []
+let progressMarkers = [0, 0]
+let completionMap = []
+
+// index markers for working through the above arrays
+
+let presetBool      = false // false means freeform, true means preset
+let shuffleBool     = false // false means chronological targets, true means shuffled targets
+let loopBool        = false // false means finishes after 1 iteration, true means continues iterating until the user stops
+let fullscreenBool  = false //
+let isLeftRound     = false //
+let isRecog         = false //
+
+let microphone
+
+// setting for P5 sawtooth frequency
+
+let defaultFreq = 100
+
+// variables to fill with JSON data using fetch
+
+let bookList;
+let titleList = [];
+
 // - - - ELEMENTS - - - //
 
 const userAgent = navigator.userAgent;
@@ -71,20 +102,30 @@ const fullscreenBtn = document.querySelector('#fullscreenBtn')
 const qrBtn         = document.querySelector('#qrBtn')
 const settingBtn    = document.querySelector('#settingBtn')
 
+const presetOpts        = document.querySelector("#presetOptions");
+const searchTitles      = document.querySelector("#searchTitles");
+const titleCards        = document.querySelector("#titleCards");
+const partsCards        = document.querySelector("#partsCards");
+const pinyinDropdown    = document.querySelector('#pinyinDropdown')
+
+const targetColumn    = document.querySelector(".targetColumn");
+const utterTexts      = document.querySelector(".texts");
+const userEntry       = document.querySelector('#userEntry')
+const availableUsers  = document.querySelector('#availableUsers')
+const userName        = document.querySelector('#userName')
+
 presetBtn.addEventListener("click", togglePresets)
 shuffleBtn.addEventListener("click", toggleShuffle)
 loopBtn.addEventListener("click", toggleLoop)
 timerBtn.addEventListener("click", changeTimerMode)
 goBtn.addEventListener("click", startQueue)
 leftBtn.addEventListener("click", tryLeftRound)
-playBtn.addEventListener("click", synthWrap)
+playBtn.addEventListener("click", synthSpeakClosure('fullSent', 1, 1, targetLang))
 homeBtn.addEventListener("click", endQueue)
 userBtn.addEventListener("click", showUserPage)
 fullscreenBtn.addEventListener("click", toggleFullscreen)
-//qrBtn.addEventListener("click", toggleQR)
 settingBtn.addEventListener("click", toggleSettings)
 
-const pinyinDropdown    = document.querySelector('#pinyinDropdown')
 
 pinyinDropdown.addEventListener('change', togglePinyinRT)
 
@@ -99,23 +140,6 @@ function togglePinyinRT() {
             element.classList.add('hide')
         }
     })
-}
-
-const presetOpts        = document.querySelector("#presetOptions");
-const searchTitles      = document.querySelector("#searchTitles");
-const titleCards        = document.querySelector("#titleCards");
-const partsCards        = document.querySelector("#partsCards");
-
-const targetColumn    = document.querySelector(".targetColumn");
-const utterTexts      = document.querySelector(".texts");
-const userEntry       = document.querySelector('#userEntry')
-const availableUsers  = document.querySelector('#availableUsers')
-const userName        = document.querySelector('#userName')
-
-function synthWrap() {
-    toggRecogAndElem(false)
-    synthSpeak(sentenceArrays[progressMarkers[0]].join(' '), 1, 1, targetLang)
-    //startRecLoop(1, 1, 0)
 }
 
 searchTitles.addEventListener("input", e => {
@@ -134,36 +158,6 @@ searchTitles.addEventListener("input", e => {
 // elements contained in the action section
 // reading section contains two columns, one for target words and the other for user input
 
-// - - - VARIABLES - - - //
-
-// arrays for sentences and subdivisions
-
-let bookIndexArray= []
-let bookIndex = 0 
-
-let sentenceArrays = []
-let progressMarkers = [0, 0]
-let completionMap = []
-
-// index markers for working through the above arrays
-
-let presetBool      = false // false means freeform, true means preset
-let shuffleBool     = false // false means chronological targets, true means shuffled targets
-let loopBool        = false // false means finishes after 1 iteration, true means continues iterating until the user stops
-let fullscreenBool  = false //
-let isLeftRound     = false //
-let isRecog         = false //
-
-let microphone
-
-// setting for P5 sawtooth frequency
-
-let defaultFreq = 100
-
-// variables to fill with JSON data using fetch
-
-let bookList;
-let titleList = [];
 
 function loadBooks(){
     fetch('./data/books.json')
@@ -835,8 +829,17 @@ function assignLeftover(n) {
 }
 
 function synthSpeakClosure(str, speed, vol, lang) {
+    
     return function executeOnEvent(event) {
-        synthSpeak(str, speed, vol, lang)
+        toggRecogAndElem(false)
+        
+        let thisSent = str
+        
+        if (str == 'fullSent') {
+            thisSent = sentenceArrays[progressMarkers[0]].join(' ')
+        } 
+        
+        synthSpeak(thisSent, speed, vol, lang)
     }
 }
 
