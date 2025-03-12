@@ -97,6 +97,44 @@
         ]
     },
     {
+        "title": "Children's Day Broadcast",
+        "author": "Alex Donley",
+        "parts": [
+            {
+                "award": "📗",
+                "text": [  
+                    "Hey, Casey!",
+                    "I heard you have a holiday named Children's Day,",
+                    "is it true?",
+                    "That's right!",
+                    "It's a special day just for kids.",
+                    "We have the whole day off from school!",
+                    "That sounds awesome! What do you do?",
+                    "Families go to the park, play games,",
+                    "and sometimes visit museums or zoos.",
+                    "Do you get presents?",
+                    "Sometimes! Parents or teachers give small presents,",
+                    "like books or toys."
+                ]
+            },
+            {
+                "award": "👪",
+                "text": [  
+                    "What do you do for Children's Day?",
+                    "Actually, my country doesn't have Children's Day.",
+                    "Really? Why not?",
+                    "My mom and dad told me that",
+                    "we don't have a Children's Day because…",
+                    "every day is Children's Day.",
+                    "Wow! I never thought of it that way.",
+                    "Happy Children's Day, Casey!",
+                    "Enjoy your time off.",
+                    "Happy Children's Day, Tom!"
+                ]
+            }
+        ]
+    },
+    {
         "title": "ABCs",
         "author": "none",
         "parts": [
