@@ -80,6 +80,7 @@ const speedReader     = document.querySelector('#speedReader')
 const volReader       = document.querySelector('#volReader')
 const greenArrow      = document.querySelector('#greenArrow')
 const arrowPerc       = document.querySelector('#arrowPerc')
+const qrImg           = document.querySelector('#qrImg')
 
 // elements contained in the setting section
 
@@ -89,45 +90,50 @@ const textInput = document.getElementById("textInput")
 
 // buttons and their fuunctions
 
-const presetBtn     = document.querySelector('#preset')
-const shuffleBtn    = document.querySelector('#shuffle')
-const timerBtn      = document.querySelector('#timer')
-const loopBtn       = document.querySelector('#loop')
-const goBtn         = document.querySelector('#goBtn')
-const leftBtn       = document.querySelector('#leftBtn')
-const playBtn       = document.querySelector('#playBtn')
-const homeBtn       = document.querySelector('#homeBtn')
-const userBtn       = document.querySelector('#userBtn')
-const fullscreenBtn = document.querySelector('#fullscreenBtn')
-const qrBtn         = document.querySelector('#qrBtn')
-const settingBtn    = document.querySelector('#settingBtn')
+const presetBtn     = document.querySelector('#preset');
+const shuffleBtn    = document.querySelector('#shuffle');
+const timerBtn      = document.querySelector('#timer');
+const loopBtn       = document.querySelector('#loop');
+const goBtn         = document.querySelector('#goBtn');
+const leftBtn       = document.querySelector('#leftBtn');
+const playBtn       = document.querySelector('#playBtn');
+const homeBtn       = document.querySelector('#homeBtn');
+const userBtn       = document.querySelector('#userBtn');
+const fullscreenBtn = document.querySelector('#fullscreenBtn');
+const settingBtn    = document.querySelector('#settingBtn');
 
 const presetOpts        = document.querySelector("#presetOptions");
 const searchTitles      = document.querySelector("#searchTitles");
 const titleCards        = document.querySelector("#titleCards");
 const partsCards        = document.querySelector("#partsCards");
-const pinyinDropdown    = document.querySelector('#pinyinDropdown')
+const pinyinDropdown    = document.querySelector('#pinyinDropdown');
 
 const targetColumn    = document.querySelector(".targetColumn");
 const utterTexts      = document.querySelector(".texts");
-const userEntry       = document.querySelector('#userEntry')
-const availableUsers  = document.querySelector('#availableUsers')
-const userName        = document.querySelector('#userName')
+const userEntry       = document.querySelector('#userEntry');
+const availableUsers  = document.querySelector('#availableUsers');
+const userName        = document.querySelector('#userName');
 
-presetBtn.addEventListener("click", togglePresets)
-shuffleBtn.addEventListener("click", toggleShuffle)
-loopBtn.addEventListener("click", toggleLoop)
-timerBtn.addEventListener("click", changeTimerMode)
-goBtn.addEventListener("click", startQueue)
-leftBtn.addEventListener("click", tryLeftRound)
-playBtn.addEventListener("click", synthSpeakClosure('fullSent', 1, 1, targetLang))
-homeBtn.addEventListener("click", endQueue)
-userBtn.addEventListener("click", showUserPage)
-fullscreenBtn.addEventListener("click", toggleFullscreen)
-settingBtn.addEventListener("click", toggleSettings)
+presetBtn.addEventListener("click", togglePresets);
+shuffleBtn.addEventListener("click", toggleShuffle);
+loopBtn.addEventListener("click", toggleLoop);
+timerBtn.addEventListener("click", changeTimerMode);
+goBtn.addEventListener("click", startQueue);
+leftBtn.addEventListener("click", tryLeftRound);
+playBtn.addEventListener("click", synthSpeakClosure('fullSent', targetLang));
+homeBtn.addEventListener("click", endQueue);
+userBtn.addEventListener("click", showUserPage);
+fullscreenBtn.addEventListener("click", toggleFullscreen);
+settingBtn.addEventListener("click", toggleSettings);
 
+pinyinDropdown.addEventListener("change", togglePinyinRT);
+synthSpeed.addEventListener("pointermove", updateSpeed);
+synthVol.addEventListener("pointermove", updateVol);
 
-pinyinDropdown.addEventListener('change', togglePinyinRT)
+const mainURL = 'alexdonley.github.io/speak_up';
+QRCode.toDataURL(mainURL).then(dataURL => {
+    qrImg.src = dataURL;
+})
 
 function togglePinyinRT() {
     console.log('change')
@@ -580,7 +586,7 @@ function loadTarget(arr, leftoversBool){
         
         newSpan.append(newContent)
         newSpan.addEventListener('click', synthSpeakClosure(
-            text, 1, 1, targetLang
+            text, targetLang
         ))
 
         targWrap.append(newSpan)
@@ -828,7 +834,7 @@ function assignLeftover(n) {
     }
 }
 
-function synthSpeakClosure(str, speed, vol, lang) {
+function synthSpeakClosure(str, lang) {
     
     return function executeOnEvent(event) {
         toggRecogAndElem(false)
@@ -839,7 +845,7 @@ function synthSpeakClosure(str, speed, vol, lang) {
             thisSent = sentenceArrays[progressMarkers[0]].join(' ')
         } 
         
-        synthSpeak(thisSent, speed, vol, lang)
+        synthSpeak(thisSent, synthSpeed.value, synthVol.value, lang)
     }
 }
 

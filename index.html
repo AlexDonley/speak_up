@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="style.css">
     <script language="javascript" type="text/javascript" src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/p5.min.js"></script>
     <script language="javascript" src="https://cdn.jsdelivr.net/npm/p5@1.4.1/lib/addons/p5.sound.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.4.4/qrcode.js" integrity="sha512-oxrVyBhqnzQ0BzuM0A/6dEIk0alz0p4SpDRaWvtuUoarIc8rnL5lVniHG5Dp21MRFojcQcmKHjaskNXhSaUPPw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script type="module" src="script.js" defer></script>
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <title>Speak Up!</title>
@@ -145,10 +146,10 @@
                 <h2>Voice Synthesis</h2>
                 <div class="lang-tab">
                     <select class="voice-select" id="voiceSelect"></select>
-                    <input type="range" id="synthSpeed" min="0.2" max="2.0" value="0.5" step="0.1" onclick="updateSpeed()">
+                    <input type="range" id="synthSpeed" min="0.2" max="2.0" value="0.5" step="0.1">
                     <div>Speed</div>
                     <div id="speedReader">0.5</div>
-                    <input type="range" id="synthVol" min="0.0" max="1.0" value="1.0" step="0.1" onclick="updateVol()">
+                    <input type="range" id="synthVol" min="0.0" max="1.0" value="1.0" step="0.1">
                     <div>Vol</div>
                     <div id="volReader">1.0</div>
                 </div>
@@ -168,10 +169,7 @@
         </div>
         
         <div class="view-QR" id="viewQR">
-            <img src="./qr/speak_up.png">
-            <!-- <button class="qr-btn" id="qrBtn">
-                <svg height="20px" viewBox="0 -960 960 960" width="20px" fill="#5f6368"><path d="M120-520v-320h320v320H120Zm80-80h160v-160H200v160Zm-80 480v-320h320v320H120Zm80-80h160v-160H200v160Zm320-320v-320h320v320H520Zm80-80h160v-160H600v160Zm160 480v-80h80v80h-80ZM520-360v-80h80v80h-80Zm80 80v-80h80v80h-80Zm-80 80v-80h80v80h-80Zm80 80v-80h80v80h-80Zm80-80v-80h80v80h-80Zm0-160v-80h80v80h-80Zm80 80v-80h80v80h-80Z"/></svg>
-            </button>  -->
+            <img id="qrImg" src="./qr/speak_up.png">
         </div>
     </div>
 </body>
