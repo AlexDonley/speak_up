@@ -463,7 +463,8 @@ function toggRecogAndElem(bool) {
     } else {
         isRecog = false
         stopRecLoop()
-        micBtn.classList.remove('active')
+        micBtn.classList.remove('active');
+        micBtn.disabled = true;
     }
 }
 
@@ -845,7 +846,7 @@ function synthSpeakClosure(str, lang) {
             thisSent = sentenceArrays[progressMarkers[0]].join(' ')
         } 
         
-        synthSpeak(thisSent, synthSpeed.value, synthVol.value, lang)
+        synthSpeak(thisSent, synthSpeed.value, synthVol.value, lang, micBtn)
     }
 }
 
