@@ -118,7 +118,7 @@ export function compareWords(targStr, utterStr, lang) {
     
     if (
         targStr == utterStr
-        || targStr.replace(/['-]/g,"") == utterStr.replace(/['-]/g,"")
+        || removeDash(targStr) == removeDash(utterStr)
     ) {
         return true
     } else {
@@ -281,4 +281,8 @@ export function queueToArr(arr, lang) {
     })
 
     return newArr
+}
+
+export function removeDash(str) {
+    return str.replace(/['-]/g,"");
 }

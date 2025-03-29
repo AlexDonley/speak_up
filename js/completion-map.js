@@ -4,7 +4,10 @@
 //      trackCompletion
 // } from './js/completion-map.js'
 
-import { compareWords } from './word-process.js'
+import { compareWords, removeDash } from './word-process.js'
+
+// compound flexibility
+const compFlex = 2
 
 export function genBlankCompMap(arr) {
     let compMap = []
@@ -80,7 +83,7 @@ export function trackCompletion(targetArr, utterArr, mode, lang, startInd, compA
     }
 
     if (mode == 'linear') {
-        utterArr.forEach(spokenWord => {
+        for (let i = 0; i< utterArr.length; i++) {
             
             if (compArrNow) {
                 for (
@@ -94,12 +97,56 @@ export function trackCompletion(targetArr, utterArr, mode, lang, startInd, compA
             }
             
             if (targMarker < targetArr.length) {
-                if (compareWords(targetArr[targMarker], spokenWord, lang)) {
-                    targMarker++
-                    sentCompletion.push(1)
+
+                // the first check is to see if the words are identical
+                if (compareWords(targetArr[targMarker], utterArr[i], lang)) {
+                    
+                    targMarker++;
+                    sentCompletion.push(1);
+
+                // the second check is for compound words
+                // for instance, "shoemaker", "shoe-maker", and "shoe maker"
+                // should all be considered the same
+                } else {
+
+                    let newTarCompound = removeDash(targetArr[targMarker]);
+                    let newUttCompound = removeDash(utterArr[i]);
+                    
+                    let tarCompoundArr = [newTarCompound];
+                    let uttCompoundArr = [newUttCompound];
+                    
+                    for (let j = 1; j <= compFlex; j++) {
+                        if (targetArr[targMarker + j]) {
+                            newTarCompound += targetArr[targMarker + j];
+                            tarCompoundArr.push(newTarCompound);
+                        }
+                        
+                        if (utterArr[i + j]) {
+                            newUttCompound += utterArr[i + j];
+                            uttCompoundArr.push(newUttCompound);
+                        }                       
+
+                        //console.log(tarCompoundArr, uttCompoundArr);
+                    }
+
+                    const testTarIdx = tarCompoundArr.indexOf(uttCompoundArr[0]);
+                    const testUttIdx = uttCompoundArr.indexOf(tarCompoundArr[0]);
+                    const uttMax = Math.floor((testUttIdx - 1) / compFlex);
+
+                    if (testTarIdx > -1 || uttMax > -1) {
+                        const newIdx = Math.max(testTarIdx, uttMax);
+                        
+                        //console.log(testTarIdx, uttMax, newIdx)
+                        //i += newIdx;
+
+                        for (let k = 0; k < newIdx + 1; k++) {
+                            targMarker++;
+                            sentCompletion.push(1);
+                        }
+                    }
                 }
             }
-        })
+        }
 
         for (
             sentCompletion; 
@@ -116,15 +163,6 @@ export function trackCompletion(targetArr, utterArr, mode, lang, startInd, compA
     }
 
     return [compArrNew, targMarker]
-}
-
-function skipOneWord(compArrNow, n) {
-    if (compArrNow[n] == -1) {
-        n++
-        return n
-    } else {
-        return false
-    }
 }
 
 export function mapToFreqs(map) {

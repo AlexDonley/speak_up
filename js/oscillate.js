@@ -6,8 +6,6 @@ const majorChord = [261.62, 329.62, 391.99, 523.33]
 const minorChord = [261.62, 311.12, 391.99, 523.33]
 
 export function oscBeep(freq, vol, length, type) {
-    console.log('starting beep')
-
     const oscillator = context.createOscillator()
 
     // type can be triangle, sine, square, or sawtooth
