@@ -886,9 +886,6 @@ function populateProgressParts([arr, total]) {
         progPart.id = 'prog' + i
         
         progPart.style.background = "gray"
-        if (i == 0) {
-            progPart.style.borderBottomLeftRadius = '25px'
-        }
         progPart.addEventListener('click', jumpToSentence(i))
         progBtns.append(progPart)
 
@@ -943,14 +940,20 @@ function updateVol() {
 // }
 
 function showUserPage() {
-    shiftContentBlocks('user')
+    shiftContentBlocks('user');
+    stopRecLoop();
 }
 
 function shiftContentBlocks(str) {
+    playBtn.disabled = true;
+    micBtn.disabled = true;
+    
     if (str == 'user') {
         contentBlocks.style.left = "-200%"
     } else if (str == 'game') {
         contentBlocks.style.left = "-100%"
+        playBtn.disabled = false;
+        micBtn.disabled = false;
     } else if (str == 'menu') {
         contentBlocks.style.left = "0%"
     }

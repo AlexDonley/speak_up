@@ -3,6 +3,8 @@
 const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
 
+var audiocount = 1;
+
 export let targetLang = 'en'
 
 export const speechRec = new SpeechRecognition();
@@ -43,6 +45,15 @@ export function startRecLoop(loopBool, interBool, contBool, langStr) {
 //         return [text, 'not final']
 //     }
 // })
+
+speechRec.addEventListener("audiostart", () => {
+    console.log('audio bite ' + audiocount + ' has started')
+})
+
+speechRec.addEventListener("audioend", () => {
+    console.log('audio bite ' + audiocount + ' has ended')
+    audiocount++
+})
 
 speechRec.addEventListener("end", () => {
     if(willLoop){

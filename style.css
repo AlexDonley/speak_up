@@ -53,8 +53,20 @@ body {
   right: 0;
   bottom: 0;
   z-index: 2;
-  display: grid;
-  grid-template-rows: 1fr 100px;
+  display: flex;
+  flex-direction: column;
+}
+
+.award-div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: right;
+  user-select: none;
+  gap: 5px;
+  padding: 10px;
+  font-size: 40px;
+  writing-mode: vertical-lr
 }
 
 .corner-btns {
@@ -99,7 +111,7 @@ svg {
   justify-items: center;
   align-items: center;
   grid-template-rows: 20px min(8vh, 8vw);
-  grid-template-columns: 130px 3fr 2fr 1fr 1fr;
+  grid-template-columns: 130px 3fr 2fr 1fr;
 }
 
 .arrow-cutout {
@@ -174,17 +186,6 @@ svg {
 .score {
   display: flex;
   justify-content: center;
-}
-
-.award-div {
-  display: flex;
-  flex-direction: column;
-  justify-content: right;
-  user-select: none;
-  gap: 5px;
-  padding: 10px;
-  font-size: 40px;
-  writing-mode: vertical-lr
 }
 
 .lang {
@@ -304,12 +305,18 @@ img {
   display: grid;
   grid-template-columns: 1fr 50px;
 }
+.progress-click > *:last-child {
+  border-bottom-right-radius: 50%;
+}
 
 .progress-btns{
   height: 100%;
   display: grid;
   gap: 3px;
   padding-right: 3px
+}
+.progress-btns > *:nth-child(1) {
+  border-bottom-left-radius: 25px;
 }
 
 .prog {
@@ -333,7 +340,6 @@ img {
   opacity: 0.3;
   height: 100%;
   width: 50px;
-  border-bottom-right-radius: 50%;
   transition: height 0.5s, opacity 0.5s, transform 0.5s, background 0.5s;
 }
 .leftover-btn.active {
@@ -387,7 +393,7 @@ img {
   transition: color 0.3s,
               background-color 0.3s;
 }
-.read-btn.active {
+.read-btn.active:not(:disabled) {
   color: white;
   background-color: maroon;
 }
@@ -395,7 +401,7 @@ img {
 .read-btn > * {
   transition: width 0.3s, fill 0.3s;
 }
-.read-btn.active > * {
+.read-btn.active:not(:disabled) > * {
   width: 45px;
   fill: white
 }
