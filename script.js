@@ -202,19 +202,25 @@ if(userAgent.match(/chrome|chromium|crios/i)){
     chromeIcon.classList.add('flip')
 }
 
-function micSuccess() {
-    console.log("mic connected")
-}
+//const safariBool = window.navigator.userAgent.includes('Safari');
+const safariBool = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
+console.log(safariBool)
 
-function micFail(error) {
-    console.log(error)
+if (!safariBool) {
+    function micSuccess() {
+        console.log("mic connected")
+    }
+    
+    function micFail(error) {
+        console.log(error)
+    }
+    
+    function checkForMic() {
+        navigator.getUserMedia({ audio: true }, micSuccess, micFail);
+    }
+    
+    checkForMic()
 }
-
-function checkForMic() {
-    navigator.getUserMedia({ audio: true }, micSuccess, micFail);
-}
-
-checkForMic()
 
 speechRec.addEventListener("result", (e) => {
   
@@ -227,7 +233,7 @@ speechRec.addEventListener("result", (e) => {
 
     populateUtterances(utteredWords, utterTexts)
 
-    if (e.results[0].isFinal) {
+    if (e.results[0].isFinal || safariBool) {
         //console.log('Comparing sentences...')
 
         if (!isLeftRound) {
@@ -464,7 +470,6 @@ function toggRecogAndElem(bool) {
         isRecog = false
         stopRecLoop()
         micBtn.classList.remove('active');
-        micBtn.disabled = true;
     }
 }
 

@@ -2,10 +2,11 @@
 
 let synthVoices
 
-export function synthSpeak(str, speed, vol, lang, btn) {
+export function synthSpeak(str, speed, vol, lang, micBtn) {
     
     const synth = window.speechSynthesis
     const synthUtter = new SpeechSynthesisUtterance(str);
+    micBtn.disabled = true
     
     synthUtter.rate = speed
     synthUtter.volume = vol
@@ -23,8 +24,8 @@ export function synthSpeak(str, speed, vol, lang, btn) {
         console.log(
             `Finished synthesizing utterance after ${event.elapsedTime / 1000} seconds.`,
         );
-        if (btn) {
-            btn.disabled = false;
+        if (micBtn) {
+            micBtn.disabled = false;
         }
     });
 }

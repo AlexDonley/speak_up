@@ -127,5 +127,3 @@ export function generateCompGrad(arr) {
     //console.log(gradStr)
     return gradStr
 }
-
-console.log(generateCompGrad([1, 1, 0, 0]))
