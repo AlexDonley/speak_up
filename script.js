@@ -206,21 +206,21 @@ if(userAgent.match(/chrome|chromium|crios/i)){
 const safariBool = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
 console.log(safariBool)
 
-if (!safariBool) {
-    function micSuccess() {
-        console.log("mic connected")
-    }
+// if (!safariBool) {
+//     function micSuccess() {
+//         console.log("mic connected")
+//     }
     
-    function micFail(error) {
-        console.log(error)
-    }
+//     function micFail(error) {
+//         console.log(error)
+//     }
     
-    function checkForMic() {
-        navigator.getUserMedia({ audio: true }, micSuccess, micFail);
-    }
+//     function checkForMic() {
+//         navigator.getUserMedia({ audio: true }, micSuccess, micFail);
+//     }
     
-    checkForMic()
-}
+//     checkForMic()
+// }
 
 speechRec.addEventListener("result", (e) => {
   
@@ -456,20 +456,20 @@ function startQueue() {
 
 function toggRecogAndElem(bool) {
     
-    let recogSet = isRecog
+    let recogSet = isRecog;
 
     if(bool === true || bool === false) {
-        recogSet = !bool
+        recogSet = !bool;
     }
 
     if (!recogSet) {
-        isRecog = true
-        startRecLoop(1, 1, 0, targetLang)
-        micBtn.classList.add('active')
+        isRecog = true;
+        micBtn.classList.add('active');
+        startRecLoop(1, 1, 0, targetLang);
     } else {
-        isRecog = false
-        stopRecLoop()
+        isRecog = false;
         micBtn.classList.remove('active');
+        stopRecLoop();
     }
 }
 
