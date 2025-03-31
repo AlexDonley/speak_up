@@ -22,6 +22,7 @@ import {
     constructPinRT, constructZhuRT 
 } from './js/ruby-text.js'
 import { oscBeep, createChord } from './js/oscillate.js'
+import { urlConfigs } from './js/url-query.js'
 
 // - - - VARIABLES - - - //
 
@@ -151,14 +152,14 @@ function togglePinyinRT() {
 searchTitles.addEventListener("input", e => {
     const value = e.target.value.toLowerCase()
 
-    searchList = []
+    let searchList = []
     titleList.forEach(title => {
         if (title.toLowerCase().includes(value)){
             searchList.push(title);
         }
     })
 
-    populateBookTitles(searchList);
+    populatePresets(searchList);
 })
 
 // elements contained in the action section
@@ -181,7 +182,8 @@ function loadBooks(){
         for (var key in data) {
             titleList.push(data[key].title);
         }
-        populateBookTitles(titleList);
+        populatePresets(titleList);
+        processQueries();
     })
     .catch(error => console.log(error))
 }
@@ -205,22 +207,6 @@ if(userAgent.match(/chrome|chromium|crios/i)){
 //const safariBool = window.navigator.userAgent.includes('Safari');
 const safariBool = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
 console.log(safariBool)
-
-// if (!safariBool) {
-//     function micSuccess() {
-//         console.log("mic connected")
-//     }
-    
-//     function micFail(error) {
-//         console.log(error)
-//     }
-    
-//     function checkForMic() {
-//         navigator.getUserMedia({ audio: true }, micSuccess, micFail);
-//     }
-    
-//     checkForMic()
-// }
 
 speechRec.addEventListener("result", (e) => {
   
@@ -520,7 +506,7 @@ function endQueue() {
     stopTimer()
 
     // uncheck all boxes
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const checkboxes = partsCards.querySelectorAll('input[type="checkbox"]');
 
     checkboxes.forEach(box => {
       box.checked = false
@@ -699,20 +685,27 @@ function addOneAward(textN, awardN) {
   }
 }
 
-function togglePresets() {
-  if (presetBool) {
+function togglePresets(str) {
 
-    presetBtn.innerHTML = 'Preset'
-    presetBool = false;
-    textInput.classList.remove('disappear');
+    if (str == 'preset') {
+        presetBool = false
+    } else if (str == 'freeform') {
+        presetBool = true
+    }
 
-  } else {
+    if (presetBool) {
+
+        presetBtn.innerHTML = 'Preset'
+        presetBool = false;
+        textInput.classList.remove('disappear');
+
+    } else {
     
-    presetBtn.innerHTML = 'Freeform'
-    presetBool = true;
-    textInput.classList.add('disappear');
+        presetBtn.innerHTML = 'Freeform'
+        presetBool = true;
+        textInput.classList.add('disappear');
 
-  }
+    }
 }
 
 function toggleShuffle() {
@@ -759,27 +752,21 @@ function changeTimerMode() {
     }
 }
 
-function toggleTab(classStr) {
-  tab = document.querySelector('.'+ classStr)
-
-  if (tab.classList.contains('show')) {
-    tab.classList.remove('show')
-  } else {
-    tab.classList.add('show')
-  }
+function toggleFullscreen(bool) {
+    if (bool) {
+        fullscreenBool != bool
+    }
+    
+    if (fullscreenBool) {
+        document.exitFullscreen()
+        fullscreenBool = false
+    } else {
+        document.documentElement.requestFullscreen()
+        fullscreenBool = true
+    }
 }
 
-function toggleFullscreen() {
-  if (fullscreenBool) {
-    document.exitFullscreen()
-    fullscreenBool = false
-  } else {
-    document.documentElement.requestFullscreen()
-    fullscreenBool = true
-  }
-}
-
-function populateBookTitles(arr) {
+function populatePresets(arr) {
     titleCards.innerHTML = ""
 
     let n = 0
@@ -892,7 +879,6 @@ function populateProgressParts([arr, total]) {
         rowTempStr += 100 * arr[i].length / total + "fr "
     }
 
-    console.log(rowTempStr)
     progBtns.style.gridTemplateColumns = rowTempStr
 }
 
@@ -1044,4 +1030,54 @@ function toggleSettings() {
 function inchUpSound(n) {
     oscBeep(defaultFreq, 0.01, 0.3, 'square')
     defaultFreq += n
+}
+
+console.log(urlConfigs)
+
+function processQueries(data) {
+    const fullWordlist = data
+
+    if (urlConfigs) {
+        if (urlConfigs.fs == 'true') {
+            createFSInteractor()
+        }
+        
+        if (urlConfigs.psidx) {
+            const splitOne = urlConfigs.psidx.split('_');
+            const bookIdx = splitOne[0];
+            const splitTwo = splitOne[1].split('-');
+            
+            togglePresets('preset')
+
+            bookIndex = bookIdx;
+            populateChunks(bookIdx);
+            const allChecks = partsCards.querySelectorAll('input[type="checkbox"]');
+
+            splitTwo.forEach(val => {
+                if (allChecks[val - 1]) {
+                    allChecks[val - 1].checked = true;
+                }
+            })
+        }
+    
+        if (urlConfigs.go == 'true') {
+            startQueue()
+        }
+    }
+}
+
+function createFSInteractor() {
+    const FSdiv = document.createElement('div');
+    FSdiv.classList.add('fullscreen-interaction');
+    FSdiv.innerText = 'click to continue';
+    FSdiv.addEventListener('click', FSwrapper(true))
+
+    document.body.append(FSdiv);
+}
+
+function FSwrapper(bool) {
+    return function executeOnEvent(e) {
+        toggleFullscreen(bool);
+        e.target.remove()
+    }
 }

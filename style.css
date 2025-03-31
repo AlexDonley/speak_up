@@ -47,11 +47,10 @@ body {
 }
 
 .right-sidebar {
-  height: calc(100vh - (20px + 8vh));
-  width: 100px;
   position: fixed;
-  right: 0;
-  bottom: 0;
+  right: max(1vh, 1vw);
+  bottom: max(1vh, 1vw);
+  height: 88vh;
   z-index: 2;
   display: flex;
   flex-direction: column;
@@ -105,7 +104,7 @@ svg {
 
 .header {
   z-index: 1;
-  position: relative;
+  position: fixed;
   width: 100vw;
   display: grid;
   justify-items: center;
@@ -270,11 +269,11 @@ img {
 }
 
 .content-blocks {
-  position: absolute;
+  position: fixed;
+  margin-top: 20px min(8vh, 8vw);
   left: -0%;
   display: grid;
   justify-content: center;
-
   height: 100%;
   width: 300%;
   grid-template-columns: 1fr 1fr 1fr;
@@ -295,6 +294,7 @@ img {
   flex-direction: column;
   gap: 20px;
   position: relative;
+  margin-top: calc(20px + min(8vh, 8vw));
   grid-column-start: 2;
   grid-column-end: 3;
 }
@@ -371,14 +371,19 @@ img {
   gap: 4px;
 }
 
-.circ-btn {
-  width: 7vh;
-  height: 7vh;
-  border-radius: 50%;
+.corner-btns > * {
+  height: 8vh;
+  width: 8vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 4vh;
+  border: 1px solid black;
+}
+.corner-btns > *:nth-child(1) {
+  border-top-left-radius: 50%;
+}
+.corner-btns > *:nth-child(2) {
+  border-top-right-radius: 50%;
 }
 
 .read-btn-wrap {
@@ -770,4 +775,22 @@ rt.pin-text {
 }
 rt.pin-text.hide {
   font-size: 0px;
+}
+
+.fullscreen-interaction {
+  position: fixed;
+  top: -1vh;
+  left: -1vw;
+  height: 102vh;
+  width: 102vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  z-index: 10;
+  color: black;
+  font-weight: bold;
+  font-size: 5vh;
+  user-select: none;
 }
