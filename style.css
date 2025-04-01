@@ -360,18 +360,23 @@ img {
 }
 
 
-.display-words {
+.line-of-words {
   background-color: #999999;
   border-radius: 8px;
   padding: 20px;
   font-size: 2rem;
   margin: 1vh;
   width: 45%;
-  /* display: grid;
-  grid-template-columns: 1fr; */
   display: flex;
   flex-direction: column;
   gap: 4px;
+  max-height: 70vh;
+  overflow-y: scroll;    
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.line-of-words::-webkit-scrollbar {
+  display: none;
 }
 
 .corner-btns > * {
@@ -545,15 +550,20 @@ button {
 
 .word-wrap {
   display: flex;
-  border-radius: 1vh;
-  overflow: hidden;
+}
+.word-wrap > *:first-child {
+  border-top-left-radius: 1vh;
+  border-bottom-left-radius: 1vh;
+}
+.word-wrap > *:last-child {
+  border-top-right-radius: 1vh;
+  border-bottom-right-radius: 1vh;
 }
 
 .one-word {
   user-select: none;
-  position: relative;
   width: 100%;
-  font-size: min(6vw, 6vh);
+  font-size: min(5vw, 5vh);
   font-weight: bold;
   text-align: center;
   background-color: #fff;
