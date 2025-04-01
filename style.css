@@ -231,13 +231,16 @@ svg {
 
 .view-QR {
   width: min(25vw, 25vh);
-  height: min(25vw, 25vh);
-  position: absolute;
-  right: 0;
+  position: fixed;
+  left: 0;
   bottom: 0;
-  resize: true;
   margin: 10px;
-  transition: transform 0.3s;
+  z-index: 3;
+  transform: translateX(-150%);
+  transition: transform 0.3s, width 0.3s;
+}
+.view-QR.show {
+  transform: translateX(0%);
 }
 
 .user-name {
@@ -675,6 +678,7 @@ button {
   border: none;
   border-radius: 25px;
   overflow: hidden;
+  user-select: none;
   transition: background-color 0.2s
 }
 
