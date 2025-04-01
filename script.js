@@ -23,6 +23,7 @@ import {
 } from './js/ruby-text.js'
 import { oscBeep, createChord } from './js/oscillate.js'
 import { urlConfigs } from './js/url-query.js'
+import { cycleQRWrap, toggleShowQR } from './js/qr.js'
 
 // - - - VARIABLES - - - //
 
@@ -56,38 +57,31 @@ let bookList;
 let titleList = [];
 
 // - - - ELEMENTS - - - //
-
-const userAgent = navigator.userAgent;
-
-// ux elements that show the user whether their setup can successfully run Speak Up!
-// currently requires Chromium and mic permissions
-
-const chromeIcon = document.getElementById("chromeIcon");
-const mic = document.getElementById("mic");
-
 // ux elements that show user progress through arrow movement, score, timer, and awards
 
-const progBtns        = document.querySelector('#progBtns')
-const arrowOverlay    = document.querySelector('#rainbowOverlay')
-const stopWatch       = document.querySelector('#stopWatch')
-const awardDiv        = document.querySelector('#awardDiv')
-const scoreMarker     = document.querySelector('#scoreMarker')
-const settingsMenu    = document.querySelector('.settings-menu')
-const ffLang          = document.querySelector('#ffLang')
-const micBtn          = document.querySelector('#micBtn')
-const synthSpeed      = document.querySelector('#synthSpeed')
-const synthVol        = document.querySelector('#synthVol')
-const speedReader     = document.querySelector('#speedReader')
-const volReader       = document.querySelector('#volReader')
-const greenArrow      = document.querySelector('#greenArrow')
-const arrowPerc       = document.querySelector('#arrowPerc')
-const qrImg           = document.querySelector('#qrImg')
+const progBtns        = document.querySelector('#progBtns');
+const stopWatch       = document.querySelector('#stopWatch');
+const awardDiv        = document.querySelector('#awardDiv');
+const scoreMarker     = document.querySelector('#scoreMarker');
+const settingsMenu    = document.querySelector('.settings-menu');
+const ffLang          = document.querySelector('#ffLang');
+const micBtn          = document.querySelector('#micBtn');
+const synthSpeed      = document.querySelector('#synthSpeed');
+const synthVol        = document.querySelector('#synthVol');
+const speedReader     = document.querySelector('#speedReader');
+const volReader       = document.querySelector('#volReader');
+const greenArrow      = document.querySelector('#greenArrow');
+const arrowPerc       = document.querySelector('#arrowPerc');
+const viewQR          = document.querySelector('.view-QR');
+const qrImg           = document.querySelector('#qrImg');
+const showQR          = document.querySelector('.show-QR-btn');
+const genQR           = document.querySelector('.gen-QR-btn');
 
 // elements contained in the setting section
 
-const contentBlocks = document.getElementById("contentBlocks")
-const startMenu = document.getElementById("startMenu")
-const textInput = document.getElementById("textInput")
+const contentBlocks = document.getElementById("contentBlocks");
+const startMenu = document.getElementById("startMenu");
+const textInput = document.getElementById("textInput");
 
 // buttons and their fuunctions
 
@@ -126,15 +120,11 @@ homeBtn.addEventListener("click", endQueue);
 userBtn.addEventListener("click", showUserPage);
 fullscreenBtn.addEventListener("click", toggleFullscreen);
 settingBtn.addEventListener("click", toggleSettings);
-
 pinyinDropdown.addEventListener("change", togglePinyinRT);
 synthSpeed.addEventListener("pointermove", updateSpeed);
 synthVol.addEventListener("pointermove", updateVol);
-
-const mainURL = 'alexdonley.github.io/speak_up';
-QRCode.toDataURL(mainURL).then(dataURL => {
-    qrImg.src = dataURL;
-})
+viewQR.addEventListener("click", cycleQRWrap);
+showQR.addEventListener("click", toggleShowQR)
 
 function togglePinyinRT() {
     console.log('change')
@@ -164,7 +154,6 @@ searchTitles.addEventListener("input", e => {
 
 // elements contained in the action section
 // reading section contains two columns, one for target words and the other for user input
-
 
 function loadBooks(){
     fetch('./data/books.json')
@@ -199,10 +188,6 @@ let perfect = new Audio("sound/wow.mp3");
 
 let score = 0
 scoreMarker.innerText = score
-
-if(userAgent.match(/chrome|chromium|crios/i)){
-    chromeIcon.classList.add('flip')
-}
 
 //const safariBool = window.navigator.userAgent.includes('Safari');
 const safariBool = /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || (typeof safari !== 'undefined' && window['safari'].pushNotification));
