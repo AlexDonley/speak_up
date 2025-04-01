@@ -33,13 +33,13 @@ export function cycleQRWrap() {
     return cycleQRSize()
 }
 
-export function generateNewQR(url) {
+export function genNewQR(url, elem) {
     QRCode.toDataURL(url).then(dataURL => {
-        qrImg.src = dataURL;
+        elem.src = dataURL;
     })
 }
 
-generateNewQR(mainURL)
+genNewQR(mainURL, qrImg)
 
 export function toggleShowQR() {
     if (showQR == 0) {
@@ -58,11 +58,11 @@ export function genQRstr(dataDict) {
 
     for (let i = 0; i < keysArr.length; i++) {
         const onset = keysArr[i];
-        const coda = dataDict.keysArr[i];
+        const coda = dataDict[keysArr[i]];
 
         urlStr += onset + "=" + coda;
         
-        if (!(i < keysArr.length - 1)) {
+        if (i < keysArr.length - 1) {
             urlStr += "&";
         }
     }

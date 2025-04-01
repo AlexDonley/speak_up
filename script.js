@@ -23,7 +23,7 @@ import {
 } from './js/ruby-text.js'
 import { oscBeep, createChord } from './js/oscillate.js'
 import { urlConfigs } from './js/url-query.js'
-import { cycleQRWrap, toggleShowQR } from './js/qr.js'
+import { cycleQRWrap, toggleShowQR, genQRstr, genNewQR } from './js/qr.js'
 
 // - - - VARIABLES - - - //
 
@@ -76,6 +76,7 @@ const viewQR          = document.querySelector('.view-QR');
 const qrImg           = document.querySelector('#qrImg');
 const showQR          = document.querySelector('.show-QR-btn');
 const genQR           = document.querySelector('.gen-QR-btn');
+const goOpt           = document.querySelector('#goOpt');
 
 // elements contained in the setting section
 
@@ -124,7 +125,39 @@ pinyinDropdown.addEventListener("change", togglePinyinRT);
 synthSpeed.addEventListener("pointermove", updateSpeed);
 synthVol.addEventListener("pointermove", updateVol);
 viewQR.addEventListener("click", cycleQRWrap);
-showQR.addEventListener("click", toggleShowQR)
+showQR.addEventListener("click", toggleShowQR);
+genQR.addEventListener("click", QRgenWrap)
+
+function QRgenWrap() {
+    const newURL = genQRstr(QRdictFromElem());
+    genNewQR(newURL, qrImg);
+}
+
+function QRdictFromElem() {
+    let thisDict = {};
+
+    const chunkIdx = document.querySelectorAll('.preset-check:checked')
+    if (presetBool && chunkIdx.length > 0) {
+        let thisIdx = bookIndex + "_";
+
+        for (let n = 0; n < chunkIdx.length; n++){
+            thisIdx += chunkIdx[n].id.substring(4);
+
+            if(n < chunkIdx.length - 1) {
+                thisIdx += "-"
+            }
+        }
+
+        thisDict.psidx = thisIdx;
+    }
+
+    if (goOpt.checked) {
+        thisDict.go = true;
+    }
+
+    console.log(thisDict);
+    return thisDict;
+}
 
 function togglePinyinRT() {
     console.log('change')
@@ -374,8 +407,6 @@ function startQueue() {
       } else {
         setLanguage('en')
       }
-
-      console.log(targetLang)
       
       // clear the index array
       bookIndexArray = [];
@@ -1039,8 +1070,8 @@ function processQueries(data) {
             const allChecks = partsCards.querySelectorAll('input[type="checkbox"]');
 
             splitTwo.forEach(val => {
-                if (allChecks[val - 1]) {
-                    allChecks[val - 1].checked = true;
+                if (allChecks[val]) {
+                    allChecks[val].checked = true;
                 }
             })
         }
