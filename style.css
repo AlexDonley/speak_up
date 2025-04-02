@@ -51,7 +51,6 @@ body {
   right: max(1vh, 1vw);
   bottom: max(1vh, 1vw);
   height: 88vh;
-  z-index: 2;
   display: flex;
   flex-direction: column;
 }
@@ -65,14 +64,7 @@ body {
   gap: 5px;
   padding: 10px;
   font-size: 40px;
-  writing-mode: vertical-lr
-}
-
-.corner-btns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  justify-content: center;
-  align-items: center
+  writing-mode: vertical-lr;
 }
 
 canvas {
@@ -377,6 +369,30 @@ img {
 }
 .line-of-words::-webkit-scrollbar {
   display: none;
+}
+
+.punch-btn {
+  position: absolute;
+  right: max(-2vw, -2vh);
+  width: max(5vw, 5vh);
+  height: max(5vw, 5vh);
+  text-align: right;
+  padding: 1vh;
+  margin-top: 1vh;
+  z-index: 3;
+  background: green;
+  border-radius: 1vh;
+}
+
+.corner-btns {
+  position: fixed;
+  bottom: max(1vh, 1vw);
+  right: max(1vh, 1vw);
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  align-items: center
 }
 
 .corner-btns > * {
