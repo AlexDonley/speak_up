@@ -310,6 +310,7 @@ function checkAnswer() {
 function checkAndClear() {
     checkAnswer();
     utterTexts.innerHTML = '';
+    utteredWords = [];
 }
 
 function tryLeftRound() {
