@@ -25,37 +25,6 @@ import { oscBeep, createChord } from './js/oscillate.js'
 import { urlConfigs } from './js/url-query.js'
 import { cycleQRWrap, toggleShowQR, genQRstr, genNewQR } from './js/qr.js'
 
-// - - - VARIABLES - - - //
-
-// arrays for sentences and subdivisions
-
-let bookIndexArray= []
-let bookIndex = 0 
-
-let sentenceArrays = []
-let progressMarkers = [0, 0]
-let completionMap = []
-
-// index markers for working through the above arrays
-
-let presetBool      = false // false means freeform, true means preset
-let shuffleBool     = false // false means chronological targets, true means shuffled targets
-let loopBool        = false // false means finishes after 1 iteration, true means continues iterating until the user stops
-let fullscreenBool  = false //
-let isLeftRound     = false //
-let isRecog         = false //
-
-let microphone
-
-// setting for P5 sawtooth frequency
-
-let defaultFreq = 100
-
-// variables to fill with JSON data using fetch
-
-let bookList;
-let titleList = [];
-
 // - - - ELEMENTS - - - //
 // ux elements that show user progress through arrow movement, score, timer, and awards
 
@@ -109,6 +78,7 @@ const utterTexts      = document.querySelector(".texts");
 const userEntry       = document.querySelector('#userEntry');
 const availableUsers  = document.querySelector('#availableUsers');
 const userName        = document.querySelector('#userName');
+const punchBtn        = document.querySelector('.punch-btn');
 
 presetBtn.addEventListener("click", togglePresets);
 shuffleBtn.addEventListener("click", toggleShuffle);
@@ -126,7 +96,39 @@ synthSpeed.addEventListener("pointermove", updateSpeed);
 synthVol.addEventListener("pointermove", updateVol);
 viewQR.addEventListener("click", cycleQRWrap);
 showQR.addEventListener("click", toggleShowQR);
-genQR.addEventListener("click", QRgenWrap)
+genQR.addEventListener("click", QRgenWrap);
+punchBtn.addEventListener("click", checkAndClear);
+
+// - - - VARIABLES - - - //
+
+// arrays for sentences and subdivisions
+
+let bookIndexArray= []
+let bookIndex = 0 
+
+let sentenceArrays = []
+let progressMarkers = [0, 0]
+let completionMap = []
+
+// index markers for working through the above arrays
+
+let presetBool      = false // false means freeform, true means preset
+let shuffleBool     = false // false means chronological targets, true means shuffled targets
+let loopBool        = false // false means finishes after 1 iteration, true means continues iterating until the user stops
+let fullscreenBool  = false //
+let isLeftRound     = false //
+let isRecog         = false //
+
+// setting for P5 sawtooth frequency
+
+let defaultFreq = 100
+
+// variables to fill with JSON data using fetch
+
+let bookList;
+let titleList = [];
+let utteredWords = [];
+
 
 function QRgenWrap() {
     const newURL = genQRstr(QRdictFromElem());
@@ -233,75 +235,82 @@ speechRec.addEventListener("result", (e) => {
         .map((result) => result.transcript)
         .join("");
 
-    const utteredWords = genWPStrToArr(text, targetLang)
+    utteredWords = genWPStrToArr(text, targetLang)
 
     populateUtterances(utteredWords, utterTexts)
 
-    if (e.results[0].isFinal || safariBool) {
-        //console.log('Comparing sentences...')
-
-        if (!isLeftRound) {
-            const compareArr = trackCompletion(
-                sentenceArrays[progressMarkers[0]], 
-                utteredWords, 
-                'linear', 
-                targetLang, 
-                progressMarkers[1],
-                completionMap[progressMarkers[0]]
-            )
-
-            updateScore(compareArr[1] - progressMarkers[1])
-            completionMap[progressMarkers[0]] = compareArr[0]
-            progressMarkers[1] = compareArr[1]
-          
-            logProgress(completionMap[progressMarkers[0]], progressMarkers[0])
-            evalArr(completionMap[progressMarkers[0]])
-
-        } else {
-            const leftArr = grabLeftovers(sentenceArrays, completionMap)
-            // console.log(leftArr)
-
-            if (leftArr.length > 0) {
-                loadTarget(leftArr, true)
-
-                const leftsCompare = trackCompletion(
-                    leftArr,
-                    utteredWords,
-                    'linear',
-                    targetLang
-                )
-    
-                leftsCompare[0].forEach(val => {
-                    if (val == 1) {
-                        const coords = checkMapForInt(completionMap, -1)
-    
-                        completionMap[coords[0]][coords[1]] = 1
-
-                        const grabProg = document.querySelector('#prog' + coords[0])
-                        grabProg.style.background = generateCompGrad(completionMap[coords[0]])
-
-                        updateScore(1)
-                    }
-                })
-    
-                updateTargVisual(leftsCompare[0], 50)
-                console.log(completionMap)
-
-                setTimeout(() => {
-
-                    const newArr = grabLeftovers(sentenceArrays, completionMap)
-                    
-                    if (newArr.length > 0) {
-                        loadTarget(newArr, true)
-                    } else {
-                       nextSentence()
-                    }                    
-
-                }, leftsCompare[0].length * 50 + 500)
-            }
-        }
+    if (e.results[0].isFinal) {
+        checkAnswer()
     }
 })
+
+function checkAnswer() {
+    if (!isLeftRound) {
+        const compareArr = trackCompletion(
+            sentenceArrays[progressMarkers[0]], 
+            utteredWords, 
+            'linear', 
+            targetLang, 
+            progressMarkers[1],
+            completionMap[progressMarkers[0]]
+        )
+
+        updateScore(compareArr[1] - progressMarkers[1])
+        completionMap[progressMarkers[0]] = compareArr[0]
+        progressMarkers[1] = compareArr[1]
+      
+        logProgress(completionMap[progressMarkers[0]], progressMarkers[0])
+        evalArr(completionMap[progressMarkers[0]])
+
+    } else {
+        const leftArr = grabLeftovers(sentenceArrays, completionMap)
+        // console.log(leftArr)
+
+        if (leftArr.length > 0) {
+            loadTarget(leftArr, true)
+
+            const leftsCompare = trackCompletion(
+                leftArr,
+                utteredWords,
+                'linear',
+                targetLang
+            )
+
+            leftsCompare[0].forEach(val => {
+                if (val == 1) {
+                    const coords = checkMapForInt(completionMap, -1)
+
+                    completionMap[coords[0]][coords[1]] = 1
+
+                    const grabProg = document.querySelector('#prog' + coords[0])
+                    grabProg.style.background = generateCompGrad(completionMap[coords[0]])
+
+                    updateScore(1)
+                }
+            })
+
+            updateTargVisual(leftsCompare[0], 50)
+            console.log(completionMap)
+
+            setTimeout(() => {
+
+                const newArr = grabLeftovers(sentenceArrays, completionMap)
+                
+                if (newArr.length > 0) {
+                    loadTarget(newArr, true)
+                } else {
+                   nextSentence()
+                }                    
+
+            }, leftsCompare[0].length * 50 + 500)
+        }
+    }
+}
+
+function checkAndClear() {
+    checkAnswer();
+    utterTexts.innerHTML = '';
+}
 
 function tryLeftRound() {
     const coord = checkMapForInt(completionMap, -1)
