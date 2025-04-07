@@ -261,6 +261,33 @@
         ]
     },
     {
+        "title": "Today is Monday",
+        "author": "Eric Carle",
+        "parts": [
+            {
+                "award": "🍦",
+                "text": [
+                    "Today is Monday",
+                    "Monday, string beans.",
+                    "Tuesday, spaghetti.",
+                    "Wednesday, soup.",
+                    "Thursday, roast beef.",
+                    "Friday, fresh fish.",
+                    "Saturday, chicken.",
+                    "Sunday, ice cream.",
+                    "All you hungry children, come and eat it up"
+                ]
+            },
+            {
+                "award": "📆",
+                "text": [
+                    "Sunday Monday Tuesday Wednesday",
+                    "Thursday Friday Saturday"
+                ]
+            }
+        ]
+    },
+    {
         "title": "Summer Camp",
         "author": "Alex Donley",
         "parts": [
