@@ -135,6 +135,37 @@
         ]
     },
     {
+        "title": "Dragon Boat Day Broadcast",
+        "author": "Alex Donley",
+        "parts": [
+            {
+                "award": "🐉",
+                "text": [  
+                    "Hi Tom! Do you know what today is?",
+                    "Hmm… is it a holiday?",
+                    "Yes! It’s the Dragon Boat Festival!",
+                    "Wow! What do people do on this day?",
+                    "Many people watch dragon boat races and eat zongzi.",
+                    "I’ve heard of zongzi. Are they sticky rice dumplings wrapped in leaves?",
+                    "Yes!"
+                ]
+            },
+            {
+                "award": "🛥️",
+                "text": [  
+                    "They usually have ingredients inside like peanuts, shrimp, and pork. They’re so yummy!",
+                    "That sounds delicious! Why do people race boats?",
+                    "It’s to remember a great man named Qu Yuan.",
+                    "Oh! I know Qu Yuan. Was he a famous poet?",
+                    "That’s right, people race to honor him.",
+                    "That’s very interesting. I want to see a dragon boat race!",
+                    "Me, too. We can go to the river to watch them.",
+                    "Yes! And let’s eat zongzi too."
+                ]
+            }
+        ]
+    },
+    {
         "title": "ABCs",
         "author": "none",
         "parts": [
