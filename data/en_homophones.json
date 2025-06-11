@@ -37,7 +37,6 @@
     ["boar", "bore"],
     ["board", "bored"],
     ["boarder", "border"],
-    ["boca", "boka"],
     ["bode", "bowed"],
     ["bolder", "boulder"],
     ["born", "borne", "bourn", "bourne"],
@@ -143,7 +142,6 @@
     ["grays", "graze"],
     ["grisly", "grizzly"],
     ["groan", "grown"],
-    ["grocer", "grocery"],
     ["guessed", "guest"],
     ["guide", "guyed"],
     ["gym", "Jim"],
@@ -431,5 +429,10 @@
     ["yore", "your", "you're", "yore"],
     ["you'll", "yule"],
     ["Sioux", "sue"],
-    ["Wales", "whales"]
+    ["Wales", "whales"],
+    ["boca", "boka"],
+    ["grocer", "grocery"],
+    ["zongzi", "songs"],
+    ["quyuan", "julian", "chuyen"],
+    ["gash", "dash"]
 ]
