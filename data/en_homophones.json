@@ -54,6 +54,7 @@
     ["capital", "capitol"],
     ["caret", "carrot", "carat", "karat"],
     ["cast", "caste"],
+    ["cause", "cuz"]
     ["cay", "key", "quay"],
     ["cede", "seed"],
     ["cee", "sea", "see"],
@@ -434,5 +435,6 @@
     ["grocer", "grocery"],
     ["zongzi", "songs"],
     ["quyuan", "julian", "chuyen"],
-    ["gash", "dash"]
+    ["gash", "dash"],
+    ["sunday", "sunthey"]
 ]
