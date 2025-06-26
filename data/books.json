@@ -1688,6 +1688,64 @@
         ]
     },
     {
+        "title": "Rainbow Fun",
+        "author": "Disney",
+        "parts": [
+            {
+                "award": "🌈",
+                "text": [  
+                    "Red, orange, yellow, green, blue.",
+                    "Don't forget there's purple too.",
+                    "Rainbow colors for me and you."
+                ]
+            }
+        ]
+    },
+    {
+        "title": "Under the Sea",
+        "author": "Alan Menken",
+        "parts": [
+            {
+                "award": "🌊",
+                "text": [  
+                    "The seaweed is always greener",
+                    "In somebody else's lake",
+                    "You dream about going up there",
+                    "But that is a big mistake",
+                    "Just look at the world around you",
+                    "Right here on the ocean floor",
+                    "Such wonderful things surround you",
+                    "What more is you lookin' for?"
+                ]
+            },
+            {
+                "award": "🏖️",
+                "text": [  
+                    "Under the sea, under the sea",
+                    "Darling, it's better down where it's wetter",
+                    "Take it from me",
+                    "Up on the shore, they work all day",
+                    "Out in the sun they slave away",
+                    "While we devotin', full time to floatin'",
+                    "Under the sea"
+                ]
+            },
+            {
+                "award": "🐋",
+                "text": [  
+                    "Down here all the fish is happy",
+                    "As off through the waves they roll",
+                    "The fish on the land ain't happy",
+                    "They sad cause they in their bowl",
+                    "But fish in the bowl is lucky",
+                    "They in for a worser fate",
+                    "One day when the boss get hungry",
+                    "Guess who's gone be on the plate?"
+                ]
+            }
+        ]
+    },
+    {
         "title": "Hip Hip Hooray 2",
         "author": "Pearson",
         "parts": [
