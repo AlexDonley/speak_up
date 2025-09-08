@@ -166,6 +166,40 @@
         ]
     },
     {
+        "title": "At School Dialogue",
+        "author": "Teacher Kelly, Teacher Ann",
+        "parts": [
+            {
+                "award": "📒",
+                "text": [  
+                    "Hi, Jordan! ",
+                    "Hi, Leslie! ",
+                    "How are you? ",
+                    "I'm good. How are you? ",
+                    "I'm fine, thank you. ",
+                    "What class do we have now? ",
+                    "We have English. ",
+                    "Do you have your book? ",
+                    "Yes, I have my book." 
+                ]
+            },
+            {
+                "award": "✏️",
+                "text": [  
+                    "Do you have your pencil?",
+                    "Yes, I have my pencil.",
+                    "Who is our teacher?",
+                    "Mrs. Lee is our teacher.",
+                    "Do you like English?",
+                    "Yes, I like English. Do you like English?",
+                    "Yes, I like English too!",
+                    "Let's go to class.",
+                    "Okay!"
+                ]
+            }
+        ]
+    },
+    {
         "title": "ABCs",
         "author": "none",
         "parts": [
