@@ -166,8 +166,38 @@
         ]
     },
     {
+        "title": "Going to a Restaurant",
+        "author": "Teacher Kelly, Teacher Ann",
+        "lang": "en",
+        "parts": [
+            {
+                "award": "🍽️",
+                "text": [  
+                    "Hi, Jordan!",
+                    "Hi, Leslie!",
+                    "Are you hungry?",
+                    "A little. How about you?",
+                    "I'm ready to eat!",
+                    "Ok! Let's go to a restaurant for lunch!"
+                ]
+            },
+            {
+                "award": "🍜",
+                "text": [  
+                    "I would like to have some chicken and rice. And you?",
+                    "I would like some beef noodles.",
+                    "Sounds good!",
+                    "Let's go to a Chinese restaurant!",
+                    "How about we go to the Great Wall Restaurant? ",
+                    "Sure! Let's go!"
+                ]
+            }
+        ]
+    },
+    {
         "title": "At School Dialogue",
         "author": "Teacher Kelly, Teacher Ann",
+        "lang": "en",
         "parts": [
             {
                 "award": "📒",
@@ -2002,8 +2032,9 @@
 
     },
     {
-        "title": "Jeryln Fruit Practice",
+        "title": "Jerlyn Fruit Practice",
         "author": "KNSH",
+        "lang": "en",
         "parts":[
             {
                 "award": "🍊",
