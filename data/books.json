@@ -229,6 +229,28 @@
             }
         ]
     },
+        {
+        "title": "Christmas Poem",
+        "author": "Teacher Kelly, Teacher Ann",
+        "lang": "en",
+        "parts": [
+            {
+                "award": "📒",
+                "text": [  
+                    "It was Christmas Eve night, quiet everywhere",
+                    "The stockings were hanging with love and care.",
+                    "The children were sleeping in warm, cozy beds.",
+                    "Happy Christmas dreams danced in their heads.",
+                    "Then I heard a noise outside in the snow.",
+                    "I ran to the window to see what would show.",
+                    "A sleigh and eight reindeer flew fast through the sky.",
+                    "And Santa came down the chimney oh my!",
+                    "He gave us our gifts, then waved from his flight",
+                    "Merry Christmas to all, and to all a good night!" 
+                ]
+            }
+        ]
+    },
     {
         "title": "ABCs",
         "author": "none",
