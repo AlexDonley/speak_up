@@ -252,6 +252,59 @@
         ]
     },
     {
+        "title": "The Shoemaker and the Elves",
+        "author": "Teacher Kelly, Teacher Ann",
+        "lang": "en",
+        "parts": [
+            {
+                "award": "👞",
+                "text": [  
+                    "Long ago, there lived a kind shoemaker and his wife.",
+                    "They worked hard, but they were very poor.",
+                    "My dear, we have only enough leather for one pair of shoes.",
+                    "Do not worry. You make the shoes tomorrow. Let us sleep now.",
+                    "That night, while the shoemaker and his wife slept, something magical happened.",
+                    "Look! Leather and tools!",
+                    "Let's help the shoemaker."
+                ]
+            },
+            {
+                "award": "👠",
+                "text": [
+                    "The elves worked quickly and carefully.",
+                    "Cut here. Stitch there.",
+                    "These shoes will be beautiful!",
+                    "In the morning, the shoemaker was surprised.",
+                    "My shoes! They are finished, and perfect!",
+                    "Let us put them in the window."
+                ]
+            },
+            {
+                "award": "🥾",
+                "text": [
+                    "A customer came and paid good money for the shoes.",
+                    "Now we can buy more leather!",
+                    "Every night, the elves returned and made more shoes.",
+                    "Helping feels good.",
+                    "Yes! Let's keep helping.",
+                    "One night, the shoemaker's wife had an idea."
+                ]
+            },
+            {
+                "award": "🥿",
+                "text": [
+                    "We must thank the elves.",
+                    "They made small clothes and shoes.",
+                    "Clothes for me?",
+                    "And shoes for me!",
+                    "The elves danced with joy and never came back",
+                    "but the shoemaker and his wife were happy forever.",
+                    "Kindness brings kindness back!"
+                ]
+            }
+        ]
+    },
+    {
         "title": "ABCs",
         "author": "none",
         "parts": [
