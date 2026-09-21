@@ -311,6 +311,8 @@ function checkAndClear() {
     checkAnswer();
     utterTexts.innerHTML = '';
     utteredWords = [];
+    stopRecLoop();
+    startRecLoop(1, 1, 0, targetLang);
 }
 
 function tryLeftRound() {
